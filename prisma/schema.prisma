@@ -12,9 +12,9 @@ datasource db {
 
 model Profile {
   id          String   @id @default(uuid())
-  profile        String   @unique
+  profile     String   @unique
   description String
-  route String 
+  route       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
