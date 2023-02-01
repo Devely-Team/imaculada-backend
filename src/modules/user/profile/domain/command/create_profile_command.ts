@@ -19,6 +19,7 @@ class CreateProfileCommand {
       description: input.description,
       route: input.route,
       profile: input.profile,
+      userId: null,
     });
   }
 }

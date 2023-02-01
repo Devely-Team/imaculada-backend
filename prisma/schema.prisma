@@ -17,4 +17,19 @@ model Profile {
   route       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model User {
+  id              String    @id @default(uuid())
+  username        String    @unique
+  email           String    @unique
+  phone           String    @unique
+  password        String
+  profile         Profile[]
+  isActive        Boolean   @default(true)
+  isResetPassword Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
