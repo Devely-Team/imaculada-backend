@@ -13,6 +13,7 @@ interface ProfileProps {
   route: string;
   createdAt: Date;
   updatedAt: Date;
+  userId: string | null;
 }
 
 class Profile {
@@ -40,6 +41,10 @@ class Profile {
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  get userId() {
+    return this.props.userId;
   }
 
   constructor(props: ProfileProps) {
