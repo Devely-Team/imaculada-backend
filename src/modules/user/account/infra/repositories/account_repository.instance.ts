@@ -45,6 +45,13 @@ class AccountReposityInstance implements AccountReposity {
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
+  async findByEmail(email: string): AsyncResult<Account> {
+    return this.client.clientPrisma.user
+      .findUnique({ where: { email } })
+      .then(result => Success(result as Account))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
   async update(account: Account): AsyncResult<boolean> {
     return this.client.clientPrisma.user
       .update({

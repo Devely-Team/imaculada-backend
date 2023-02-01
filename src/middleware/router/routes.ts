@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import { profileRouter } from "../../modules/user/profile/core/router/router";
+import { userRoutes } from "../../modules/user/routes/router";
 
 const routes = Router();
 
-routes.use("/profile", profileRouter);
+routes.use("/user", userRoutes);
 
 export { routes };

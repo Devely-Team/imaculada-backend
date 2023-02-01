@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-// import { authVerifySponsorJWT } from "../../features/sponsor/auth/core/container/di";
+import { verifyToken } from "../../modules/user/auth/infra/services/auth_verify_token";
 
 const securityMiddleware = (
   request: Request,
@@ -9,12 +9,12 @@ const securityMiddleware = (
 ) => {
   const token = request.headers.authorization as string;
   const tokenSplit = token.split(" ")[1];
-  //   return authVerifySponsorJWT.service({
-  //     token: tokenSplit,
-  //     request,
-  //     response,
-  //     next,
-  //   });
+  return verifyToken({
+    token: tokenSplit,
+    request,
+    response,
+    next,
+  });
 };
 
 export { securityMiddleware };
