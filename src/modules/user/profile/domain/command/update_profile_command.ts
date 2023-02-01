@@ -19,6 +19,7 @@ class UpdateProfileCommand {
       description: input.description,
       profile: input.profile,
       route: input.route,
+      userId: null,
     });
   }
 }
