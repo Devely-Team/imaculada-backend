@@ -10,36 +10,36 @@ import {
 
 // TODO: So pode acessar esses endpoints quem tiver o token ativo da aplicação
 
-const profileRouter = Router();
+const accountRouter = Router();
 
-profileRouter.post(
+accountRouter.post(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
     createAccountController.handler({ request, response, next }),
 );
 
-profileRouter.get(
+accountRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
     listAllAccountController.handler({ request, response, next }),
 );
 
-profileRouter.get(
+accountRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
     findByIdAccountController.handler({ request, response, next }),
 );
 
-profileRouter.put(
+accountRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
     updateAccountController.handler({ request, response, next }),
 );
 
-profileRouter.delete(
+accountRouter.delete(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
     deleteAccountController.handler({ request, response, next }),
 );
 
-export { profileRouter };
+export { accountRouter };
