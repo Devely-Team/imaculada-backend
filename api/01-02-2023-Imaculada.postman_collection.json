@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "9138b2c8-1ffb-4663-aba1-916a9916356a",
+		"name": "Imaculada",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2907420"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Account",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"Rodrigo\",\n    \"email\": \"souza.rodrigo61@gmail.com\",\n    \"phone\": \"(61) 99587-6435\",\n    \"password\": \"esporte\",\n    \"profile\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{imaculada_url}}/v1/user/account",
+									"host": [
+										"{{imaculada_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"account"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"Rodrigo\",\n    \"email\": \"souza.rodrigo61@gmail.com\",\n    \"phone\": \"(61) 99587-6435\",\n    \"password\": \"esporte\",\n    \"profile\": [{\n        \"id\": \"79be1fac-4a3d-4da3-a9ce-84ebdc0d3e5a\"\n    }]\n}\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{imaculada_url}}/v1/user/account?id=febfc6e8-d999-44aa-ab1e-b57a080334ae",
+									"host": [
+										"{{imaculada_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"account"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "febfc6e8-d999-44aa-ab1e-b57a080334ae"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{imaculada_url}}/v1/user/account",
+									"host": [
+										"{{imaculada_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"souza.rodrigo61@gmail.com\",\n    \"password\": \"esporte\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{imaculada_url}}/v1/user/auth",
+									"host": [
+										"{{imaculada_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"auth"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n  \"profile\": \"criar_usuario\",\n  \"description\": \"Perfil para criar usuarios no sistema\",\n  \"route\": \"/create_user\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{imaculada_url}}/v1/user/profile",
+									"host": [
+										"{{imaculada_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{imaculada_url}}/v1/user/profile",
+									"host": [
+										"{{imaculada_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "imaculada_url",
+			"value": "http://localhost:4000",
+			"type": "string"
+		}
+	]
+}
