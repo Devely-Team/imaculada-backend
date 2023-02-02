@@ -18,9 +18,6 @@ class AccountReposityInstance implements AccountReposity {
     return this.client.clientPrisma.user
       .create({
         data: {
-          profile: {
-            connect: account.profile,
-          },
           email: account.email,
           phone: account.phone,
           password: account.password,
@@ -33,21 +30,35 @@ class AccountReposityInstance implements AccountReposity {
 
   async listAll(): AsyncResult<Account[]> {
     return this.client.clientPrisma.user
-      .findMany()
+      .findMany({
+        include: {
+          profile: true,
+        },
+      })
       .then(result => Success(result as Account[]))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
   async findById(id: string): AsyncResult<Account> {
     return this.client.clientPrisma.user
-      .findUnique({ where: { id } })
+      .findUnique({
+        where: { id },
+        include: {
+          profile: true,
+        },
+      })
       .then(result => Success(result as Account))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
   async findByEmail(email: string): AsyncResult<Account> {
     return this.client.clientPrisma.user
-      .findUnique({ where: { email } })
+      .findUnique({
+        where: { email },
+        include: {
+          profile: true,
+        },
+      })
       .then(result => Success(result as Account))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }

@@ -8,6 +8,6 @@ const userRoutes = Router();
 
 userRoutes.use("/profile", profileRouter);
 userRoutes.use("/account", accountRouter);
-userRoutes.use("/account", authRouter);
+userRoutes.use("/auth", authRouter);
 
 export { userRoutes };
