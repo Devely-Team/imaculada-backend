@@ -17,8 +17,7 @@ model Profile {
   route       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  User        User?    @relation(fields: [userId], references: [id])
-  userId      String?
+  User        User[]
 }
 
 model User {

@@ -1,10 +1,10 @@
-import { CreateAccountDTO } from "../dto/create_account_dto";
+import { UpdateAccountDTO } from "../dto/update_account_dto";
 import { UpdateAccountUseCase } from "../usecase/update_account_usecase";
 
 class UpdateAccountCommand {
   constructor(private usecase: UpdateAccountUseCase) {}
 
-  async execute(input: CreateAccountDTO, id: string) {
+  async execute(input: UpdateAccountDTO, id: string) {
     // const result = inputAccountValidation(input);
 
     // if (result.ok === false) {
@@ -17,8 +17,8 @@ class UpdateAccountCommand {
       updatedAt: new Date(),
       email: input.email,
       username: input.username,
-      isActive: true,
-      isResetPassword: true,
+      isActive: input.isActive,
+      isResetPassword: input.isResetPassword,
       password: input.password,
       phone: input.phone,
       profile: input.profile,
