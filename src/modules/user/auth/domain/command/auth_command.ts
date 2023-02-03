@@ -1,3 +1,4 @@
+import { NotFoundError } from "../../../../../core/error/not_found_error";
 import {
   AsyncResult,
   Failure,
@@ -16,11 +17,21 @@ async function authCommand(
 ): AsyncResult<string> {
   const result = await usecase.execute(dto.email);
   if (result.ok === false) {
-    return Failure();
+    return Failure(
+      new NotFoundError(
+        "Usuario não encontrado",
+        "Usuario não encontrado pelo email",
+      ),
+    );
   }
 
   if (dto.password !== result.value.password) {
-    return Failure();
+    return Failure(
+      new NotFoundError(
+        "Senha informada incorreta",
+        "Senha do usuario informada está incorreto",
+      ),
+    );
   }
 
   return Success(createToken(result.value));
