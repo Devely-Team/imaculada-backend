@@ -16,7 +16,8 @@ async function authCommand(
   usecase: FindByEmailAccountUseCase = singletonFindByEmailAccountUseCase,
 ): AsyncResult<string> {
   const result = await usecase.execute(dto.email);
-  if (result.ok === false) {
+
+  if (result.ok === false || result.value === null) {
     return Failure(
       new NotFoundError(
         "Usuario não encontrado",
