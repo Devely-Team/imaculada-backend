@@ -13,7 +13,7 @@ function decodedToken(request: Request): Result<AuthRequestDTO> {
   try {
     const authorization = request.headers.authorization as string;
 
-    const token = authorization.split(" ")[1];
+    const token = authorization.split(":")[1];
 
     // create a buffer
     const buff = Buffer.from(token, "base64");
