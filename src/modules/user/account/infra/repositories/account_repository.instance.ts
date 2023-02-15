@@ -72,9 +72,33 @@ class AccountReposityInstance implements AccountReposity {
           email: account.email,
           isActive: account.isActive,
           isResetPassword: account.isResetPassword,
+        },
+      })
+      .then(() => Success(true))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  updateDisconnect(account: Account): AsyncResult<boolean> {
+    return this.client.clientPrisma.user
+      .update({
+        where: { id: account.id },
+        data: {
+          profile: {
+            set: [],
+          },
+        },
+      })
+      .then(() => Success(true))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  updateConnect(account: Account): AsyncResult<boolean> {
+    return this.client.clientPrisma.user
+      .update({
+        where: { id: account.id },
+        data: {
           profile: {
             connect: account.profile,
-            disconnect: account.profile,
           },
         },
       })
