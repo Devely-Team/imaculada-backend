@@ -92,6 +92,7 @@ class AccountReposityInstance implements AccountReposity {
           isResetPassword: account.isResetPassword,
           profile: {
             connect: account.profile,
+            disconnect: account.profile,
           },
         },
       })
