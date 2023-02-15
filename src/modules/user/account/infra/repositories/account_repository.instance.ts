@@ -68,11 +68,14 @@ class AccountReposityInstance implements AccountReposity {
       .update({
         where: { id: account.id },
         data: {
-          profile: {
-            connect: account.profile,
-          },
+          phone: account.phone,
+          email: account.email,
           isActive: account.isActive,
           isResetPassword: account.isResetPassword,
+          profile: {
+            connect: account.profile,
+            disconnect: account.profile,
+          },
         },
       })
       .then(() => Success(true))
