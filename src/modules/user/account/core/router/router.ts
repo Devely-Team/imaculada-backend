@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
 
+import { securityMiddleware } from "../../../../../middleware/security/security_middleware";
 import {
+  getAccountController,
   createAccountController,
   deleteAccountController,
   findByIdAccountController,
@@ -8,9 +10,9 @@ import {
   updateAccountController,
 } from "../di";
 
-// TODO: So pode acessar esses endpoints quem tiver o token ativo da aplicação
-
 const accountRouter = Router();
+
+accountRouter.use(securityMiddleware);
 
 accountRouter.post(
   "/",
@@ -28,6 +30,12 @@ accountRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
     findByIdAccountController.handler({ request, response, next }),
+);
+
+accountRouter.get(
+  "/info",
+  (request: Request, response: Response, next: NextFunction) =>
+    getAccountController.handler({ request, response, next }),
 );
 
 accountRouter.put(

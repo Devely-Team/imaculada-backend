@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 
+import { securityMiddleware } from "../../../../../middleware/security/security_middleware";
 import {
   createProfileController,
   deleteProfileController,
@@ -8,9 +9,9 @@ import {
   updateProfileController,
 } from "../di";
 
-// TODO: So pode acessar esses endpoints quem tiver o token ativo da aplicação
-
 const profileRouter = Router();
+
+profileRouter.use(securityMiddleware);
 
 profileRouter.post(
   "/",

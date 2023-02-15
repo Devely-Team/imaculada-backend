@@ -11,6 +11,7 @@ import { singletonUpdateAccountUseCase } from "../../domain/usecase/update_accou
 import { CreateAccountController } from "../../infra/controller/create_account_controller";
 import { DeleteAccountController } from "../../infra/controller/delete_account_controller";
 import { FindByIdAccountController } from "../../infra/controller/find_by_id_account_controller";
+import { GetAccountController } from "../../infra/controller/get_account_controller";
 import { ListAllAccountController } from "../../infra/controller/list_all_account_controller";
 import { UpdateAccountController } from "../../infra/controller/update_account_controller";
 
@@ -38,6 +39,8 @@ const findByIdAccountController = new FindByIdAccountController(
   findbyIdAccountCommand,
 );
 
+const getAccountController = new GetAccountController(findbyIdAccountCommand);
+
 // ? Update Account
 const updateAccountCommand = new UpdateAccountCommand(
   singletonUpdateAccountUseCase,
@@ -57,6 +60,7 @@ const deleteAccountController = new DeleteAccountController(
 // * Export controllers
 
 export {
+  getAccountController,
   createAccountController,
   listAllAccountController,
   findByIdAccountController,
