@@ -15,11 +15,7 @@ class UpdateAccountUseCase {
     //   return result;
     // }
 
-    if (account.profile.length === 0) {
-      return await this.repo.updateDisconnect(account);
-    }
-
-    return await this.repo.updateConnect(account);
+    return await this.repo.update(account);
   }
 }
 

@@ -63,7 +63,7 @@ class AccountReposityInstance implements AccountReposity {
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
-  updateDisconnect(account: Account): AsyncResult<boolean> {
+  update(account: Account): AsyncResult<boolean> {
     return this.client.clientPrisma.user
       .update({
         where: { id: account.id },
@@ -73,26 +73,7 @@ class AccountReposityInstance implements AccountReposity {
           isActive: account.isActive,
           isResetPassword: account.isResetPassword,
           profile: {
-            set: [],
-          },
-        },
-      })
-      .then(() => Success(true))
-      .catch(error => Failure(new DatabaseError(error.name, error.message)));
-  }
-
-  updateConnect(account: Account): AsyncResult<boolean> {
-    return this.client.clientPrisma.user
-      .update({
-        where: { id: account.id },
-        data: {
-          phone: account.phone,
-          email: account.email,
-          isActive: account.isActive,
-          isResetPassword: account.isResetPassword,
-          profile: {
-            connect: account.profile,
-            disconnect: account.profile,
+            set: account.profile,
           },
         },
       })
