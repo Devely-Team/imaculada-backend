@@ -9,19 +9,17 @@ class UpdateAccountUseCase {
   async execute(input: AccountProps): AsyncResult<boolean> {
     const account = new Account(input);
 
-    if (account.profile.length === 0) {
-      await this.repo.updateDisconnect(account);
-    } else {
-      await this.repo.updateConnect(account);
-    }
-
     // const result = profile.validations(profile);
 
     // if (result.ok === false) {
     //   return result;
     // }
 
-    return await this.repo.update(account);
+    if (account.profile.length === 0) {
+      return await this.repo.updateDisconnect(account);
+    }
+
+    return await this.repo.updateConnect(account);
   }
 }
 

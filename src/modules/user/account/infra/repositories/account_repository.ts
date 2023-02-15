@@ -8,7 +8,6 @@ interface AccountReposity {
   findByEmail(email: string): AsyncResult<Account>;
   updateDisconnect(account: Account): AsyncResult<boolean>;
   updateConnect(account: Account): AsyncResult<boolean>;
-  update(account: Account): AsyncResult<boolean>;
   delete(id: string): AsyncResult<boolean>;
 }
 
