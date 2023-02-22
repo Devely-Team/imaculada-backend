@@ -1,4 +1,4 @@
-import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_acquirer_usecase";
+import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { singletonFindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { CreateAcquirerCommand } from "../../domain/command/create_acquirer_command";
 import { DeleteAcquirerCommand } from "../../domain/command/delete_acquirer_command";

@@ -2,7 +2,7 @@ import { BadRequestError } from "../../../../core/error/bad_request_error";
 import { BaseErrorCodes } from "../../../../core/error/base_error";
 import { Failure } from "../../../../core/tools/result_type";
 import { Booklet } from "../../../booklet/domain/model/booklet";
-import { CreateBookletUseCase } from "../../../booklet/domain/usecase/create_acquirer_usecase";
+import { CreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { CreateAcquirerDTO } from "../dto/create_acquirer_dto";
 import { CreateAcquirerUseCase } from "../usecase/create_acquirer_usecase";
