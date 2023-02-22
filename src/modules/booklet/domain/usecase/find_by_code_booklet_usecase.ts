@@ -6,7 +6,7 @@ import { Booklet } from "../model/booklet";
 class FindByCodeBookletUseCase {
   constructor(private repo: BookletReposity) {}
 
-  async execute(code: number): AsyncResult<Booklet> {
+  async execute(code: number): AsyncResult<Booklet[]> {
     return await this.repo.findByCode(code);
   }
 }

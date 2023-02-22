@@ -36,7 +36,18 @@ class AcquirerReposityInstance implements AcquirerReposity {
   async listAll(): AsyncResult<Acquirer[]> {
     return this.client.clientPrisma.acquirer
       .findMany({
-        include: { booklet: true },
+        include: {
+          booklet: {
+            orderBy: [
+              {
+                codeBooklet: "asc",
+              },
+              {
+                quota: "asc",
+              },
+            ],
+          },
+        },
       })
       .then(result => Success(result as Acquirer[]))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
@@ -46,7 +57,18 @@ class AcquirerReposityInstance implements AcquirerReposity {
     return this.client.clientPrisma.acquirer
       .findUnique({
         where: { id },
-        include: { booklet: true },
+        include: {
+          booklet: {
+            orderBy: [
+              {
+                codeBooklet: "asc",
+              },
+              {
+                quota: "asc",
+              },
+            ],
+          },
+        },
       })
       .then(result => Success(result as Acquirer))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
@@ -56,7 +78,18 @@ class AcquirerReposityInstance implements AcquirerReposity {
     return this.client.clientPrisma.acquirer
       .findUnique({
         where: { cpf },
-        include: { booklet: true },
+        include: {
+          booklet: {
+            orderBy: [
+              {
+                codeBooklet: "asc",
+              },
+              {
+                quota: "asc",
+              },
+            ],
+          },
+        },
       })
       .then(result => Success(result as Acquirer))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
@@ -70,7 +103,18 @@ class AcquirerReposityInstance implements AcquirerReposity {
             contains: name,
           },
         },
-        include: { booklet: true },
+        include: {
+          booklet: {
+            orderBy: [
+              {
+                codeBooklet: "asc",
+              },
+              {
+                quota: "asc",
+              },
+            ],
+          },
+        },
       })
       .then(result => Success(result as Acquirer[]))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));

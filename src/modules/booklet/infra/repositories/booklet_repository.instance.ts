@@ -31,7 +31,16 @@ class BookletReposityInstance implements BookletReposity {
 
   async listAll(): AsyncResult<Booklet[]> {
     return this.client.clientPrisma.booklet
-      .findMany({})
+      .findMany({
+        orderBy: [
+          {
+            codeBooklet: "asc",
+          },
+          {
+            quota: "asc",
+          },
+        ],
+      })
       .then(result => Success(result as Booklet[]))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
@@ -45,12 +54,15 @@ class BookletReposityInstance implements BookletReposity {
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
-  async findByCode(code: number): AsyncResult<Booklet> {
+  async findByCode(code: number): AsyncResult<Booklet[]> {
     return this.client.clientPrisma.booklet
       .findMany({
         where: { codeBooklet: code },
+        orderBy: {
+          quota: "asc",
+        },
       })
-      .then(result => Success(result[0] as Booklet))
+      .then(result => Success(result as Booklet[]))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
