@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
+
 import { BadRequestError } from "../../core/error/bad_request_error";
 import { BaseErrorCodes } from "../../core/error/base_error";
-
 import { verifyToken } from "../../modules/user/auth/infra/services/auth_verify_token";
 
 const securityMiddleware = (

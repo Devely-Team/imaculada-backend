@@ -72,7 +72,8 @@
     ],
     "prettier/prettier": "error",
     "no-extraneous-dependencies": "off",
-    "no-case-declarations": "off"
+    "no-case-declarations": "off",
+    "no-plusplus": "off"
   },
   "settings": {
     "import/resolver": {

@@ -32,3 +32,40 @@ model User {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }
+
+model Campaign {
+  id          String    @id @default(cuid())
+  title       String    @unique
+  description String
+  quota       Int
+  startedDate DateTime
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  booklet     Booklet[]
+}
+
+model Acquirer {
+  id        String    @id @default(cuid())
+  name      String
+  cpf       String    @unique
+  whatsapp  String
+  landline  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  booklet   Booklet[]
+}
+
+model Booklet {
+  id          String    @id @default(cuid())
+  codeBooklet Int
+  quota       Int
+  payDay      DateTime?
+  isPaid      Boolean   @default(false)
+  acquirerId  String
+  campaignId  String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  acquirer    Acquirer  @relation(fields: [acquirerId], references: [id])
+  campaign    Campaign  @relation(fields: [campaignId], references: [id])
+}

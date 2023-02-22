@@ -1,14 +1,3 @@
-// id              String    @id @default(uuid())
-// username        String    @unique
-// email           String    @unique
-// phone           String    @unique
-// password        String
-// profile         Profile[]
-// isActive        Boolean   @default(true)
-// isResetPassword Boolean   @default(true)
-// createdAt       DateTime  @default(now())
-// updatedAt       DateTime  @updatedAt
-
 import { Profile } from "../../../profile/domain/model/profile";
 
 interface AccountProps {
