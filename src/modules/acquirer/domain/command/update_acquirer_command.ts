@@ -11,11 +11,15 @@ class UpdateAcquirerCommand {
       id,
       createdAt: new Date(),
       updatedAt: new Date(),
-      booklet: input.booklet,
+      booklet: [],
       name: input.name,
       landline: input.landline,
       cpf: input.cpf,
       whatsapp: input.whatsapp,
+      phone: input.phone,
+      address: input.acquirerAddress.address,
+      cep: input.acquirerAddress.cep,
+      neighborhood: input.acquirerAddress.neighborhood,
     });
   }
 }

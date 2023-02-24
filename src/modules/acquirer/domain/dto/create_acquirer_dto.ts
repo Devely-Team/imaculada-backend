@@ -1,8 +1,8 @@
-interface CreateAcquirerBookletDTO {
+interface AcquirerBookletDTO {
   code: number;
 }
 
-interface CreateAcquirerAddress {
+interface AcquirerAddress {
   address: string;
   cep: string;
   neighborhood: string;
@@ -15,8 +15,8 @@ interface CreateAcquirerDTO {
   whatsapp: string;
   landline: string;
   campaignId: string;
-  acquirerAddress: CreateAcquirerAddress;
-  codeBooklet: CreateAcquirerBookletDTO[];
+  acquirerAddress: AcquirerAddress;
+  codeBooklet: AcquirerBookletDTO[];
 }
 
-export { CreateAcquirerDTO, CreateAcquirerBookletDTO, CreateAcquirerAddress };
+export { CreateAcquirerDTO };

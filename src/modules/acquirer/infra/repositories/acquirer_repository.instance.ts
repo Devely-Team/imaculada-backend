@@ -19,6 +19,10 @@ class AcquirerReposityInstance implements AcquirerReposity {
     cpf,
     landline,
     whatsapp,
+    phone,
+    address,
+    cep,
+    neighborhood,
   }: Acquirer): AsyncResult<string> {
     return this.client.clientPrisma.acquirer
       .create({
@@ -27,6 +31,10 @@ class AcquirerReposityInstance implements AcquirerReposity {
           landline,
           whatsapp,
           name,
+          phone,
+          address,
+          cep,
+          neighborhood,
         },
       })
       .then(result => Success(result.id))
@@ -124,7 +132,10 @@ class AcquirerReposityInstance implements AcquirerReposity {
     name,
     landline,
     whatsapp,
-    booklet,
+    phone,
+    address,
+    cep,
+    neighborhood,
     id,
   }: Acquirer): AsyncResult<boolean> {
     return this.client.clientPrisma.acquirer
@@ -134,7 +145,10 @@ class AcquirerReposityInstance implements AcquirerReposity {
           name,
           landline,
           whatsapp,
-          booklet: { set: booklet },
+          phone,
+          address,
+          cep,
+          neighborhood,
         },
       })
       .then(() => Success(true))

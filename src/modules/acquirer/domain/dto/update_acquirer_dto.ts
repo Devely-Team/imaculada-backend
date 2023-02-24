@@ -1,11 +1,22 @@
-import { BookletProps } from "../../../booklet/domain/model/booklet";
+interface AcquirerBookletDTO {
+  code: number;
+}
+
+interface AcquirerAddress {
+  address: string;
+  cep: string;
+  neighborhood: string;
+}
 
 interface UpdateAcquirerDTO {
   name: string;
   cpf: string;
+  phone: string;
   whatsapp: string;
   landline: string;
-  booklet: BookletProps[];
+  campaignId: string;
+  acquirerAddress: AcquirerAddress;
+  codeBooklet: AcquirerBookletDTO[];
 }
 
 export { UpdateAcquirerDTO };
