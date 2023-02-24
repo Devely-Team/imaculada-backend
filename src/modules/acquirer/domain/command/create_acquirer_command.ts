@@ -32,6 +32,10 @@ class CreateAcquirerCommand {
       createdAt: new Date(),
       updatedAt: new Date(),
       booklet: [],
+      address: input.acquirerAddress.address,
+      cep: input.acquirerAddress.cep,
+      neighborhood: input.acquirerAddress.neighborhood,
+      phone: input.phone,
       name: input.name,
       landline: input.landline,
       cpf: input.cpf,
@@ -43,21 +47,23 @@ class CreateAcquirerCommand {
     }
 
     const bookletOfAcquirer: Booklet[] = [];
-    for (let index = 1; index <= campaign.value.quota; index++) {
-      bookletOfAcquirer.push(
-        new Booklet({
-          id: "",
-          acquirerId: acquirer.value,
-          campaignId: campaign.value.id,
-          codeBooklet: input.codeBooklet,
-          quota: index,
-          payDay: new Date(),
-          isPaid: false,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        }),
-      );
-    }
+    input.codeBooklet.forEach(element => {
+      for (let index = 1; index <= campaign.value.quota; index++) {
+        bookletOfAcquirer.push(
+          new Booklet({
+            id: "",
+            acquirerId: acquirer.value,
+            campaignId: campaign.value.id,
+            codeBooklet: element.code,
+            quota: index,
+            payDay: new Date(),
+            isPaid: false,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          }),
+        );
+      }
+    });
 
     return await this.usecaseBooklet.execute(bookletOfAcquirer);
   }

@@ -46,14 +46,18 @@ model Campaign {
 }
 
 model Acquirer {
-  id        String    @id @default(cuid())
-  name      String
-  cpf       String    @unique
-  whatsapp  String
-  landline  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  booklet   Booklet[]
+  id           String    @id @default(cuid())
+  cpf          String    @unique
+  name         String
+  phone        String
+  whatsapp     String
+  landline     String
+  address      String
+  cep          String
+  neighborhood String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  booklet      Booklet[]
 }
 
 model Booklet {

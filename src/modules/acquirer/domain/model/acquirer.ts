@@ -4,8 +4,12 @@ interface AcquirerProps {
   id: string;
   name: string;
   cpf: string;
+  phone: string;
   whatsapp: string;
   landline: string;
+  address: string;
+  cep: string;
+  neighborhood: string;
   booklet: BookletProps[];
   createdAt: Date;
   updatedAt: Date;
@@ -26,6 +30,10 @@ class Acquirer {
     return this.props.cpf;
   }
 
+  get phone() {
+    return this.props.phone;
+  }
+
   get whatsapp() {
     return this.props.whatsapp;
   }
@@ -36,6 +44,18 @@ class Acquirer {
 
   get booklet() {
     return this.props.booklet;
+  }
+
+  get address() {
+    return this.props.address;
+  }
+
+  get cep() {
+    return this.props.cep;
+  }
+
+  get neighborhood() {
+    return this.props.neighborhood;
   }
 
   get createdAt() {
