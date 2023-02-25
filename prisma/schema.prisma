@@ -6,26 +6,70 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model Role {
-  id          String   @id @default(uuid()) @map("_id")
-  role        String   @unique
+model Profile {
+  id          String   @id @default(uuid())
+  profile     String   @unique
   description String
+  route       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   User        User[]
 }
 
 model User {
-  id        String   @id @default(uuid()) @map("_id")
-  email     String   @unique
-  name      String
-  password  String
-  role      Role     @relation(fields: [roleId], references: [id])
-  roleId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String    @id @default(uuid())
+  username        String    @unique
+  email           String    @unique
+  phone           String    @unique
+  password        String
+  profile         Profile[]
+  isActive        Boolean   @default(true)
+  isResetPassword Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Campaign {
+  id          String    @id @default(cuid())
+  title       String    @unique
+  description String
+  quota       Int
+  startedDate DateTime
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  booklet     Booklet[]
+}
+
+model Acquirer {
+  id           String    @id @default(cuid())
+  cpf          String    @unique
+  name         String
+  phone        String
+  whatsapp     String
+  landline     String
+  address      String
+  cep          String
+  neighborhood String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  booklet      Booklet[]
+}
+
+model Booklet {
+  id          String    @id @default(cuid())
+  codeBooklet Int
+  quota       Int
+  payDay      DateTime?
+  isPaid      Boolean   @default(false)
+  acquirerId  String
+  campaignId  String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  acquirer    Acquirer  @relation(fields: [acquirerId], references: [id])
+  campaign    Campaign  @relation(fields: [campaignId], references: [id])
 }

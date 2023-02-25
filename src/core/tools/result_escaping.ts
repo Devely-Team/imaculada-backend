@@ -11,7 +11,7 @@ function escaping<T>(
   status: StatusCodes,
 ) {
   if (result.ok) {
-    response.status(status).json(result.value);
+    response.status(status).json({ ok: result.ok, data: result.value });
   } else {
     onError(result, request, response);
   }

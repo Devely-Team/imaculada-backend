@@ -8,49 +8,80 @@ import {
   Failure,
   Success,
 } from "../../../../../core/tools/result_type";
-import { Account } from "../../domain/model/account_model";
-import { AccountRepository } from "./account_repository";
+import { Account } from "../../domain/model/account";
+import { AccountReposity } from "./account_repository";
 
-class AccountRepositoryInstance implements AccountRepository {
+class AccountReposityInstance implements AccountReposity {
   constructor(private client: DatabaseClient) {}
 
-  create(account: Account): AsyncResult<string> {
+  async create(account: Account): AsyncResult<string> {
     return this.client.clientPrisma.user
       .create({
         data: {
-          birthDay: account.birthDay,
           email: account.email,
-          name: account.name,
+          phone: account.phone,
           password: account.password,
-          userName: account.userName,
-          roleId: account.roleId,
+          username: account.username,
         },
       })
       .then(result => Success(result.id))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
-  listAll(): AsyncResult<Account[]> {
+
+  async listAll(): AsyncResult<Account[]> {
     return this.client.clientPrisma.user
-      .findMany()
+      .findMany({
+        include: {
+          profile: true,
+        },
+      })
       .then(result => Success(result as Account[]))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
-  findById(id: string): AsyncResult<Account> {
+
+  async findById(id: string): AsyncResult<Account> {
     return this.client.clientPrisma.user
-      .findUnique({ where: { id } })
+      .findUnique({
+        where: { id },
+        include: {
+          profile: true,
+        },
+      })
       .then(result => Success(result as Account))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
+
+  async findByEmail(email: string): AsyncResult<Account> {
+    return this.client.clientPrisma.user
+      .findUnique({
+        where: { email },
+        include: {
+          profile: true,
+        },
+      })
+      .then(result => Success(result as Account))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
   update(account: Account): AsyncResult<boolean> {
     return this.client.clientPrisma.user
       .update({
         where: { id: account.id },
-        data: {},
+        data: {
+          phone: account.phone,
+          email: account.email,
+          isActive: account.isActive,
+          isResetPassword: account.isResetPassword,
+          profile: {
+            set: account.profile,
+          },
+        },
       })
       .then(() => Success(true))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
-  delete(id: string): AsyncResult<boolean> {
+
+  async delete(id: string): AsyncResult<boolean> {
     return this.client.clientPrisma.user
       .delete({ where: { id } })
       .then(() => Success(true))
@@ -58,7 +89,7 @@ class AccountRepositoryInstance implements AccountRepository {
   }
 }
 
-const singletonAccountRepository = new AccountRepositoryInstance(
+const singletonAccountRepository = new AccountReposityInstance(
   databaseClientSingleton,
 );
 

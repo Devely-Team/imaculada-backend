@@ -1,0 +1,19 @@
+{
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "material-icon-theme.folders.associations": {
+    "di": "connection",
+    "dto": "interface",
+    "usecase": "tasks",
+    "repositories": "content",
+    "infra": "project",
+    "domain": "context"
+  }
+}

@@ -1,11 +1,15 @@
 import { Router } from "express";
 
-import { accountRouter } from "../../modules/user/account/core/router/router";
-import { roleRouter } from "../../modules/user/role/core/router/router";
+import { acquirerRouter } from "../../modules/acquirer/core/router/router";
+import { bookletRouter } from "../../modules/booklet/core/router/router";
+import { campaignRouter } from "../../modules/campaing/core/router/router";
+import { userRoutes } from "../../modules/user/routes/router";
 
 const routes = Router();
 
-routes.use("/role", roleRouter);
-routes.use("/account", accountRouter);
+routes.use("/user", userRoutes);
+routes.use("/campaign", campaignRouter);
+routes.use("/acquirer", acquirerRouter);
+routes.use("/booklet", bookletRouter);
 
 export { routes };

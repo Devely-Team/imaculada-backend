@@ -1,10 +1,11 @@
+import { Profile } from "../../../profile/domain/model/profile";
+
 interface CreateAccountDTO {
+  username: string;
   email: string;
+  phone: string;
   password: string;
-  name: string;
-  userName: string;
-  birthDay: Date;
-  roleId: string;
+  profile: Profile[];
 }
 
 export { CreateAccountDTO };
