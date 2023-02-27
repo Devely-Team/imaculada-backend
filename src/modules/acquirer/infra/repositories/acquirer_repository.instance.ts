@@ -58,7 +58,6 @@ class AcquirerReposityInstance implements AcquirerReposity {
         },
         orderBy: {
           name: "asc",
-          createdAt: "desc",
         },
       })
       .then(result => Success(result as Acquirer[]))
