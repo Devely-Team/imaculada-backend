@@ -2,7 +2,6 @@ import { NextFunction, Request, Response, Router } from "express";
 
 import { securityMiddleware } from "../../../../middleware/security/security_middleware";
 import {
-  deleteBookletController,
   deleteByCodeBookletController,
   findByIdBookletController,
   listAllBookletController,
@@ -31,11 +30,6 @@ bookletRouter.put(
     updateBookletController.handler({ request, response, next }),
 );
 
-bookletRouter.delete(
-  "/",
-  (request: Request, response: Response, next: NextFunction) =>
-    deleteBookletController.handler({ request, response, next }),
-);
 bookletRouter.delete(
   "/by_code",
   (request: Request, response: Response, next: NextFunction) =>
