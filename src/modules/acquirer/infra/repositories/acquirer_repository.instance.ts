@@ -56,6 +56,10 @@ class AcquirerReposityInstance implements AcquirerReposity {
             ],
           },
         },
+        orderBy: {
+          name: "asc",
+          createdAt: "desc",
+        },
       })
       .then(result => Success(result as Acquirer[]))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
@@ -110,6 +114,9 @@ class AcquirerReposityInstance implements AcquirerReposity {
           name: {
             contains: name,
           },
+        },
+        orderBy: {
+          name: "asc",
         },
         include: {
           booklet: {
