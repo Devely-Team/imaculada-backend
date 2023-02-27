@@ -80,8 +80,16 @@ class BookletReposityInstance implements BookletReposity {
   }
 
   async delete(id: string): AsyncResult<boolean> {
+    console.log("booklet ID: ", id);
     return this.client.clientPrisma.booklet
       .delete({ where: { id } })
+      .then(() => Success(true))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+  async deleteByCode(code: number): AsyncResult<boolean> {
+    console.log("booklet code: ", code);
+    return this.client.clientPrisma.booklet
+      .deleteMany({ where: { codeBooklet: code } })
       .then(() => Success(true))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }

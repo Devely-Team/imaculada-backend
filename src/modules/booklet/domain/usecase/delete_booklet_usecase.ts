@@ -5,8 +5,8 @@ import { singletonBookletRepository } from "../../infra/repositories/booklet_rep
 class DeleteBookletUseCase {
   constructor(private repo: BookletReposity) {}
 
-  async execute(id: string): AsyncResult<boolean> {
-    return await this.repo.delete(id);
+  async execute(code: number): AsyncResult<boolean> {
+    return await this.repo.deleteByCode(code);
   }
 }
 
