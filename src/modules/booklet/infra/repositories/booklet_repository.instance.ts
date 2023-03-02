@@ -66,6 +66,18 @@ class BookletReposityInstance implements BookletReposity {
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
+  findByAcquirer(acquirerId: string): AsyncResult<Booklet[]> {
+    return this.client.clientPrisma.booklet
+      .findMany({
+        where: { acquirerId },
+        orderBy: {
+          quota: "asc",
+        },
+      })
+      .then(result => Success(result as Booklet[]))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
   update(booklet: Booklet): AsyncResult<Booklet> {
     return this.client.clientPrisma.booklet
       .update({

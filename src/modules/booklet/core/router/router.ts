@@ -4,6 +4,7 @@ import { securityMiddleware } from "../../../../middleware/security/security_mid
 import {
   deleteByCodeBookletController,
   findByIdBookletController,
+  findByAcquirerIdBookletController,
   listAllBookletController,
   updateBookletController,
 } from "../di";
@@ -22,6 +23,11 @@ bookletRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
     findByIdBookletController.handler({ request, response, next }),
+);
+bookletRouter.get(
+  "/acquirer_id",
+  (request: Request, response: Response, next: NextFunction) =>
+    findByAcquirerIdBookletController.handler({ request, response, next }),
 );
 
 bookletRouter.put(

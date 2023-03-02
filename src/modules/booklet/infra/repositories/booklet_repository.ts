@@ -6,6 +6,7 @@ interface BookletReposity {
   listAll(): AsyncResult<Booklet[]>;
   findById(id: string): AsyncResult<Booklet>;
   findByCode(code: number): AsyncResult<Booklet[]>;
+  findByAcquirer(acquirerId: string): AsyncResult<Booklet[]>;
   update(account: Booklet): AsyncResult<Booklet>;
   delete(id: string): AsyncResult<boolean>;
   deleteByCode(code: number): AsyncResult<boolean>;

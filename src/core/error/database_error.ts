@@ -9,8 +9,6 @@ class DatabaseError extends BaseError {
     isOperational = true,
     codeError = BaseErrorCodes.databaseError,
   ) {
-    console.log(description);
-    console.log(name);
     super(codeError, name, statusCode, isOperational, description);
   }
 }
