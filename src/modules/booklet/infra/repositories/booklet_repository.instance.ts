@@ -70,9 +70,14 @@ class BookletReposityInstance implements BookletReposity {
     return this.client.clientPrisma.booklet
       .findMany({
         where: { acquirerId },
-        orderBy: {
-          quota: "asc",
-        },
+        orderBy: [
+          {
+            codeBooklet: "asc",
+          },
+          {
+            quota: "asc",
+          },
+        ],
       })
       .then(result => Success(result as Booklet[]))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
