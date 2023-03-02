@@ -25,7 +25,7 @@ bookletRouter.get(
 );
 
 bookletRouter.put(
-  "/",
+  "/is_paid",
   (request: Request, response: Response, next: NextFunction) =>
     updateBookletController.handler({ request, response, next }),
 );

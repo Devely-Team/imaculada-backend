@@ -66,7 +66,7 @@ class BookletReposityInstance implements BookletReposity {
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
-  update(booklet: Booklet): AsyncResult<boolean> {
+  update(booklet: Booklet): AsyncResult<Booklet> {
     return this.client.clientPrisma.booklet
       .update({
         where: { id: booklet.id },
@@ -75,19 +75,17 @@ class BookletReposityInstance implements BookletReposity {
           payDay: booklet.payDay,
         },
       })
-      .then(() => Success(true))
+      .then(value => Success(value as Booklet))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
   async delete(id: string): AsyncResult<boolean> {
-    console.log("booklet ID: ", id);
     return this.client.clientPrisma.booklet
       .delete({ where: { id } })
       .then(() => Success(true))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
   async deleteByCode(code: number): AsyncResult<boolean> {
-    console.log("booklet code: ", code);
     return this.client.clientPrisma.booklet
       .deleteMany({ where: { codeBooklet: code } })
       .then(() => Success(true))

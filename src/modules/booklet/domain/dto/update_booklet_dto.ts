@@ -1,5 +1,4 @@
 interface UpdateBookletDTO {
-  isPaid: boolean;
   payDay: Date;
 }
 

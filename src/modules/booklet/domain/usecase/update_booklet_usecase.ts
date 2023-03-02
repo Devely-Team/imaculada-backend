@@ -1,4 +1,3 @@
-import { AsyncResult } from "../../../../core/tools/result_type";
 import { BookletReposity } from "../../infra/repositories/booklet_repository";
 import { singletonBookletRepository } from "../../infra/repositories/booklet_repository.instance";
 import { Booklet, BookletProps } from "../model/booklet";
@@ -6,7 +5,7 @@ import { Booklet, BookletProps } from "../model/booklet";
 class UpdateBookletUseCase {
   constructor(private repo: BookletReposity) {}
 
-  async execute(input: BookletProps): AsyncResult<boolean> {
+  async execute(input: BookletProps) {
     const account = new Booklet(input);
 
     // const result = profile.validations(profile);

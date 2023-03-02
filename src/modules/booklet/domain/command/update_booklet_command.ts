@@ -4,11 +4,11 @@ import { UpdateBookletUseCase } from "../usecase/update_booklet_usecase";
 class UpdateBookletCommand {
   constructor(private usecase: UpdateBookletUseCase) {}
 
-  async execute(input: UpdateBookletDTO, id: string) {
+  async execute({ payDay }: UpdateBookletDTO, id: string) {
     return await this.usecase.execute({
       id,
-      isPaid: input.isPaid,
-      payDay: input.payDay,
+      isPaid: true,
+      payDay,
       createdAt: new Date(),
       updatedAt: new Date(),
       acquirerId: "",
