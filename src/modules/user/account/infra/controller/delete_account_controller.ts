@@ -10,7 +10,7 @@ class DeleteAccountController {
 
   async handler({ request, response }: InputBase): Output {
     this.command
-      .execute(request.query.id as string)
+      .execute(request.query.id as string, request.user)
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

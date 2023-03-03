@@ -10,7 +10,7 @@ class ListAllAccountController {
 
   async handler({ request, response }: InputBase): Output {
     this.command
-      .execute()
+      .execute(request.user)
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

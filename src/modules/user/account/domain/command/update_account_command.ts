@@ -1,13 +1,30 @@
 import { BadRequestError } from "../../../../../core/error/bad_request_error";
 import { BaseErrorCodes } from "../../../../../core/error/base_error";
+import { hasAccess } from "../../../../../core/tools/has_access";
 import { Failure } from "../../../../../core/tools/result_type";
 import { UpdateAccountDTO } from "../dto/update_account_dto";
+import { Account } from "../model/account";
 import { UpdateAccountUseCase } from "../usecase/update_account_usecase";
 
 class UpdateAccountCommand {
   constructor(private usecase: UpdateAccountUseCase) {}
 
-  async execute(input: UpdateAccountDTO, id: string, tokenId: string) {
+  async execute(
+    input: UpdateAccountDTO,
+    id: string,
+    tokenId: string,
+    user: Account,
+  ) {
+    const accessDenied = hasAccess(
+      user,
+      "update_user",
+      "atualizar usuarios administrativos.",
+    );
+
+    if (accessDenied.ok === false) {
+      return accessDenied;
+    }
+
     // const result = inputAccountValidation(input);
 
     // if (result.ok === false) {

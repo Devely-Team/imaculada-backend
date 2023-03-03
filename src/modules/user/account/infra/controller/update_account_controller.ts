@@ -11,7 +11,12 @@ class UpdateAccountController {
 
   async handler({ request, response }: Input<UpdateAccountDTO>): Output {
     this.command
-      .execute(request.body, request.query.id as string, request.id ?? "")
+      .execute(
+        request.body,
+        request.query.id as string,
+        request.id ?? "",
+        request.user,
+      )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

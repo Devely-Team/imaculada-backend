@@ -11,7 +11,7 @@ class CreateAccountController {
 
   async handler({ request, response }: Input<CreateAccountDTO>): Output {
     this.command
-      .execute(request.body)
+      .execute(request.body, request.user)
       .then(result => escaping(result, request, response, StatusCodes.Created))
       .catch(error => onError(error, request, response));
   }

@@ -1,10 +1,22 @@
+import { hasAccess } from "../../../../core/tools/has_access";
+import { Account } from "../../../user/account/domain/model/account";
 import { UpdateCampaignDTO } from "../dto/update_campaign_dto";
 import { UpdateCampaignUseCase } from "../usecase/update_account_usecase";
 
 class UpdateCampaignCommand {
   constructor(private usecase: UpdateCampaignUseCase) {}
 
-  async execute(input: UpdateCampaignDTO, id: string) {
+  async execute(input: UpdateCampaignDTO, id: string, user: Account) {
+    const accessDenied = hasAccess(
+      user,
+      "update_campaign",
+      "atualiza a campanha.",
+    );
+
+    if (accessDenied.ok === false) {
+      return accessDenied;
+    }
+
     // const result = inputCampaignValidation(input);
 
     // if (result.ok === false) {
