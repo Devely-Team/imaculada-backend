@@ -7,7 +7,7 @@ const authRouter = Router();
 authRouter.post(
   "/",
   (request: Request, response: Response, next: NextFunction) => {
-    return authController({ request, response });
+    return authController({ request, response, next });
   },
 );
 

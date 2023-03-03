@@ -16,31 +16,31 @@ campaignRouter.use(securityMiddleware);
 campaignRouter.post(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    createCampaignController.handler({ request, response }),
+    createCampaignController.handler({ request, response, next }),
 );
 
 campaignRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    listAllCampaignController.handler({ request, response }),
+    listAllCampaignController.handler({ request, response, next }),
 );
 
 campaignRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
-    findByIdCampaignController.handler({ request, response }),
+    findByIdCampaignController.handler({ request, response, next }),
 );
 
 campaignRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    updateCampaignController.handler({ request, response }),
+    updateCampaignController.handler({ request, response, next }),
 );
 
 campaignRouter.delete(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    deleteCampaignController.handler({ request, response }),
+    deleteCampaignController.handler({ request, response, next }),
 );
 
 export { campaignRouter };

@@ -17,37 +17,37 @@ accountRouter.use(securityMiddleware);
 accountRouter.post(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    createAccountController.handler({ request, response }),
+    createAccountController.handler({ request, response, next }),
 );
 
 accountRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    listAllAccountController.handler({ request, response }),
+    listAllAccountController.handler({ request, response, next }),
 );
 
 accountRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
-    findByIdAccountController.handler({ request, response }),
+    findByIdAccountController.handler({ request, response, next }),
 );
 
 accountRouter.get(
   "/info",
   (request: Request, response: Response, next: NextFunction) =>
-    getAccountController.handler({ request, response }),
+    getAccountController.handler({ request, response, next }),
 );
 
 accountRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    updateAccountController.handler({ request, response }),
+    updateAccountController.handler({ request, response, next }),
 );
 
 accountRouter.delete(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    deleteAccountController.handler({ request, response }),
+    deleteAccountController.handler({ request, response, next }),
 );
 
 export { accountRouter };
