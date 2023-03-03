@@ -16,7 +16,9 @@ async function hasAccess<T>(
 ) {
   const usr = request.user as Account;
   const result = usr.profile.filter(e => e.profile === profile);
-
+  console.log("profile: ", profile);
+  console.log("usr.profile: ", result);
+  console.log("Access message: ", access);
   if (result.length === 0) {
     return onAccessDenied(usr.username, access, request, response);
   }
