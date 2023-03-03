@@ -4,7 +4,7 @@ import { BaseError, BaseErrorCodes } from "./base_error";
 class AccessDeniedRequestError extends BaseError {
   constructor(
     description: string,
-    name = "Accesso Negado",
+    name = "Acesso Negado",
     codeError = BaseErrorCodes.accessValidation,
     statusCode = StatusCodes.Unauthorized,
     isOperational = true,
