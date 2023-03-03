@@ -9,6 +9,7 @@ enum BaseErrorCodes {
   uuidValidation = 6,
   numberValidation = 7,
   databaseError = 8,
+  accessValidation = 97,
   jsonValidation = 98,
   genericError = 99,
 }

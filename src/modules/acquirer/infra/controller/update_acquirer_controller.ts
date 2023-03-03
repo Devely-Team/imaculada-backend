@@ -1,3 +1,4 @@
+import { hasAccess } from "../../../../core/tools/has_access";
 import { Input } from "../../../../core/tools/input_type";
 import { Output } from "../../../../core/tools/output_type";
 import { escaping } from "../../../../core/tools/result_escaping";
@@ -10,10 +11,18 @@ class UpdateAcquirerController {
   constructor(private command: UpdateAcquirerCommand) {}
 
   async handler({ request, response }: Input<UpdateAcquirerDTO>): Output {
-    this.command
-      .execute(request.body, request.query.id as string)
-      .then(result => escaping(result, request, response, StatusCodes.Success))
-      .catch(error => onError(error, request, response));
+    hasAccess(
+      request,
+      response,
+      "update_purchaser",
+      this.command
+        .execute(request.body, request.query.id as string)
+        .then(result =>
+          escaping(result, request, response, StatusCodes.Success),
+        )
+        .catch(error => onError(error, request, response)),
+      "atualizar os adquirente",
+    );
   }
 }
 

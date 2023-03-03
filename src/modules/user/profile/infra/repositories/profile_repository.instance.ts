@@ -41,6 +41,19 @@ class ProfileRepositoryInstance implements ProfileRepository {
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
+  async findByUserLogged(userId: string): AsyncResult<Profile[]> {
+    return this.client.clientPrisma.profile
+      .findMany({
+        where: {
+          User: {
+            every: { id: userId },
+          },
+        },
+      })
+      .then(result => Success(result as Profile[]))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
   async update(profile: Profile): AsyncResult<boolean> {
     return this.client.clientPrisma.profile
       .update({

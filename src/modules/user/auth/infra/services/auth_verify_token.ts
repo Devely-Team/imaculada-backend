@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 
+import { singletonFindByIdAccountUseCase } from "../../../account/domain/usecase/find_by_id_account_usecase";
+
 interface Input {
   token: string;
   request: Request;
@@ -17,7 +19,7 @@ interface Token {
   iat: number;
 }
 
-function verifyToken({ token, request, response, next }: Input) {
+async function verifyToken({ token, request, response, next }: Input) {
   const privateKey = process.env.JWT_PRIVATE_KEY as string;
 
   if (!token) {
@@ -27,10 +29,15 @@ function verifyToken({ token, request, response, next }: Input) {
   }
   try {
     const { id } = verify(token, privateKey) as Token;
-    request.id = id;
+    const result = await singletonFindByIdAccountUseCase.execute(id);
+    if (result.ok === false) {
+      throw new Error("");
+    }
+    request.id = result.value.id;
+    request.user = result.value;
   } catch (err) {
     return response.status(401).json({
-      error: "Invalid Token",
+      error: "Token enviado está não autorizado",
     });
   }
   return next();

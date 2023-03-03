@@ -1,3 +1,4 @@
+import { hasAccess } from "../../../../../core/tools/has_access";
 import { InputBase } from "../../../../../core/tools/input_type";
 import { Output } from "../../../../../core/tools/output_type";
 import { escaping } from "../../../../../core/tools/result_escaping";
@@ -9,10 +10,18 @@ class DeleteAccountController {
   constructor(private command: DeleteAccountCommand) {}
 
   async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(request.query.id as string)
-      .then(result => escaping(result, request, response, StatusCodes.Success))
-      .catch(error => onError(error, request, response));
+    hasAccess(
+      request,
+      response,
+      "delete_user",
+      this.command
+        .execute(request.query.id as string)
+        .then(result =>
+          escaping(result, request, response, StatusCodes.Success),
+        )
+        .catch(error => onError(error, request, response)),
+      "deletar usuario administrativo",
+    );
   }
 }
 

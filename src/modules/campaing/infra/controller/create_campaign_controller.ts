@@ -1,3 +1,4 @@
+import { hasAccess } from "../../../../core/tools/has_access";
 import { Input } from "../../../../core/tools/input_type";
 import { Output } from "../../../../core/tools/output_type";
 import { escaping } from "../../../../core/tools/result_escaping";
@@ -10,10 +11,18 @@ class CreateCampaignController {
   constructor(private command: CreateCampaignCommand) {}
 
   async handler({ request, response }: Input<CreateCampaignDTO>): Output {
-    this.command
-      .execute(request.body)
-      .then(result => escaping(result, request, response, StatusCodes.Created))
-      .catch(error => onError(error, request, response));
+    hasAccess(
+      request,
+      response,
+      "create_campaign",
+      this.command
+        .execute(request.body)
+        .then(result =>
+          escaping(result, request, response, StatusCodes.Created),
+        )
+        .catch(error => onError(error, request, response)),
+      "criar nova campanha",
+    );
   }
 }
 
