@@ -17,7 +17,7 @@ class UpdateAccountCommand {
   ) {
     const accessDenied = hasAccess(
       user,
-      "update_user",
+      "dar_acesso",
       "atualizar usuarios administrativos.",
     );
 
