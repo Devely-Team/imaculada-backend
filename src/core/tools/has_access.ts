@@ -1,9 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import {
-  onAccessDenied,
-  userDecodedError,
-} from "../../middleware/error/on_error";
+import { onAccessDenied } from "../../middleware/error/on_error";
 import { Account } from "../../modules/user/account/domain/model/account";
 
 async function hasAccess<T>(
