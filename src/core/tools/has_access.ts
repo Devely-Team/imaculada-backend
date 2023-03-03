@@ -20,14 +20,11 @@ function hasAccess<T>(
     const usr = user as Account;
     const result = usr.profile.filter(e => e.profile === profile);
     if (result.length > 0) {
-      Promise.resolve(action);
-    } else {
-      onAccessDenied(usr.username, access, request, response);
+      return Promise.resolve(action);
     }
-  } else {
-    userDecodedError(request, response);
+    return onAccessDenied(usr.username, access, request, response);
   }
-  next();
+  return userDecodedError(request, response);
 }
 
 export { hasAccess };

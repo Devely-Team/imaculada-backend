@@ -10,7 +10,7 @@ class ListAllCampaignController {
   constructor(private command: ListAllCampaignCommand) {}
 
   async handler({ request, response, next }: InputBase): Output {
-    hasAccess(
+    return hasAccess(
       request,
       response,
       next,
