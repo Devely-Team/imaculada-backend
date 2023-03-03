@@ -9,10 +9,11 @@ import { DeleteAcquirerCommand } from "../../domain/command/delete_acquirer_comm
 class DeleteAcquirerController {
   constructor(private command: DeleteAcquirerCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "delete_purchaser",
       this.command
         .execute(request.query.id as string)

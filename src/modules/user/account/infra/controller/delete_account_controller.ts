@@ -9,10 +9,11 @@ import { DeleteAccountCommand } from "../../domain/command/delete_account_comman
 class DeleteAccountController {
   constructor(private command: DeleteAccountCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "delete_user",
       this.command
         .execute(request.query.id as string)

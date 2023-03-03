@@ -10,10 +10,11 @@ import { UpdateAcquirerDTO } from "../../domain/dto/update_acquirer_dto";
 class UpdateAcquirerController {
   constructor(private command: UpdateAcquirerCommand) {}
 
-  async handler({ request, response }: Input<UpdateAcquirerDTO>): Output {
+  async handler({ request, response, next }: Input<UpdateAcquirerDTO>): Output {
     hasAccess(
       request,
       response,
+      next,
       "update_purchaser",
       this.command
         .execute(request.body, request.query.id as string)

@@ -9,10 +9,11 @@ import { FindbyIdCampaignCommand } from "../../domain/command/find_by_id_campaig
 class FindByIdCampaignController {
   constructor(private command: FindbyIdCampaignCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "list_campaign",
       this.command
         .execute(request.query.id as string)

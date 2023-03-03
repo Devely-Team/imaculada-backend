@@ -9,10 +9,11 @@ import { ListAllAccountCommand } from "../../domain/command/list_all_account_com
 class ListAllAccountController {
   constructor(private command: ListAllAccountCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "list_all_usuarios",
       this.command
         .execute()

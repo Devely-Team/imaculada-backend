@@ -10,10 +10,11 @@ import { UpdateBookletDTO } from "../../domain/dto/update_booklet_dto";
 class UpdateBookletController {
   constructor(private command: UpdateBookletCommand) {}
 
-  async handler({ request, response }: Input<UpdateBookletDTO>): Output {
+  async handler({ request, response, next }: Input<UpdateBookletDTO>): Output {
     hasAccess(
       request,
       response,
+      next,
       "set_payment_booklet",
       this.command
         .execute(request.body, request.query.id as string)

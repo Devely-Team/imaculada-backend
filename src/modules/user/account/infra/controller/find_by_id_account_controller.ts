@@ -9,10 +9,11 @@ import { FindbyIdAccountCommand } from "../../domain/command/find_by_id_account_
 class FindByIdAccountController {
   constructor(private command: FindbyIdAccountCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "list_all_usuarios",
       this.command
         .execute(request.query.id as string)

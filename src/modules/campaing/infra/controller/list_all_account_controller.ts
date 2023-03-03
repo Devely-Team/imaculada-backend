@@ -9,10 +9,11 @@ import { ListAllCampaignCommand } from "../../domain/command/list_all_campaign_c
 class ListAllCampaignController {
   constructor(private command: ListAllCampaignCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "list_campaign",
       this.command
         .execute()

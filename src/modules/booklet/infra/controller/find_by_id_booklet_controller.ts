@@ -9,10 +9,11 @@ import { FindbyCodeBookletCommand } from "../../domain/command/find_by_code_book
 class FindByCodeBookletController {
   constructor(private command: FindbyCodeBookletCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "list_booklet",
       this.command
         .execute(Number(request.query.code))

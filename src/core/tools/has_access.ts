@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 import {
   onAccessDenied,
@@ -9,6 +9,7 @@ import { Account } from "../../modules/user/account/domain/model/account";
 function hasAccess<T>(
   request: Request,
   response: Response,
+  next: NextFunction,
   profile: string,
   action: Promise<T>,
   access: string,
@@ -26,7 +27,7 @@ function hasAccess<T>(
   } else {
     userDecodedError(request, response);
   }
-  response.setHeader("", "");
+  next();
 }
 
 export { hasAccess };

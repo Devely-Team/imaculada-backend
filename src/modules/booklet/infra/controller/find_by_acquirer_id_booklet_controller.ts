@@ -9,10 +9,11 @@ import { FindbyAcquirerBookletCommand } from "../../domain/command/find_by_acqui
 class FindByAcquirerBookletController {
   constructor(private command: FindbyAcquirerBookletCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "list_booklet",
       this.command
         .execute(request.query.acquirer as string)

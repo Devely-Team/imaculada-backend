@@ -10,10 +10,11 @@ import { UpdateAccountDTO } from "../../domain/dto/update_account_dto";
 class UpdateAccountController {
   constructor(private command: UpdateAccountCommand) {}
 
-  async handler({ request, response }: Input<UpdateAccountDTO>): Output {
+  async handler({ request, response, next }: Input<UpdateAccountDTO>): Output {
     hasAccess(
       request,
       response,
+      next,
       "dar_acesso",
       this.command
         .execute(request.body, request.query.id as string, request.id ?? "")

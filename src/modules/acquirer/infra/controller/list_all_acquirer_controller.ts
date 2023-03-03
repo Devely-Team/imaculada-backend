@@ -9,10 +9,11 @@ import { ListAllAcquirerCommand } from "../../domain/command/list_all_acquirer_c
 class ListAllAcquirerController {
   constructor(private command: ListAllAcquirerCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "list_all_purchaser",
       this.command
         .execute()

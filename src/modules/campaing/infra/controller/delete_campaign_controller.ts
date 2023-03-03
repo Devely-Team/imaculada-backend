@@ -9,10 +9,11 @@ import { DeleteCampaignCommand } from "../../domain/command/delete_campaign_comm
 class DeleteCampaignController {
   constructor(private command: DeleteCampaignCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "delete_campaign",
       this.command
         .execute(request.query.id as string)

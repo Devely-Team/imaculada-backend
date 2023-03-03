@@ -10,10 +10,11 @@ import { CreateAccountDTO } from "../../domain/dto/create_account_dto";
 class CreateAccountController {
   constructor(private command: CreateAccountCommand) {}
 
-  async handler({ request, response }: Input<CreateAccountDTO>): Output {
+  async handler({ request, response, next }: Input<CreateAccountDTO>): Output {
     hasAccess(
       request,
       response,
+      next,
       "criar_usuario",
       this.command
         .execute(request.body)

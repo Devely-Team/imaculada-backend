@@ -9,10 +9,11 @@ import { ListAllBookletCommand } from "../../domain/command/list_all_booklet_com
 class ListAllBookletController {
   constructor(private command: ListAllBookletCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "list_booklet",
       this.command
         .execute()

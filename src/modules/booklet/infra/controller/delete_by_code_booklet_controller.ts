@@ -9,10 +9,11 @@ import { DeleteByCodeBookletCommand } from "../../domain/command/delete_by_code_
 class DeleteByCodeBookletController {
   constructor(private command: DeleteByCodeBookletCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "delete_booklet",
       this.command
         .execute(Number(request.query.code))

@@ -10,10 +10,11 @@ import { UpdateCampaignDTO } from "../../domain/dto/update_campaign_dto";
 class UpdateCampaignController {
   constructor(private command: UpdateCampaignCommand) {}
 
-  async handler({ request, response }: Input<UpdateCampaignDTO>): Output {
+  async handler({ request, response, next }: Input<UpdateCampaignDTO>): Output {
     hasAccess(
       request,
       response,
+      next,
       "update_campaign",
       this.command
         .execute(request.body, request.query.id as string)

@@ -10,10 +10,11 @@ import { CreateAcquirerDTO } from "../../domain/dto/create_acquirer_dto";
 class CreateAcquirerController {
   constructor(private command: CreateAcquirerCommand) {}
 
-  async handler({ request, response }: Input<CreateAcquirerDTO>): Output {
+  async handler({ request, response, next }: Input<CreateAcquirerDTO>): Output {
     hasAccess(
       request,
       response,
+      next,
       "create_purchaser",
       this.command
         .execute(request.body)

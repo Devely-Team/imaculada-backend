@@ -9,10 +9,11 @@ import { FindbyIdAcquirerCommand } from "../../domain/command/find_by_id_acquire
 class FindByIdAcquirerController {
   constructor(private command: FindbyIdAcquirerCommand) {}
 
-  async handler({ request, response }: InputBase): Output {
+  async handler({ request, response, next }: InputBase): Output {
     hasAccess(
       request,
       response,
+      next,
       "list_all_purchaser",
       this.command
         .execute(request.query.id as string)
