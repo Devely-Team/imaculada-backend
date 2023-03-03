@@ -1,4 +1,3 @@
-import { hasAccess } from "../../../../core/tools/has_access";
 import { InputBase } from "../../../../core/tools/input_type";
 import { Output } from "../../../../core/tools/output_type";
 import { escaping } from "../../../../core/tools/result_escaping";
@@ -9,20 +8,11 @@ import { DeleteCampaignCommand } from "../../domain/command/delete_campaign_comm
 class DeleteCampaignController {
   constructor(private command: DeleteCampaignCommand) {}
 
-  async handler({ request, response, next }: InputBase): Output {
-    hasAccess(
-      request,
-      response,
-      next,
-      "delete_campaign",
-      this.command
-        .execute(request.query.id as string)
-        .then(result =>
-          escaping(result, request, response, StatusCodes.Success),
-        )
-        .catch(error => onError(error, request, response)),
-      "deletar as campanhas",
-    );
+  async handler({ request, response }: InputBase): Output {
+    this.command
+      .execute(request.query.id as string)
+      .then(result => escaping(result, request, response, StatusCodes.Success))
+      .catch(error => onError(error, request, response));
   }
 }
 

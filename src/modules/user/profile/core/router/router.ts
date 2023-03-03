@@ -16,31 +16,31 @@ profileRouter.use(securityMiddleware);
 profileRouter.post(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    createProfileController.handler({ request, response, next }),
+    createProfileController.handler({ request, response }),
 );
 
 profileRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    listAllProfileController.handler({ request, response, next }),
+    listAllProfileController.handler({ request, response }),
 );
 
 profileRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
-    findByIdProfileController.handler({ request, response, next }),
+    findByIdProfileController.handler({ request, response }),
 );
 
 profileRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    updateProfileController.handler({ request, response, next }),
+    updateProfileController.handler({ request, response }),
 );
 
 profileRouter.delete(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    deleteProfileController.handler({ request, response, next }),
+    deleteProfileController.handler({ request, response }),
 );
 
 export { profileRouter };

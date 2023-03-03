@@ -1,4 +1,3 @@
-import { hasAccess } from "../../../../../core/tools/has_access";
 import { InputBase } from "../../../../../core/tools/input_type";
 import { Output } from "../../../../../core/tools/output_type";
 import { escaping } from "../../../../../core/tools/result_escaping";
@@ -9,20 +8,11 @@ import { ListAllAccountCommand } from "../../domain/command/list_all_account_com
 class ListAllAccountController {
   constructor(private command: ListAllAccountCommand) {}
 
-  async handler({ request, response, next }: InputBase): Output {
-    hasAccess(
-      request,
-      response,
-      next,
-      "list_all_usuarios",
-      this.command
-        .execute()
-        .then(result =>
-          escaping(result, request, response, StatusCodes.Success),
-        )
-        .catch(error => onError(error, request, response)),
-      "listar todos os usuario administrativo",
-    );
+  async handler({ request, response }: InputBase): Output {
+    this.command
+      .execute()
+      .then(result => escaping(result, request, response, StatusCodes.Success))
+      .catch(error => onError(error, request, response));
   }
 }
 

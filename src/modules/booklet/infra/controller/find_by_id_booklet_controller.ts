@@ -1,4 +1,3 @@
-import { hasAccess } from "../../../../core/tools/has_access";
 import { InputBase } from "../../../../core/tools/input_type";
 import { Output } from "../../../../core/tools/output_type";
 import { escaping } from "../../../../core/tools/result_escaping";
@@ -9,20 +8,11 @@ import { FindbyCodeBookletCommand } from "../../domain/command/find_by_code_book
 class FindByCodeBookletController {
   constructor(private command: FindbyCodeBookletCommand) {}
 
-  async handler({ request, response, next }: InputBase): Output {
-    hasAccess(
-      request,
-      response,
-      next,
-      "list_booklet",
-      this.command
-        .execute(Number(request.query.code))
-        .then(result =>
-          escaping(result, request, response, StatusCodes.Success),
-        )
-        .catch(error => onError(error, request, response)),
-      "procurar pelo id o carnês",
-    );
+  async handler({ request, response }: InputBase): Output {
+    this.command
+      .execute(Number(request.query.code))
+      .then(result => escaping(result, request, response, StatusCodes.Success))
+      .catch(error => onError(error, request, response));
   }
 }
 

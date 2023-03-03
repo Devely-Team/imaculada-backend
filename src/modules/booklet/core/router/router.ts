@@ -16,30 +16,30 @@ bookletRouter.use(securityMiddleware);
 bookletRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    listAllBookletController.handler({ request, response, next }),
+    listAllBookletController.handler({ request, response }),
 );
 
 bookletRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
-    findByIdBookletController.handler({ request, response, next }),
+    findByIdBookletController.handler({ request, response }),
 );
 bookletRouter.get(
   "/acquirer_id",
   (request: Request, response: Response, next: NextFunction) =>
-    findByAcquirerIdBookletController.handler({ request, response, next }),
+    findByAcquirerIdBookletController.handler({ request, response }),
 );
 
 bookletRouter.put(
   "/is_paid",
   (request: Request, response: Response, next: NextFunction) =>
-    updateBookletController.handler({ request, response, next }),
+    updateBookletController.handler({ request, response }),
 );
 
 bookletRouter.delete(
   "/by_code",
   (request: Request, response: Response, next: NextFunction) =>
-    deleteByCodeBookletController.handler({ request, response, next }),
+    deleteByCodeBookletController.handler({ request, response }),
 );
 
 export { bookletRouter };

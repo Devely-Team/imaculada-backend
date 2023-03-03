@@ -1,4 +1,3 @@
-import { hasAccess } from "../../../../core/tools/has_access";
 import { InputBase } from "../../../../core/tools/input_type";
 import { Output } from "../../../../core/tools/output_type";
 import { escaping } from "../../../../core/tools/result_escaping";
@@ -9,20 +8,11 @@ import { ListAllAcquirerCommand } from "../../domain/command/list_all_acquirer_c
 class ListAllAcquirerController {
   constructor(private command: ListAllAcquirerCommand) {}
 
-  async handler({ request, response, next }: InputBase): Output {
-    hasAccess(
-      request,
-      response,
-      next,
-      "list_all_purchaser",
-      this.command
-        .execute()
-        .then(result =>
-          escaping(result, request, response, StatusCodes.Success),
-        )
-        .catch(error => onError(error, request, response)),
-      "listar todos os adquirente",
-    );
+  async handler({ request, response }: InputBase): Output {
+    this.command
+      .execute()
+      .then(result => escaping(result, request, response, StatusCodes.Success))
+      .catch(error => onError(error, request, response));
   }
 }
 

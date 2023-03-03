@@ -1,4 +1,3 @@
-import { hasAccess } from "../../../../core/tools/has_access";
 import { Input } from "../../../../core/tools/input_type";
 import { Output } from "../../../../core/tools/output_type";
 import { escaping } from "../../../../core/tools/result_escaping";
@@ -10,20 +9,11 @@ import { UpdateBookletDTO } from "../../domain/dto/update_booklet_dto";
 class UpdateBookletController {
   constructor(private command: UpdateBookletCommand) {}
 
-  async handler({ request, response, next }: Input<UpdateBookletDTO>): Output {
-    hasAccess(
-      request,
-      response,
-      next,
-      "set_payment_booklet",
-      this.command
-        .execute(request.body, request.query.id as string)
-        .then(result =>
-          escaping(result, request, response, StatusCodes.Success),
-        )
-        .catch(error => onError(error, request, response)),
-      "marcar como pago o carnê",
-    );
+  async handler({ request, response }: Input<UpdateBookletDTO>): Output {
+    this.command
+      .execute(request.body, request.query.id as string)
+      .then(result => escaping(result, request, response, StatusCodes.Success))
+      .catch(error => onError(error, request, response));
   }
 }
 
