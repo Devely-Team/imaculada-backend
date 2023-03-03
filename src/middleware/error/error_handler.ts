@@ -9,7 +9,7 @@ function handlingError(err: BaseError, req: Request, res: Response) {
     err.constructor.name === "SyntaxError"
   );
 
-  res.status(err.getStatusCode || StatusCodes.Error).json({
+  return res.status(err.getStatusCode || StatusCodes.Error).json({
     code: err.getCodeError,
     response: err.name,
     error: {

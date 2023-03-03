@@ -14,7 +14,7 @@ function onError(
   request: Request,
   response: Response,
 ) {
-  handlingError(
+  return handlingError(
     err.error !== undefined ? err.error : genericError,
     request,
     response,
@@ -22,7 +22,7 @@ function onError(
 }
 
 function userDecodedError(request: Request, response: Response) {
-  onError(
+  return onError(
     {
       ok: false,
       error: new BadRequestError(
@@ -42,7 +42,7 @@ function onAccessDenied(
   request: Request,
   response: Response,
 ) {
-  onError(
+  return onError(
     {
       ok: false,
       error: new AccessDeniedRequestError(
