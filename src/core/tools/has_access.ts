@@ -1,26 +1,19 @@
-import { NextFunction, Request, Response } from "express";
-
-import { onAccessDenied } from "../../middleware/error/on_error";
 import { Account } from "../../modules/user/account/domain/model/account";
+import { AccessDeniedRequestError } from "../error/not_access_request_error";
+import { Failure, Success } from "./result_type";
 
-async function hasAccess<T>(
-  request: Request,
-  response: Response,
-  next: NextFunction,
-  profile: string,
-  action: Promise<T>,
-  access: string,
-) {
-  const usr = request.user as Account;
-  const result = usr.profile.filter(e => e.profile === profile);
-  console.log("profile: ", profile);
-  console.log("usr.profile: ", result);
-  console.log("Access message: ", access);
+function hasAccess(user: Account, profile: string, access: string) {
+  const result = user.profile.filter(e => e.profile === profile);
+
   if (result.length === 0) {
-    return onAccessDenied(usr.username, access, request, response);
+    return Failure(
+      new AccessDeniedRequestError(
+        `Usuario: ${user.username} não tem acesso para ${access}`,
+      ),
+    );
   }
 
-  return await action;
+  return Success(true);
 }
 
 export { hasAccess };
