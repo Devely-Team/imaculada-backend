@@ -26,6 +26,7 @@ function hasAccess<T>(
   } else {
     userDecodedError(request, response);
   }
+  response.setHeader("", "");
 }
 
 export { hasAccess };
