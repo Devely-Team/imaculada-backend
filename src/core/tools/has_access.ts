@@ -14,17 +14,14 @@ async function hasAccess<T>(
   action: Promise<T>,
   access: string,
 ) {
-  const { user } = request;
+  const usr = request.user as Account;
+  const result = usr.profile.filter(e => e.profile === profile);
 
-  if (user as Account) {
-    const usr = user as Account;
-    const result = usr.profile.filter(e => e.profile === profile);
-    if (result.length > 0) {
-      return await action;
-    }
+  if (result.length === 0) {
     return onAccessDenied(usr.username, access, request, response);
   }
-  return userDecodedError(request, response);
+
+  return await action;
 }
 
 export { hasAccess };
