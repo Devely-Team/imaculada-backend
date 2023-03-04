@@ -44,18 +44,18 @@ class AcquirerReposityInstance implements AcquirerReposity {
   async listAll(): AsyncResult<Acquirer[]> {
     return this.client.clientPrisma.acquirer
       .findMany({
-        // include: {
-        //   booklet: {
-        //     orderBy: [
-        //       {
-        //         codeBooklet: "asc",
-        //       },
-        //       {
-        //         quota: "asc",
-        //       },
-        //     ],
-        //   },
-        // },
+        include: {
+          booklet: {
+            orderBy: [
+              {
+                codeBooklet: "asc",
+              },
+              {
+                quota: "asc",
+              },
+            ],
+          },
+        },
         orderBy: {
           name: "asc",
         },
