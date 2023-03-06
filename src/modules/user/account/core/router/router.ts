@@ -7,7 +7,8 @@ import {
   deleteAccountController,
   findByIdAccountController,
   listAllAccountController,
-  updateAccountController,
+  updateAccountProfileController,
+  updateAccountPasswordController,
 } from "../di";
 
 const accountRouter = Router();
@@ -41,7 +42,13 @@ accountRouter.get(
 accountRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    updateAccountController.handler({ request, response, next }),
+    updateAccountProfileController.handler({ request, response, next }),
+);
+
+accountRouter.put(
+  "/password",
+  (request: Request, response: Response, next: NextFunction) =>
+    updateAccountPasswordController.handler({ request, response, next }),
 );
 
 accountRouter.delete(

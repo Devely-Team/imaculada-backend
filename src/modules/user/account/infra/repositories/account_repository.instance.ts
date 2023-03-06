@@ -8,6 +8,7 @@ import {
   Failure,
   Success,
 } from "../../../../../core/tools/result_type";
+import { Profile } from "../../../profile/domain/model/profile";
 import { Account } from "../../domain/model/account";
 import { AccountReposity } from "./account_repository";
 
@@ -70,11 +71,60 @@ class AccountReposityInstance implements AccountReposity {
         data: {
           phone: account.phone,
           email: account.email,
-          isActive: account.isActive,
-          isResetPassword: account.isResetPassword,
+        },
+      })
+      .then(() => Success(true))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  updateActive(id: string, isActive: boolean): AsyncResult<boolean> {
+    return this.client.clientPrisma.user
+      .update({
+        where: { id },
+        data: {
+          isActive,
+        },
+      })
+      .then(() => Success(true))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  updateProfile(id: string, profiles: Profile[]): AsyncResult<boolean> {
+    return this.client.clientPrisma.user
+      .update({
+        where: { id },
+        data: {
           profile: {
-            set: account.profile,
+            set: profiles,
           },
+        },
+      })
+      .then(() => Success(true))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  updatePassword(id: string, password: string): AsyncResult<boolean> {
+    return this.client.clientPrisma.user
+      .update({
+        where: { id },
+        data: {
+          password,
+          isResetPassword: false,
+        },
+      })
+      .then(() => Success(true))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  updateResetPassword(
+    id: string,
+    isResetPassword: boolean,
+  ): AsyncResult<boolean> {
+    return this.client.clientPrisma.user
+      .update({
+        where: { id },
+        data: {
+          isResetPassword,
         },
       })
       .then(() => Success(true))

@@ -4,10 +4,10 @@ import { hasAccess } from "../../../../../core/tools/has_access";
 import { Failure } from "../../../../../core/tools/result_type";
 import { UpdateAccountDTO } from "../dto/update_account_dto";
 import { Account } from "../model/account";
-import { UpdateAccountUseCase } from "../usecase/update_account_usecase";
+import { UpdateAccountProfileUseCase } from "../usecase/update_account_profile_usecase";
 
-class UpdateAccountCommand {
-  constructor(private usecase: UpdateAccountUseCase) {}
+class UpdateAccountProfileCommand {
+  constructor(private usecase: UpdateAccountProfileUseCase) {}
 
   async execute(
     input: UpdateAccountDTO,
@@ -66,4 +66,4 @@ class UpdateAccountCommand {
   }
 }
 
-export { UpdateAccountCommand };
+export { UpdateAccountProfileCommand };
