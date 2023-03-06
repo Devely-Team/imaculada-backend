@@ -6,8 +6,8 @@ class AccessDeniedRequestError extends BaseError {
     description: string,
     name = "Acesso Negado",
     codeError = BaseErrorCodes.accessValidation,
-    statusCode = StatusCodes.Unauthorized,
-    isOperational = true,
+    statusCode = StatusCodes.Forbidden,
+    isOperational = false,
   ) {
     super(codeError, name, statusCode, isOperational, description);
   }

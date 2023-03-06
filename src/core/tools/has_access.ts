@@ -8,7 +8,9 @@ function hasAccess(user: Account, profile: string, access: string) {
   if (result.length === 0) {
     return Failure(
       new AccessDeniedRequestError(
-        `Usuario: ${user.username} não tem acesso para ${access}. \nFavor solicitar ao gestor da aplicação para ter o acesso a funcionalidade.`,
+        `Usuario: ${user.username} não tem acesso para ${access}.\n
+        Favor solicitar ao gestor da aplicação para ter o acesso a 
+        funcionalidade ( ${profile} ).`,
       ),
     );
   }
