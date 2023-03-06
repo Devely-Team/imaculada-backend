@@ -4,6 +4,7 @@ import {
   Failure,
   Success,
 } from "../../../../../core/tools/result_type";
+import { Encrypt } from "../../../../../core/utils/encrypt";
 import {
   FindByEmailAccountUseCase,
   singletonFindByEmailAccountUseCase,
@@ -26,13 +27,38 @@ async function authCommand(
     );
   }
 
-  if (dto.password !== result.value.password) {
+  if (!result.value.isActive) {
     return Failure(
       new NotFoundError(
-        "Senha informada incorreta",
-        "Senha do usuario informada está incorreto",
+        "Usuario não esta ativo",
+        "Verificar com administrativo sobre o usuario inativado",
       ),
     );
+  }
+
+  if (result.value.isResetPassword) {
+    if (dto.password !== result.value.password) {
+      return Failure(
+        new NotFoundError(
+          "Senha informada incorreta",
+          "Senha do usuario informada está incorreto",
+        ),
+      );
+    }
+  } else {
+    const comparePassword = await Encrypt.comparePassword(
+      dto.password,
+      result.value.password,
+    );
+
+    if (!comparePassword) {
+      return Failure(
+        new NotFoundError(
+          "Senha informada incorreta",
+          "Senha do usuario informada está incorreto",
+        ),
+      );
+    }
   }
 
   return Success(createToken(result.value));
