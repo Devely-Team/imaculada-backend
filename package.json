@@ -5,6 +5,8 @@
   "dependencies": {
     "@brazilian-utils/is-valid-phone": "^0.1.1",
     "@prisma/client": "^4.9.0",
+    "@sentry/node": "^7.43.0",
+    "@sentry/tracing": "^7.43.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
