@@ -19,13 +19,13 @@ class UpdateAcquirerCommand {
     // const result = inputAcquirerValidation(input);
 
     return await this.usecase.execute({
-      id,
       createdAt: new Date(),
       updatedAt: new Date(),
       booklet: [],
+      cpf: "",
+      id,
       name: input.name,
       landline: input.landline,
-      cpf: input.cpf,
       whatsapp: input.whatsapp,
       phone: input.phone,
       address: input.acquirerAddress.address,
