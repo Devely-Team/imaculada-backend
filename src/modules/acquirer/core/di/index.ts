@@ -1,5 +1,6 @@
 import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { singletonFindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
+import { AddBookletToAcquirerCommand } from "../../domain/command/add_booklet_to_acquirer_command";
 import { CreateAcquirerCommand } from "../../domain/command/create_acquirer_command";
 import { DeleteAcquirerCommand } from "../../domain/command/delete_acquirer_command";
 import { FindbyIdAcquirerCommand } from "../../domain/command/find_by_id_acquirer_command";
@@ -10,6 +11,7 @@ import { singletonDeleteAcquirerUseCase } from "../../domain/usecase/delete_acqu
 import { singletonFindByIdAcquirerUseCase } from "../../domain/usecase/find_by_id_acquirer_usecase";
 import { singletonListAcquirerUseCase } from "../../domain/usecase/list_acquirer_usecase";
 import { singletonUpdateAcquirerUseCase } from "../../domain/usecase/update_acquirer_usecase";
+import { AddBookletToAcquirerController } from "../../infra/controller/add_booklet_to_acquirer_controller";
 import { CreateAcquirerController } from "../../infra/controller/create_acquirer_controller";
 import { DeleteAcquirerController } from "../../infra/controller/delete_acquirer_controller";
 import { FindByIdAcquirerController } from "../../infra/controller/find_by_id_acquirer_controller";
@@ -50,6 +52,15 @@ const updateAcquirerController = new UpdateAcquirerController(
   updateAcquirerCommand,
 );
 
+// ? Add Booklet To Acquirer
+const addBookletToAcquirerCommand = new AddBookletToAcquirerCommand(
+  singletonCreateBookletUseCase,
+  singletonFindByIdCampaignUseCase,
+);
+const addBookletToAcquirerController = new AddBookletToAcquirerController(
+  addBookletToAcquirerCommand,
+);
+
 // ? Delete Acquirer
 const deleteAcquirerCommand = new DeleteAcquirerCommand(
   singletonDeleteAcquirerUseCase,
@@ -66,4 +77,5 @@ export {
   findByIdAcquirerController,
   updateAcquirerController,
   deleteAcquirerController,
+  addBookletToAcquirerController,
 };

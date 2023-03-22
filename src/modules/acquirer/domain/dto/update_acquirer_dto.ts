@@ -1,3 +1,7 @@
+interface AcquirerBookletDTO {
+  code: number;
+}
+
 interface AcquirerAddress {
   address: string;
   cep: string;
@@ -12,4 +16,9 @@ interface UpdateAcquirerDTO {
   acquirerAddress: AcquirerAddress;
 }
 
-export { UpdateAcquirerDTO };
+interface UpdateBookletAcquirerDTO {
+  campaignId: string;
+  codeBooklet: AcquirerBookletDTO[];
+}
+
+export { UpdateAcquirerDTO, UpdateBookletAcquirerDTO };
