@@ -10,6 +10,12 @@ interface UpdateAcquirerDTO {
   whatsapp: string;
   landline: string;
   acquirerAddress: AcquirerAddress;
+  codeBooklet: AcquirerBookletDTO[];
 }
 
-export { UpdateAcquirerDTO };
+interface UpdateBookletAcquirerDTO {
+  campaignId: string;
+  codeBooklet: AcquirerBookletDTO[];
+}
+
+export { UpdateAcquirerDTO, UpdateBookletAcquirerDTO };

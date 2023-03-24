@@ -7,6 +7,8 @@ import {
   findByIdAcquirerController,
   listAllAcquirerController,
   updateAcquirerController,
+  addBookletToAcquirerController,
+  removeBookletToAcquirerController,
 } from "../di";
 
 const acquirerRouter = Router();
@@ -35,6 +37,18 @@ acquirerRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
     updateAcquirerController.handler({ request, response, next }),
+);
+
+acquirerRouter.put(
+  "/add_new_booklet",
+  (request: Request, response: Response, next: NextFunction) =>
+    addBookletToAcquirerController.handler({ request, response, next }),
+);
+
+acquirerRouter.delete(
+  "/remove_new_booklet",
+  (request: Request, response: Response, next: NextFunction) =>
+    removeBookletToAcquirerController.handler({ request, response, next }),
 );
 
 acquirerRouter.delete(
