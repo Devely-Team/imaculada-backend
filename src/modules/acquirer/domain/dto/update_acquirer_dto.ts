@@ -1,3 +1,7 @@
+interface AcquirerBookletDTO {
+  code: number;
+}
+
 interface AcquirerAddress {
   address: string;
   cep: string;
@@ -10,7 +14,6 @@ interface UpdateAcquirerDTO {
   whatsapp: string;
   landline: string;
   acquirerAddress: AcquirerAddress;
-  codeBooklet: AcquirerBookletDTO[];
 }
 
 interface UpdateBookletAcquirerDTO {
