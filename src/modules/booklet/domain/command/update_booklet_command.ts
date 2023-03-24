@@ -7,6 +7,7 @@ class UpdateBookletCommand {
   constructor(private usecase: UpdateBookletUseCase) {}
 
   async execute({ payDay }: UpdateBookletDTO, id: string, user: Account) {
+    console.log("payDay: ", payDay);
     const accessDenied = hasAccess(
       user,
       "set_payment_booklet",
@@ -19,8 +20,6 @@ class UpdateBookletCommand {
 
     return await this.usecase.execute({
       id,
-      isPaid: true,
-      payDay,
       createdAt: new Date(),
       updatedAt: new Date(),
       acquirerId: "",

@@ -59,8 +59,6 @@ class CreateBookletCommand {
           campaignId: campaign.value.id,
           codeBooklet: input.codeBooklet,
           quota: index,
-          payDay: new Date(),
-          isPaid: false,
           createdAt: new Date(),
           updatedAt: new Date(),
         }),

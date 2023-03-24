@@ -38,7 +38,7 @@ class RemoveBookletToAcquirerCommand {
     const booklet = bookletResult.value;
 
     const isPossibleToRemoveBooklet = booklet.filter(e => {
-      return e.isPaid === true;
+      return e.paymentBookId !== null;
     });
 
     if (isPossibleToRemoveBooklet.length > 0) {

@@ -83,17 +83,19 @@ class BookletReposityInstance implements BookletReposity {
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
-  update(booklet: Booklet): AsyncResult<Booklet> {
-    return this.client.clientPrisma.booklet
-      .update({
-        where: { id: booklet.id },
-        data: {
-          isPaid: booklet.isPaid,
-          payDay: booklet.payDay,
-        },
-      })
-      .then(value => Success(value as Booklet))
-      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  async update(booklet: Booklet): AsyncResult<Booklet> {
+    console.log("booklet: ", booklet);
+    return Failure(new DatabaseError("error.name", "error.message"));
+    // return this.client.clientPrisma.booklet
+    //   .update({
+    //     where: { id: booklet.id },
+    //     data: {
+    //       isPaid: booklet.isPaid,
+    //       payDay: booklet.payDay,
+    //     },
+    //   })
+    //   .then(value => Success(value as Booklet))
+    //   .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
   async delete(id: string): AsyncResult<boolean> {

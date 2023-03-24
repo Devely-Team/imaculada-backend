@@ -4,8 +4,7 @@ interface BookletProps {
   campaignId: string;
   codeBooklet: number;
   quota: number;
-  payDay: Date;
-  isPaid: boolean;
+  paymentBookId?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -33,12 +32,8 @@ class Booklet {
     return this.props.quota;
   }
 
-  get payDay() {
-    return this.props.payDay;
-  }
-
-  get isPaid() {
-    return this.props.isPaid;
+  get paymentBookId() {
+    return this.props.paymentBookId;
   }
 
   get createdAt() {

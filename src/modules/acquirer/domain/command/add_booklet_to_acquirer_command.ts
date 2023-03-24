@@ -51,8 +51,6 @@ class AddBookletToAcquirerCommand {
             campaignId: campaign.value.id,
             codeBooklet: element.code,
             quota: index,
-            payDay: new Date(),
-            isPaid: false,
             createdAt: new Date(),
             updatedAt: new Date(),
           }),
