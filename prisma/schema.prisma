@@ -47,7 +47,7 @@ model Campaign {
 
 model Acquirer {
   id           String    @id @default(cuid())
-  cpf          String    @unique
+  cpf          String?   @unique
   name         String
   phone        String
   whatsapp     String

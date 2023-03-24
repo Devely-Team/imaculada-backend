@@ -1,10 +1,13 @@
 import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
+import { singletonDeleteBookletUseCase } from "../../../booklet/domain/usecase/delete_booklet_usecase";
+import { singletonFindByCodeBookletUseCase } from "../../../booklet/domain/usecase/find_by_code_booklet_usecase";
 import { singletonFindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { AddBookletToAcquirerCommand } from "../../domain/command/add_booklet_to_acquirer_command";
 import { CreateAcquirerCommand } from "../../domain/command/create_acquirer_command";
 import { DeleteAcquirerCommand } from "../../domain/command/delete_acquirer_command";
 import { FindbyIdAcquirerCommand } from "../../domain/command/find_by_id_acquirer_command";
 import { ListAllAcquirerCommand } from "../../domain/command/list_all_acquirer_command";
+import { RemoveBookletToAcquirerCommand } from "../../domain/command/remove_booklet_to_acquirer_command";
 import { UpdateAcquirerCommand } from "../../domain/command/update_acquirer_command";
 import { singletonCreateAcquirerUseCase } from "../../domain/usecase/create_acquirer_usecase";
 import { singletonDeleteAcquirerUseCase } from "../../domain/usecase/delete_acquirer_usecase";
@@ -16,6 +19,7 @@ import { CreateAcquirerController } from "../../infra/controller/create_acquirer
 import { DeleteAcquirerController } from "../../infra/controller/delete_acquirer_controller";
 import { FindByIdAcquirerController } from "../../infra/controller/find_by_id_acquirer_controller";
 import { ListAllAcquirerController } from "../../infra/controller/list_all_acquirer_controller";
+import { RemoveBookletToAcquirerController } from "../../infra/controller/remove_booklet_to_acquirer_controller";
 import { UpdateAcquirerController } from "../../infra/controller/update_acquirer_controller";
 
 // ? Create Acquirer
@@ -61,6 +65,15 @@ const addBookletToAcquirerController = new AddBookletToAcquirerController(
   addBookletToAcquirerCommand,
 );
 
+// ? Remove Booklet To Acquirer
+const removeBookletToAcquirerCommand = new RemoveBookletToAcquirerCommand(
+  singletonFindByCodeBookletUseCase,
+  singletonDeleteBookletUseCase,
+);
+const removeBookletToAcquirerController = new RemoveBookletToAcquirerController(
+  removeBookletToAcquirerCommand,
+);
+
 // ? Delete Acquirer
 const deleteAcquirerCommand = new DeleteAcquirerCommand(
   singletonDeleteAcquirerUseCase,
@@ -78,4 +91,5 @@ export {
   updateAcquirerController,
   deleteAcquirerController,
   addBookletToAcquirerController,
+  removeBookletToAcquirerController,
 };
