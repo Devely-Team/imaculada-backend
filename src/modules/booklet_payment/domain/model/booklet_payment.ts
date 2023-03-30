@@ -1,20 +1,12 @@
-// model BookletPayment {
-//   id          String    @id @default(cuid())
-//   isPaid      Boolean
-//   typePayment String
-//   status      String
-//   payDay      DateTime
-//   createdAt   DateTime  @default(now())
-//   updatedAt   DateTime  @updatedAt
-//   Booklet     Booklet[]
-// }
+type StatusPayment = "Paid" | "Pending" | "Canceled";
+type TypePayment = "CreditCard" | "Boleto" | "Pix";
 
 interface BookletPaymentProps {
   id: string;
   bookletId: string;
   isPaid: boolean;
-  typePayment: string;
-  status: string;
+  typePayment: TypePayment;
+  status: StatusPayment;
   payDay: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -60,4 +52,4 @@ class BookletPayment {
   }
 }
 
-export { BookletPayment, BookletPaymentProps };
+export { BookletPayment, BookletPaymentProps, StatusPayment, TypePayment };

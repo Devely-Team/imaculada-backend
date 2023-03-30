@@ -8,6 +8,7 @@ interface BookletReposity {
   findByCode(code: number): AsyncResult<Booklet[]>;
   findByAcquirer(acquirerId: string): AsyncResult<Booklet[]>;
   update(account: Booklet): AsyncResult<Booklet>;
+  setPayment(paymentId: string, id: string): AsyncResult<boolean>;
   delete(id: string): AsyncResult<boolean>;
   deleteByCode(code: number): AsyncResult<boolean>;
 }

@@ -1,20 +1,11 @@
 import { BookletReposity } from "../../infra/repositories/booklet_repository";
 import { singletonBookletRepository } from "../../infra/repositories/booklet_repository.instance";
-import { Booklet, BookletProps } from "../model/booklet";
 
 class UpdateBookletUseCase {
   constructor(private repo: BookletReposity) {}
 
-  async execute(input: BookletProps) {
-    const account = new Booklet(input);
-
-    // const result = profile.validations(profile);
-
-    // if (result.ok === false) {
-    //   return result;
-    // }
-
-    return await this.repo.update(account);
+  async execute(paymentId: string, id: string) {
+    return await this.repo.setPayment(paymentId, id);
   }
 }
 

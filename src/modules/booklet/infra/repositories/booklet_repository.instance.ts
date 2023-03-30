@@ -32,6 +32,7 @@ class BookletReposityInstance implements BookletReposity {
   async listAll(): AsyncResult<Booklet[]> {
     return this.client.clientPrisma.booklet
       .findMany({
+        include: { bookletPayment: true },
         orderBy: [
           {
             codeBooklet: "asc",
@@ -49,6 +50,7 @@ class BookletReposityInstance implements BookletReposity {
     return this.client.clientPrisma.booklet
       .findUnique({
         where: { id },
+        include: { bookletPayment: true },
       })
       .then(result => Success(result as Booklet))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
@@ -58,6 +60,7 @@ class BookletReposityInstance implements BookletReposity {
     return this.client.clientPrisma.booklet
       .findMany({
         where: { codeBooklet: code },
+        include: { bookletPayment: true },
         orderBy: {
           quota: "asc",
         },
@@ -66,10 +69,11 @@ class BookletReposityInstance implements BookletReposity {
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
-  findByAcquirer(acquirerId: string): AsyncResult<Booklet[]> {
+  async findByAcquirer(acquirerId: string): AsyncResult<Booklet[]> {
     return this.client.clientPrisma.booklet
       .findMany({
         where: { acquirerId },
+        include: { bookletPayment: true },
         orderBy: [
           {
             codeBooklet: "asc",
@@ -86,16 +90,18 @@ class BookletReposityInstance implements BookletReposity {
   async update(booklet: Booklet): AsyncResult<Booklet> {
     console.log("booklet: ", booklet);
     return Failure(new DatabaseError("error.name", "error.message"));
-    // return this.client.clientPrisma.booklet
-    //   .update({
-    //     where: { id: booklet.id },
-    //     data: {
-    //       isPaid: booklet.isPaid,
-    //       payDay: booklet.payDay,
-    //     },
-    //   })
-    //   .then(value => Success(value as Booklet))
-    //   .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  async setPayment(paymentId: string, id: string): AsyncResult<boolean> {
+    return this.client.clientPrisma.booklet
+      .update({
+        where: { id },
+        data: {
+          paymentBookId: paymentId,
+        },
+      })
+      .then(() => Success(true))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
   async delete(id: string): AsyncResult<boolean> {

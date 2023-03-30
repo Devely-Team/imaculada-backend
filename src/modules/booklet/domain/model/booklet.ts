@@ -1,3 +1,5 @@
+import { BookletPayment } from "../../../booklet_payment/domain/model/booklet_payment";
+
 interface BookletProps {
   id: string;
   acquirerId: string;
@@ -7,6 +9,7 @@ interface BookletProps {
   paymentBookId?: string;
   createdAt: Date;
   updatedAt: Date;
+  bookletPayment?: BookletPayment;
 }
 
 class Booklet {
@@ -42,6 +45,10 @@ class Booklet {
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  get bookletPayment() {
+    return this.props.bookletPayment;
   }
 
   constructor(props: BookletProps) {

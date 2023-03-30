@@ -74,14 +74,26 @@ model Booklet {
   bookletPayment BookletPayment? @relation(fields: [paymentBookId], references: [id])
 }
 
+enum StatusPayment {
+  Paid
+  Pending
+  Canceled
+}
+
+enum TypePayment {
+  CreditCard
+  Boleto
+  Pix
+}
+
 model BookletPayment {
-  id          String    @id @default(cuid())
+  id          String        @id @default(cuid())
   isPaid      Boolean
-  typePayment String
-  status      String
-  payDay      DateTime
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  typePayment TypePayment
+  status      StatusPayment
+  payDay      DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   bookletId   String
   Booklet     Booklet[]
 }

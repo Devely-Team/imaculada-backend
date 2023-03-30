@@ -3,14 +3,14 @@ import { Output } from "../../../../core/tools/output_type";
 import { escaping } from "../../../../core/tools/result_escaping";
 import { StatusCodes } from "../../../../core/utils/http_status_code";
 import { onError } from "../../../../middleware/error/on_error";
+import { CreateBookletPaymentDTO } from "../../../booklet_payment/domain/dto/booklet_payment_dto";
 import { Account } from "../../../user/account/domain/model/account";
-import { UpdateBookletCommand } from "../../domain/command/update_booklet_command";
-import { UpdateBookletDTO } from "../../domain/dto/update_booklet_dto";
+import { AddPaymentToBookletCommand } from "../../domain/command/add_payment_to_booklet_command";
 
 class UpdateBookletController {
-  constructor(private command: UpdateBookletCommand) {}
+  constructor(private command: AddPaymentToBookletCommand) {}
 
-  async handler({ request, response }: Input<UpdateBookletDTO>): Output {
+  async handler({ request, response }: Input<CreateBookletPaymentDTO>): Output {
     this.command
       .execute(
         request.body,
