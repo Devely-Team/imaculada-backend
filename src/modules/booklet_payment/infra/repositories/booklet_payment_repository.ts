@@ -24,7 +24,6 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
     typePayment,
     status,
     isPaid,
-    payDay,
   }: BookletPayment): AsyncResult<string> {
     return this.client.clientPrisma.bookletPayment
       .create({
@@ -33,7 +32,7 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
           typePayment,
           status,
           isPaid,
-          payDay,
+          payDay: isPaid ? new Date() : null,
         },
         include: {
           Booklet: true,
