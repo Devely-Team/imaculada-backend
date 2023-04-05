@@ -69,7 +69,7 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
           status,
           typePayment,
           isPaid,
-          payDay,
+          payDay: isPaid ? new Date(payDay) : null,
         },
         include: {
           Booklet: true,
