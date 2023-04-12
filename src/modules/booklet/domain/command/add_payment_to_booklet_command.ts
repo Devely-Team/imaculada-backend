@@ -52,16 +52,19 @@ class AddPaymentToBookletCommand {
         );
       }
 
+      console.log("Chegou ate aqui senario exitente??");
+
       return await this.useCaseSetNewStatusOfPayment.execute(
         {
           isPaid: input.isPaid,
-          payDay: new Date(input.payDay),
+          payDay: input.payDay,
           status: input.status,
           typePayment: input.typePayment,
         },
         result.value.bookletPayment.id,
       );
     }
+    console.log("Chegou ate aqui senario inexistente??");
 
     const paymentAdded = await this.useCaseSetPaymentStatus.execute(input);
 

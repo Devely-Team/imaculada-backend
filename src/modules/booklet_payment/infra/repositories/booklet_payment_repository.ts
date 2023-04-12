@@ -1,5 +1,3 @@
-import { formatISO } from "date-fns";
-
 import { DatabaseError } from "../../../../core/error/database_error";
 import {
   DatabaseClient,
@@ -28,15 +26,6 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
     isPaid,
     payDay,
   }: BookletPayment): AsyncResult<string> {
-    const { getDay, getMonth, getFullYear } = payDay;
-    console.log("payday: ", payDay);
-    console.log(
-      "payday Date:  ",
-      new Date(getFullYear(), getMonth(), getDay(), 0, 0),
-    );
-    // const date = formatISO(new Date(getFullYear(), getMonth(), getDay(), 0, 0));
-    // console.log(date);
-
     return this.client.clientPrisma.bookletPayment
       .create({
         data: {
@@ -44,9 +33,7 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
           typePayment,
           status,
           isPaid,
-          payDay: isPaid
-            ? new Date(getFullYear(), getMonth(), getDay(), 0, 0)
-            : null,
+          payDay: isPaid ? `${payDay}Z` : null,
         },
         include: {
           Booklet: true,
@@ -74,15 +61,6 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
     isPaid,
     payDay,
   }: BookletPayment): AsyncResult<boolean> {
-    const { getDay, getMonth, getFullYear } = payDay;
-    console.log("payday: ", payDay);
-    console.log(
-      "payday Date:  ",
-      new Date(getFullYear(), getMonth(), getDay(), 0, 0),
-    );
-    // const date = formatISO(new Date(getFullYear(), getMonth(), getDay(), 0, 0));
-    // console.log(date);
-
     return this.client.clientPrisma.bookletPayment
       .update({
         where: {
@@ -92,9 +70,7 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
           status,
           typePayment,
           isPaid,
-          payDay: isPaid
-            ? new Date(getFullYear(), getMonth(), getDay(), 0, 0)
-            : null,
+          payDay: isPaid ? `${payDay}Z` : null,
         },
         include: {
           Booklet: true,
