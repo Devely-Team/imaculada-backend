@@ -1,3 +1,5 @@
+import { formatISO } from "date-fns";
+
 import { DatabaseError } from "../../../../core/error/database_error";
 import {
   DatabaseClient,
@@ -26,6 +28,8 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
     isPaid,
     payDay,
   }: BookletPayment): AsyncResult<string> {
+    const date = formatISO(payDay);
+
     return this.client.clientPrisma.bookletPayment
       .create({
         data: {
@@ -33,7 +37,7 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
           typePayment,
           status,
           isPaid,
-          payDay: isPaid ? `${payDay}Z` : null,
+          payDay: isPaid ? date : null,
         },
         include: {
           Booklet: true,
@@ -61,6 +65,8 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
     isPaid,
     payDay,
   }: BookletPayment): AsyncResult<boolean> {
+    const date = formatISO(payDay);
+
     return this.client.clientPrisma.bookletPayment
       .update({
         where: {
@@ -70,7 +76,7 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
           status,
           typePayment,
           isPaid,
-          payDay: isPaid ? `${payDay}Z` : null,
+          payDay: isPaid ? date : null,
         },
         include: {
           Booklet: true,
