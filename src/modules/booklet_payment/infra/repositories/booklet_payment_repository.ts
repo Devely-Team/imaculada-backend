@@ -74,10 +74,14 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
     isPaid,
     payDay,
   }: BookletPayment): AsyncResult<boolean> {
-    console.log(payDay);
     const { getDay, getMonth, getFullYear } = payDay;
-    const date = formatISO(new Date(getFullYear(), getMonth(), getDay(), 0, 0));
-    console.log(date);
+    console.log("payday: ", payDay);
+    console.log(
+      "payday Date:  ",
+      new Date(getFullYear(), getMonth(), getDay(), 0, 0),
+    );
+    // const date = formatISO(new Date(getFullYear(), getMonth(), getDay(), 0, 0));
+    // console.log(date);
 
     return this.client.clientPrisma.bookletPayment
       .update({
