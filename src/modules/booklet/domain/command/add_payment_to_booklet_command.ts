@@ -3,6 +3,7 @@ import { BaseErrorCodes } from "../../../../core/error/base_error";
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Failure } from "../../../../core/tools/result_type";
 import { CreateBookletPaymentDTO } from "../../../booklet_payment/domain/dto/booklet_payment_dto";
+import { StatusPayment } from "../../../booklet_payment/domain/model/booklet_payment";
 import { CreateBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/create_booklet_payment_usecase";
 import { SetNewStatusOfBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/set_new_status_of_booklet_payment_usecase";
 import { Account } from "../../../user/account/domain/model/account";
@@ -38,7 +39,10 @@ class AddPaymentToBookletCommand {
       result.value.bookletPayment !== null &&
       result.value.bookletPayment !== undefined
     ) {
-      if (result.value.bookletPayment?.isPaid === true) {
+      if (
+        result.value.bookletPayment?.isPaid === true &&
+        result.value.bookletPayment?.status === "Paid"
+      ) {
         return Failure(
           new BadRequestError(
             BaseErrorCodes.objectValidation,
@@ -51,7 +55,7 @@ class AddPaymentToBookletCommand {
       return await this.useCaseSetNewStatusOfPayment.execute(
         {
           isPaid: input.isPaid,
-          payDay: input.payDay,
+          payDay: new Date(input.payDay),
           status: input.status,
           typePayment: input.typePayment,
         },
