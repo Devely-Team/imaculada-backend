@@ -40,7 +40,9 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
           typePayment,
           status,
           isPaid,
-          payDay: isPaid ? date : null,
+          payDay: isPaid
+            ? new Date(getFullYear(), getMonth(), getDay(), 0, 0)
+            : null,
         },
         include: {
           Booklet: true,
@@ -82,7 +84,9 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
           status,
           typePayment,
           isPaid,
-          payDay: isPaid ? date : null,
+          payDay: isPaid
+            ? new Date(getFullYear(), getMonth(), getDay(), 0, 0)
+            : null,
         },
         include: {
           Booklet: true,
