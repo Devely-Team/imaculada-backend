@@ -3,7 +3,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { securityMiddleware } from "../../../../middleware/security/security_middleware";
 import {
   deleteByCodeBookletController,
-  findByIdBookletController,
+  findByCodeBookletController,
   findByAcquirerIdBookletController,
   listAllBookletController,
   updateBookletController,
@@ -20,9 +20,9 @@ bookletRouter.get(
 );
 
 bookletRouter.get(
-  "/id",
+  "/code",
   (request: Request, response: Response, next: NextFunction) =>
-    findByIdBookletController.handler({ request, response, next }),
+    findByCodeBookletController.handler({ request, response, next }),
 );
 bookletRouter.get(
   "/acquirer_id",

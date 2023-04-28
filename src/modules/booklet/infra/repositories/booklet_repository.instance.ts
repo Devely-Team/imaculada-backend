@@ -60,7 +60,7 @@ class BookletReposityInstance implements BookletReposity {
     return this.client.clientPrisma.booklet
       .findMany({
         where: { codeBooklet: code },
-        include: { bookletPayment: true },
+        include: { bookletPayment: true, acquirer: true },
         orderBy: {
           quota: "asc",
         },

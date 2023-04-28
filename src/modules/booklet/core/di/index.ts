@@ -13,7 +13,7 @@ import { singletonListBookletUseCase } from "../../domain/usecase/list_booklet_u
 import { singletonUpdateBookletUseCase } from "../../domain/usecase/update_booklet_usecase";
 import { DeleteByCodeBookletController } from "../../infra/controller/delete_by_code_booklet_controller";
 import { FindByAcquirerBookletController } from "../../infra/controller/find_by_acquirer_id_booklet_controller";
-import { FindByCodeBookletController } from "../../infra/controller/find_by_id_booklet_controller";
+import { FindByCodeBookletController } from "../../infra/controller/find_by_code_booklet_controller";
 import { ListAllBookletController } from "../../infra/controller/list_all_booklet_controller";
 import { UpdateBookletController } from "../../infra/controller/update_booklet_controller";
 
@@ -26,11 +26,11 @@ const listAllBookletController = new ListAllBookletController(
 );
 
 // ? Find By Id Booklet
-const findbyIdBookletCommand = new FindbyCodeBookletCommand(
+const findbyCodeBookletCommand = new FindbyCodeBookletCommand(
   singletonFindByCodeBookletUseCase,
 );
-const findByIdBookletController = new FindByCodeBookletController(
-  findbyIdBookletCommand,
+const findByCodeBookletController = new FindByCodeBookletController(
+  findbyCodeBookletCommand,
 );
 
 // ? Find By Acquirer Id Booklet
@@ -67,7 +67,7 @@ const deleteByCodeBookletController = new DeleteByCodeBookletController(
 
 export {
   listAllBookletController,
-  findByIdBookletController,
+  findByCodeBookletController,
   findByAcquirerIdBookletController,
   updateBookletController,
   deleteByCodeBookletController,
