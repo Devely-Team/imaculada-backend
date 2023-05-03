@@ -7,11 +7,18 @@ import {
   findByAcquirerIdBookletController,
   listAllBookletController,
   updateBookletController,
+  addPaymentToAllBookletController,
 } from "../di";
 
 const bookletRouter = Router();
 
 bookletRouter.use(securityMiddleware);
+
+bookletRouter.post(
+  "/add_payment_to_all",
+  (request: Request, response: Response, next: NextFunction) =>
+    addPaymentToAllBookletController.handler({ request, response, next }),
+);
 
 bookletRouter.get(
   "/",
