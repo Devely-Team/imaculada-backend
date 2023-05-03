@@ -32,6 +32,7 @@ class AddPaymentToAllBookletCommand {
     }
 
     result.value.forEach(async booklet => {
+      console.log("booklet", booklet);
       if (
         booklet.bookletPayment !== null &&
         booklet.bookletPayment !== undefined
