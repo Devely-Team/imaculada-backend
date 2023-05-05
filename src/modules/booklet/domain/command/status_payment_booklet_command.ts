@@ -109,30 +109,3 @@ class StatusPaymentBookletCommand {
 }
 
 export { StatusPaymentBookletCommand };
-
-// result.value.forEach(booklet => {
-//   if (booklet.quota === payment.quota) {
-//     if (booklet.bookletPayment !== null) {
-//       console.log("booklet", booklet);
-//       console.log("Payment: ", payment);
-
-//       const expiryDate = new Date(payment.expiryDate);
-//       if (booklet.bookletPayment?.isPaid === true) {
-//         if (booklet.bookletPayment.payDay !== null) {
-//           const payDay = new Date(booklet.bookletPayment.payDay);
-//           if (payDay < expiryDate) {
-//             console.log("Pago em dia");
-//           } else {
-//             console.log("Pago em atraso");
-//           }
-//         } else {
-//           console.log("Pago em atraso");
-//         }
-//       } else {
-//         console.log("Pago em atraso");
-//       }
-//     } else {
-//       console.log("Carnê não possui pagamento");
-//     }
-//   }
-// });
