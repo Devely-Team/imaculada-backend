@@ -6,6 +6,7 @@ import { DeleteByCodeBookletCommand } from "../../domain/command/delete_by_code_
 import { FindbyAcquirerBookletCommand } from "../../domain/command/find_by_acquirer_booklet_command";
 import { FindbyCodeBookletCommand } from "../../domain/command/find_by_code_booklet_command";
 import { ListAllBookletCommand } from "../../domain/command/list_all_booklet_command";
+import { StatusPaymentBookletCommand } from "../../domain/command/status_payment_booklet_command";
 import { singletonDeleteBookletUseCase } from "../../domain/usecase/delete_booklet_usecase";
 import { singletonFindByAcquirerIdBookletUseCase } from "../../domain/usecase/find_by_acquirer_id_booklet_usecase";
 import { singletonFindByCodeBookletUseCase } from "../../domain/usecase/find_by_code_booklet_usecase";
@@ -17,6 +18,7 @@ import { DeleteByCodeBookletController } from "../../infra/controller/delete_by_
 import { FindByAcquirerBookletController } from "../../infra/controller/find_by_acquirer_id_booklet_controller";
 import { FindByCodeBookletController } from "../../infra/controller/find_by_code_booklet_controller";
 import { ListAllBookletController } from "../../infra/controller/list_all_booklet_controller";
+import { StatusPaymentBookletController } from "../../infra/controller/status_payment_booklet_controller";
 import { UpdateBookletController } from "../../infra/controller/update_booklet_controller";
 
 // ? List All Booklet
@@ -65,6 +67,16 @@ const addPaymentToAllBookletController = new AddPaymentToAllBookletController(
   addPaymentToAllBookletCommand,
 );
 
+// ? Status Payment
+
+const statusPaymentBookletCommand = new StatusPaymentBookletCommand(
+  singletonFindByCodeBookletUseCase,
+);
+
+const statusPaymentBookletController = new StatusPaymentBookletController(
+  statusPaymentBookletCommand,
+);
+
 // ? Delete Booklet
 
 // ? Delete Booklet
@@ -85,4 +97,5 @@ export {
   updateBookletController,
   deleteByCodeBookletController,
   addPaymentToAllBookletController,
+  statusPaymentBookletController,
 };

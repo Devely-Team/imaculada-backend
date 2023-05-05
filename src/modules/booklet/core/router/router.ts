@@ -8,6 +8,7 @@ import {
   listAllBookletController,
   updateBookletController,
   addPaymentToAllBookletController,
+  statusPaymentBookletController,
 } from "../di";
 
 const bookletRouter = Router();
@@ -24,6 +25,12 @@ bookletRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
     listAllBookletController.handler({ request, response, next }),
+);
+
+bookletRouter.get(
+  "/status_payment",
+  (request: Request, response: Response, next: NextFunction) =>
+    statusPaymentBookletController.handler({ request, response, next }),
 );
 
 bookletRouter.get(
