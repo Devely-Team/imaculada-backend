@@ -1,5 +1,6 @@
 import { singletonCreateBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/create_booklet_payment_usecase";
 import { singletonSetNewStatusOfBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/set_new_status_of_booklet_payment_usecase";
+import { AddPaymentToAllBookletCommand } from "../../domain/command/add_payment_to_all_booklet_command";
 import { AddPaymentToBookletCommand } from "../../domain/command/add_payment_to_booklet_command";
 import { DeleteByCodeBookletCommand } from "../../domain/command/delete_by_code_booklet_command";
 import { FindbyAcquirerBookletCommand } from "../../domain/command/find_by_acquirer_booklet_command";
@@ -11,6 +12,7 @@ import { singletonFindByCodeBookletUseCase } from "../../domain/usecase/find_by_
 import { singletonFindByIdBookletUseCase } from "../../domain/usecase/find_by_id_booklet_usecase";
 import { singletonListBookletUseCase } from "../../domain/usecase/list_booklet_usecase";
 import { singletonUpdateBookletUseCase } from "../../domain/usecase/update_booklet_usecase";
+import { AddPaymentToAllBookletController } from "../../infra/controller/add_payment_to_all_booklet_controller";
 import { DeleteByCodeBookletController } from "../../infra/controller/delete_by_code_booklet_controller";
 import { FindByAcquirerBookletController } from "../../infra/controller/find_by_acquirer_id_booklet_controller";
 import { FindByCodeBookletController } from "../../infra/controller/find_by_code_booklet_controller";
@@ -52,6 +54,17 @@ const updateBookletController = new UpdateBookletController(
   addPaymentToBookletCommand,
 );
 
+const addPaymentToAllBookletCommand = new AddPaymentToAllBookletCommand(
+  singletonFindByCodeBookletUseCase,
+  singletonSetNewStatusOfBookletPaymentUseCase,
+  singletonCreateBookletPaymentUseCase,
+  singletonUpdateBookletUseCase,
+);
+
+const addPaymentToAllBookletController = new AddPaymentToAllBookletController(
+  addPaymentToAllBookletCommand,
+);
+
 // ? Delete Booklet
 
 // ? Delete Booklet
@@ -71,4 +84,5 @@ export {
   findByAcquirerIdBookletController,
   updateBookletController,
   deleteByCodeBookletController,
+  addPaymentToAllBookletController,
 };
