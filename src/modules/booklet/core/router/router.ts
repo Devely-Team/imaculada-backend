@@ -9,6 +9,7 @@ import {
   updateBookletController,
   addPaymentToAllBookletController,
   statusPaymentBookletController,
+  deleteByCodeBookletPaymentController,
 } from "../di";
 
 const bookletRouter = Router();
@@ -54,6 +55,12 @@ bookletRouter.delete(
   "/by_code",
   (request: Request, response: Response, next: NextFunction) =>
     deleteByCodeBookletController.handler({ request, response, next }),
+);
+
+bookletRouter.delete(
+  "/booklet_payment/by_id",
+  (request: Request, response: Response, next: NextFunction) =>
+    deleteByCodeBookletPaymentController.handler({ request, response, next }),
 );
 
 export { bookletRouter };

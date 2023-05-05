@@ -14,6 +14,7 @@ interface BookletPaymentReposity {
   addPayment(input: BookletPayment): AsyncResult<string>;
   findById(id: string): AsyncResult<BookletPayment>;
   setNewStatusPayment(input: BookletPayment): AsyncResult<boolean>;
+  deletePayment(id: string): AsyncResult<boolean>;
 }
 
 class BookletPaymentReposityInstance implements BookletPaymentReposity {
@@ -74,6 +75,17 @@ class BookletPaymentReposityInstance implements BookletPaymentReposity {
         },
         include: {
           Booklet: true,
+        },
+      })
+      .then(() => Success(true))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  async deletePayment(id: string): AsyncResult<boolean> {
+    return this.client.clientPrisma.bookletPayment
+      .delete({
+        where: {
+          id,
         },
       })
       .then(() => Success(true))
