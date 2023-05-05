@@ -9,7 +9,6 @@ class CreateBookletPaymentUseCase {
   constructor(private repo: BookletPaymentReposity) {}
 
   async execute(input: CreateBookletPaymentDTO) {
-    console.log("input: ", input);
     const payment = new BookletPayment({
       ...input,
       id: "",

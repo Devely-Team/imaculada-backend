@@ -52,8 +52,6 @@ class AddPaymentToBookletCommand {
         );
       }
 
-      console.log("Chegou ate aqui senario exitente??");
-
       return await this.useCaseSetNewStatusOfPayment.execute(
         {
           isPaid: input.isPaid,
@@ -64,7 +62,6 @@ class AddPaymentToBookletCommand {
         result.value.bookletPayment.id,
       );
     }
-    console.log("Chegou ate aqui senario inexistente??");
 
     const paymentAdded = await this.useCaseSetPaymentStatus.execute(input);
 
