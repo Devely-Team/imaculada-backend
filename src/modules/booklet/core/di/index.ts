@@ -1,4 +1,6 @@
+import { DeleteBookletPaymentCommand } from "../../../booklet_payment/domain/command/delete_booklet_payment_command";
 import { singletonCreateBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/create_booklet_payment_usecase";
+import { singletonDeleteBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/delete_booklet_payment_usecase";
 import { singletonSetNewStatusOfBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/set_new_status_of_booklet_payment_usecase";
 import { AddPaymentToAllBookletCommand } from "../../domain/command/add_payment_to_all_booklet_command";
 import { AddPaymentToBookletCommand } from "../../domain/command/add_payment_to_booklet_command";
@@ -14,6 +16,7 @@ import { singletonFindByIdBookletUseCase } from "../../domain/usecase/find_by_id
 import { singletonListBookletUseCase } from "../../domain/usecase/list_booklet_usecase";
 import { singletonUpdateBookletUseCase } from "../../domain/usecase/update_booklet_usecase";
 import { AddPaymentToAllBookletController } from "../../infra/controller/add_payment_to_all_booklet_controller";
+import { DeleteByCodeBookletPaymentController } from "../../infra/controller/delete_booklet_payment_controller";
 import { DeleteByCodeBookletController } from "../../infra/controller/delete_by_code_booklet_controller";
 import { FindByAcquirerBookletController } from "../../infra/controller/find_by_acquirer_id_booklet_controller";
 import { FindByCodeBookletController } from "../../infra/controller/find_by_code_booklet_controller";
@@ -77,7 +80,15 @@ const statusPaymentBookletController = new StatusPaymentBookletController(
   statusPaymentBookletCommand,
 );
 
-// ? Delete Booklet
+// ? Delete Booklet Payment
+
+const deleteBookletPaymentCommand = new DeleteBookletPaymentCommand(
+  singletonDeleteBookletPaymentUseCase,
+);
+
+const deleteByCodeBookletPaymentController =
+  new DeleteByCodeBookletPaymentController(deleteBookletPaymentCommand);
+
 
 // ? Delete Booklet
 const deleteByCodeBookletCommand = new DeleteByCodeBookletCommand(
@@ -98,4 +109,5 @@ export {
   deleteByCodeBookletController,
   addPaymentToAllBookletController,
   statusPaymentBookletController,
+  deleteByCodeBookletPaymentController,
 };
