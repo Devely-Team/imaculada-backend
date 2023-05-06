@@ -8,7 +8,7 @@ class DeleteBookletPaymentCommand {
   async execute(user: Account, input: string) {
     const accessDenied = hasAccess(
       user,
-      "add_booklet_payment",
+      "booklet_payment",
       "Remove o status do pagamento do carnê.",
     );
 
