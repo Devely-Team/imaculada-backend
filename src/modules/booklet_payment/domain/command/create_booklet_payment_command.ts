@@ -9,7 +9,7 @@ class CreateBookletPaymentCommand {
   async execute(user: Account, input: CreateBookletPaymentDTO) {
     const accessDenied = hasAccess(
       user,
-      "add_booklet_payment",
+      "booklet_payment",
       "Adicionar o status do pagamento do carnê.",
     );
 
