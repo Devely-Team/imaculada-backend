@@ -29,6 +29,12 @@ class StatusPaymentBookletCommand {
       return result;
     }
 
+    if (result.ok === true && result.value.length === 0) {
+      return Success({
+        status: "Não possui boleto cadastrado",
+      });
+    }
+
     const currentQuota = getCurrentQuotaNumber(campaignPaymentDate);
 
     if (currentQuota === null) {
