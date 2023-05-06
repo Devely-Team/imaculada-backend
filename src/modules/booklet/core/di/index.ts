@@ -24,14 +24,6 @@ import { ListAllBookletController } from "../../infra/controller/list_all_bookle
 import { StatusPaymentBookletController } from "../../infra/controller/status_payment_booklet_controller";
 import { UpdateBookletController } from "../../infra/controller/update_booklet_controller";
 
-// ? List All Booklet
-const listAllBookletCommand = new ListAllBookletCommand(
-  singletonListBookletUseCase,
-);
-const listAllBookletController = new ListAllBookletController(
-  listAllBookletCommand,
-);
-
 // ? Find By Id Booklet
 const findbyCodeBookletCommand = new FindbyCodeBookletCommand(
   singletonFindByCodeBookletUseCase,
@@ -96,6 +88,15 @@ const deleteByCodeBookletCommand = new DeleteByCodeBookletCommand(
 );
 const deleteByCodeBookletController = new DeleteByCodeBookletController(
   deleteByCodeBookletCommand,
+);
+
+// ? List All Booklet
+const listAllBookletCommand = new ListAllBookletCommand(
+  singletonListBookletUseCase,
+  statusPaymentBookletCommand,
+);
+const listAllBookletController = new ListAllBookletController(
+  listAllBookletCommand,
 );
 
 // * Export controllers
