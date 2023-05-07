@@ -10,6 +10,7 @@ import {
   addPaymentToAllBookletController,
   statusPaymentBookletController,
   deleteByCodeBookletPaymentController,
+  listByParcelPaidBookletController,
 } from "../di";
 
 const bookletRouter = Router();
@@ -26,6 +27,12 @@ bookletRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
     listAllBookletController.handler({ request, response, next }),
+);
+
+bookletRouter.get(
+  "/by_parcel_paid",
+  (request: Request, response: Response, next: NextFunction) =>
+    listByParcelPaidBookletController.handler({ request, response, next }),
 );
 
 bookletRouter.get(

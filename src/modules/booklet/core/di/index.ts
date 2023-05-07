@@ -8,6 +8,7 @@ import { DeleteByCodeBookletCommand } from "../../domain/command/delete_by_code_
 import { FindbyAcquirerBookletCommand } from "../../domain/command/find_by_acquirer_booklet_command";
 import { FindbyCodeBookletCommand } from "../../domain/command/find_by_code_booklet_command";
 import { ListAllBookletCommand } from "../../domain/command/list_all_booklet_command";
+import { ListByParcelPaidBookletCommand } from "../../domain/command/list_by_parcel_paid_booklet_command";
 import { StatusPaymentBookletCommand } from "../../domain/command/status_payment_booklet_command";
 import { singletonDeleteBookletUseCase } from "../../domain/usecase/delete_booklet_usecase";
 import { singletonFindByAcquirerIdBookletUseCase } from "../../domain/usecase/find_by_acquirer_id_booklet_usecase";
@@ -21,8 +22,17 @@ import { DeleteByCodeBookletController } from "../../infra/controller/delete_by_
 import { FindByAcquirerBookletController } from "../../infra/controller/find_by_acquirer_id_booklet_controller";
 import { FindByCodeBookletController } from "../../infra/controller/find_by_code_booklet_controller";
 import { ListAllBookletController } from "../../infra/controller/list_all_booklet_controller";
+import { ListByParcelPaidBookletController } from "../../infra/controller/list_by_parcel_paid_booklet_controller";
 import { StatusPaymentBookletController } from "../../infra/controller/status_payment_booklet_controller";
 import { UpdateBookletController } from "../../infra/controller/update_booklet_controller";
+
+// ? List All Booklet
+const listAllBookletCommand = new ListAllBookletCommand(
+  singletonListBookletUseCase,
+);
+const listAllBookletController = new ListAllBookletController(
+  listAllBookletCommand,
+);
 
 // ? Find By Id Booklet
 const findbyCodeBookletCommand = new FindbyCodeBookletCommand(
@@ -90,19 +100,19 @@ const deleteByCodeBookletController = new DeleteByCodeBookletController(
   deleteByCodeBookletCommand,
 );
 
-// ? List All Booklet
-const listAllBookletCommand = new ListAllBookletCommand(
+// ? List By Parcel Paid Booklet
+const listByParcelPaidBookletCommand = new ListByParcelPaidBookletCommand(
   singletonListBookletUseCase,
-  statusPaymentBookletCommand,
 );
-const listAllBookletController = new ListAllBookletController(
-  listAllBookletCommand,
+const listByParcelPaidBookletController = new ListByParcelPaidBookletController(
+  listByParcelPaidBookletCommand,
 );
 
 // * Export controllers
 
 export {
   listAllBookletController,
+  listByParcelPaidBookletController,
   findByCodeBookletController,
   findByAcquirerIdBookletController,
   updateBookletController,

@@ -32,7 +32,7 @@ class BookletReposityInstance implements BookletReposity {
   async listAll(): AsyncResult<Booklet[]> {
     return this.client.clientPrisma.booklet
       .findMany({
-        include: { bookletPayment: true },
+        include: { bookletPayment: true, acquirer: true },
         orderBy: [
           {
             codeBooklet: "asc",
