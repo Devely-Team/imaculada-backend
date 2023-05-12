@@ -70,7 +70,12 @@
         }
       }
     ],
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "no-extraneous-dependencies": "off",
     "no-case-declarations": "off",
     "no-plusplus": "off"

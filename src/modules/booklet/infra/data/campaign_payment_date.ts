@@ -99,8 +99,8 @@ export function getCurrentQuotaNumber(
   const currentDate = new Date();
 
   for (let i = 0; i < quotaData.length; i++) {
-    const expiryDate = new Date(quotaData[i].expiryDate);
-    if (currentDate <= expiryDate) {
+    const drawDate = new Date(quotaData[i].drawDate);
+    if (currentDate <= drawDate) {
       return quotaData[i];
     }
   }

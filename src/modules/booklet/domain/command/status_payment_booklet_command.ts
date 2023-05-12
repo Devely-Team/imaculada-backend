@@ -81,6 +81,9 @@ class StatusPaymentBookletCommand {
       return null;
     });
 
+    console.log("mappingBookletPayment ", mappingBookletPayment);
+    console.log("currentQuota ", currentQuota);
+
     const filter = mappingBookletPayment.filter(
       a => a !== null && a !== undefined,
     );
@@ -96,15 +99,9 @@ class StatusPaymentBookletCommand {
       });
     }
 
-    if (latePayment === true) {
+    if (doesNotPayment === true || latePayment === true) {
       return Success({
-        status: "Pago em atraso",
-      });
-    }
-
-    if (doesNotPayment === true) {
-      return Success({
-        status: "Não possui pagamento",
+        status: "Não possui pagamento ou em atraso",
       });
     }
 
