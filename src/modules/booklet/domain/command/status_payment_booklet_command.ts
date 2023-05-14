@@ -57,7 +57,7 @@ class StatusPaymentBookletCommand {
       ) {
         const expiryDate = new Date(currentQuota.expiryDate);
 
-        if (booklet.bookletPayment.payDay < expiryDate) {
+        if (booklet.bookletPayment.payDay <= expiryDate) {
           return {
             status: "Pagamento em dia",
             quota: booklet.quota,
@@ -80,9 +80,6 @@ class StatusPaymentBookletCommand {
 
       return null;
     });
-
-    console.log("mappingBookletPayment ", mappingBookletPayment);
-    console.log("currentQuota ", currentQuota);
 
     const filter = mappingBookletPayment.filter(
       a => a !== null && a !== undefined,
