@@ -7,7 +7,8 @@ import express, { Express, Request } from "express";
 import { StatusCodes } from "../core/utils/http_status_code";
 import { loggerMiddleware } from "./config/logger";
 import { logErrorMiddleware } from "./error/error_handler";
-import { routes } from "./router/routes";
+import { routes as v1 } from "./router/v1/routes";
+import { routes as v2 } from "./router/v2/routes";
 
 class Middleware {
   execute(app: Express): void {
@@ -85,7 +86,8 @@ class Middleware {
 
     app.use(express.json());
 
-    app.use("/v1", routes);
+    app.use("/v1", v1);
+    app.use("/v2", v2);
   }
 }
 
