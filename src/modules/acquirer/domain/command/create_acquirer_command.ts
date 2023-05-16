@@ -12,8 +12,8 @@ import { CreateAcquirerUseCase } from "../usecase/create_acquirer_usecase";
 class CreateAcquirerCommand {
   constructor(
     private usecase: CreateAcquirerUseCase,
-    private usecaseCampaign: FindByIdCampaignUseCase,
     private usecaseBooklet: CreateBookletUseCase,
+    private usecaseCampaign: FindByIdCampaignUseCase = new FindByIdCampaignUseCase(),
   ) {}
 
   async execute(input: CreateAcquirerDTO, user: Account) {

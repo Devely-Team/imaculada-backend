@@ -1,7 +1,6 @@
 import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { singletonDeleteBookletUseCase } from "../../../booklet/domain/usecase/delete_booklet_usecase";
 import { singletonFindByCodeBookletUseCase } from "../../../booklet/domain/usecase/find_by_code_booklet_usecase";
-import { singletonFindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { AddBookletToAcquirerCommand } from "../../domain/command/add_booklet_to_acquirer_command";
 import { CreateAcquirerCommand } from "../../domain/command/create_acquirer_command";
 import { DeleteAcquirerCommand } from "../../domain/command/delete_acquirer_command";
@@ -25,7 +24,6 @@ import { UpdateAcquirerController } from "../../infra/controller/update_acquirer
 // ? Create Acquirer
 const createAcquirerCommand = new CreateAcquirerCommand(
   singletonCreateAcquirerUseCase,
-  singletonFindByIdCampaignUseCase,
   singletonCreateBookletUseCase,
 );
 const createAcquirerController = new CreateAcquirerController(
@@ -59,7 +57,6 @@ const updateAcquirerController = new UpdateAcquirerController(
 // ? Add Booklet To Acquirer
 const addBookletToAcquirerCommand = new AddBookletToAcquirerCommand(
   singletonCreateBookletUseCase,
-  singletonFindByIdCampaignUseCase,
 );
 const addBookletToAcquirerController = new AddBookletToAcquirerController(
   addBookletToAcquirerCommand,

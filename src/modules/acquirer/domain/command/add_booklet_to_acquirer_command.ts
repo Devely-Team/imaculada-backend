@@ -11,7 +11,7 @@ import { UpdateBookletAcquirerDTO } from "../dto/update_acquirer_dto";
 class AddBookletToAcquirerCommand {
   constructor(
     private usecaseBooklet: CreateBookletUseCase,
-    private usecaseCampaign: FindByIdCampaignUseCase,
+    private usecaseCampaign: FindByIdCampaignUseCase = new FindByIdCampaignUseCase(),
   ) {}
 
   async execute(
