@@ -7,7 +7,13 @@ import { Account } from "../../../user/account/domain/model/account";
 import { DeleteCampaignCommand } from "../../domain/command/delete_campaign_command";
 
 class DeleteCampaignController {
-  constructor(private command: DeleteCampaignCommand) {}
+  constructor(
+    private command: DeleteCampaignCommand = new DeleteCampaignCommand(),
+  ) {}
+
+  static get(): DeleteCampaignController {
+    return new DeleteCampaignController();
+  }
 
   async handler({ request, response }: InputBase): Output {
     this.command

@@ -1,10 +1,15 @@
+import { databaseClientSingleton } from "../../../../core/prisma/prisma_client";
 import { AsyncResult } from "../../../../core/tools/result_type";
 import { CampaignReposity } from "../../infra/repositories/campaign_repository";
-import { singletonCampaignRepository } from "../../infra/repositories/campaign_repository.instance";
+import { CampaignReposityInstance } from "../../infra/repositories/campaign_repository.instance";
 import { Campaign, CampaignProps } from "../model/campaign";
 
 class CreateCampaignUseCase {
-  constructor(private repo: CampaignReposity) {}
+  constructor(
+    private repo: CampaignReposity = new CampaignReposityInstance(
+      databaseClientSingleton,
+    ),
+  ) {}
 
   async execute(input: CampaignProps): AsyncResult<string> {
     const account = new Campaign(input);
@@ -19,8 +24,4 @@ class CreateCampaignUseCase {
   }
 }
 
-const singletonCreateCampaignUseCase = new CreateCampaignUseCase(
-  singletonCampaignRepository,
-);
-
-export { CreateCampaignUseCase, singletonCreateCampaignUseCase };
+export { CreateCampaignUseCase };

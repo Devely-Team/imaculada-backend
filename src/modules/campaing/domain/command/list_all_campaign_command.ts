@@ -3,7 +3,9 @@ import { Account } from "../../../user/account/domain/model/account";
 import { ListCampaignUseCase } from "../usecase/list_campaign_usecase";
 
 class ListAllCampaignCommand {
-  constructor(private usecase: ListCampaignUseCase) {}
+  constructor(
+    private usecase: ListCampaignUseCase = new ListCampaignUseCase(),
+  ) {}
 
   async execute(user: Account) {
     const accessDenied = hasAccess(

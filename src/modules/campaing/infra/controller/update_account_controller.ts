@@ -8,7 +8,13 @@ import { UpdateCampaignCommand } from "../../domain/command/update_campaign_comm
 import { UpdateCampaignDTO } from "../../domain/dto/update_campaign_dto";
 
 class UpdateCampaignController {
-  constructor(private command: UpdateCampaignCommand) {}
+  constructor(
+    private command: UpdateCampaignCommand = new UpdateCampaignCommand(),
+  ) {}
+
+  static get(): UpdateCampaignController {
+    return new UpdateCampaignController();
+  }
 
   async handler({ request, response }: Input<UpdateCampaignDTO>): Output {
     this.command

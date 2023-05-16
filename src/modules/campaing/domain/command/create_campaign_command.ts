@@ -4,7 +4,9 @@ import { CreateCampaignDTO } from "../dto/create_campaign_dto";
 import { CreateCampaignUseCase } from "../usecase/create_campaign.usecase";
 
 class CreateCampaignCommand {
-  constructor(private usecase: CreateCampaignUseCase) {}
+  constructor(
+    private usecase: CreateCampaignUseCase = new CreateCampaignUseCase(),
+  ) {}
 
   async execute(input: CreateCampaignDTO, user: Account) {
     const accessDenied = hasAccess(
