@@ -6,7 +6,13 @@ import { onError } from "../../../../../middleware/error/on_error";
 import { ListAllAccountCommand } from "../../domain/command/list_all_account_command";
 
 class ListAllAccountController {
-  constructor(private command: ListAllAccountCommand) {}
+  constructor(
+    private command: ListAllAccountCommand = new ListAllAccountCommand(),
+  ) {}
+
+  static getInstance(): ListAllAccountController {
+    return new ListAllAccountController();
+  }
 
   async handler({ request, response }: InputBase): Output {
     this.command

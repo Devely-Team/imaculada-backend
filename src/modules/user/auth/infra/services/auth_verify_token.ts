@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 
-import { singletonFindByIdAccountUseCase } from "../../../account/domain/usecase/find_by_id_account_usecase";
+import { FindByIdAccountUseCase } from "../../../account/domain/usecase/find_by_id_account_usecase";
 
 interface Input {
   token: string;
@@ -29,6 +29,7 @@ async function verifyToken({ token, request, response, next }: Input) {
   }
   try {
     const { id } = verify(token, privateKey) as Token;
+    const singletonFindByIdAccountUseCase = new FindByIdAccountUseCase();
     const result = await singletonFindByIdAccountUseCase.execute(id);
     if (result.ok === false) {
       throw new Error("");

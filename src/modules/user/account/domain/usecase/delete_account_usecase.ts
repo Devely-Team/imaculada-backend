@@ -1,17 +1,18 @@
+import { databaseClientSingleton } from "../../../../../core/prisma/prisma_client";
 import { AsyncResult } from "../../../../../core/tools/result_type";
 import { AccountReposity } from "../../infra/repositories/account_repository";
-import { singletonAccountRepository } from "../../infra/repositories/account_repository.instance";
+import { AccountReposityInstance } from "../../infra/repositories/account_repository.instance";
 
 class DeleteAccountUseCase {
-  constructor(private repo: AccountReposity) {}
+  constructor(
+    private repo: AccountReposity = new AccountReposityInstance(
+      databaseClientSingleton,
+    ),
+  ) {}
 
   async execute(id: string): AsyncResult<boolean> {
     return await this.repo.delete(id);
   }
 }
 
-const singletonDeleteAccountUseCase = new DeleteAccountUseCase(
-  singletonAccountRepository,
-);
-
-export { DeleteAccountUseCase, singletonDeleteAccountUseCase };
+export { DeleteAccountUseCase };

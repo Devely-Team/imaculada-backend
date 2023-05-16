@@ -7,7 +7,9 @@ import { Account } from "../model/account";
 import { UpdateAccountProfileUseCase } from "../usecase/update_account_profile_usecase";
 
 class UpdateAccountProfileCommand {
-  constructor(private usecase: UpdateAccountProfileUseCase) {}
+  constructor(
+    private usecase: UpdateAccountProfileUseCase = new UpdateAccountProfileUseCase(),
+  ) {}
 
   async execute(
     input: UpdateAccountDTO,

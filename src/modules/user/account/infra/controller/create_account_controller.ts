@@ -7,7 +7,13 @@ import { CreateAccountCommand } from "../../domain/command/create_account_comman
 import { CreateAccountDTO } from "../../domain/dto/create_account_dto";
 
 class CreateAccountController {
-  constructor(private command: CreateAccountCommand) {}
+  constructor(
+    private command: CreateAccountCommand = new CreateAccountCommand(),
+  ) {}
+
+  static getInstance(): CreateAccountController {
+    return new CreateAccountController();
+  }
 
   async handler({ request, response }: Input<CreateAccountDTO>): Output {
     this.command

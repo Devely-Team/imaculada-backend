@@ -1,8 +1,5 @@
 import { DatabaseError } from "../../../../../core/error/database_error";
-import {
-  DatabaseClient,
-  databaseClientSingleton,
-} from "../../../../../core/prisma/prisma_client";
+import { DatabaseClient } from "../../../../../core/prisma/prisma_client";
 import {
   AsyncResult,
   Failure,
@@ -139,8 +136,4 @@ class AccountReposityInstance implements AccountReposity {
   }
 }
 
-const singletonAccountRepository = new AccountReposityInstance(
-  databaseClientSingleton,
-);
-
-export { singletonAccountRepository };
+export { AccountReposityInstance };

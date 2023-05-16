@@ -4,7 +4,9 @@ import { Account } from "../model/account";
 import { CreateAccountUseCase } from "../usecase/create_account_usecase";
 
 class CreateAccountCommand {
-  constructor(private usecase: CreateAccountUseCase) {}
+  constructor(
+    private usecase: CreateAccountUseCase = new CreateAccountUseCase(),
+  ) {}
 
   async execute(input: CreateAccountDTO, user: Account) {
     const accessDenied = hasAccess(

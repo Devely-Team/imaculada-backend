@@ -7,7 +7,13 @@ import { UpdateAccountPasswordCommand } from "../../domain/command/update_accoun
 import { UpdateAccountDTO } from "../../domain/dto/update_account_dto";
 
 class UpdateAccountPasswordController {
-  constructor(private command: UpdateAccountPasswordCommand) {}
+  constructor(
+    private command: UpdateAccountPasswordCommand = new UpdateAccountPasswordCommand(),
+  ) {}
+
+  static getInstance(): UpdateAccountPasswordController {
+    return new UpdateAccountPasswordController();
+  }
 
   async handler({ request, response }: Input<UpdateAccountDTO>): Output {
     this.command

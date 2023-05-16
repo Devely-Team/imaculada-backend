@@ -6,7 +6,13 @@ import { onError } from "../../../../../middleware/error/on_error";
 import { FindbyIdAccountCommand } from "../../domain/command/find_by_id_account_command";
 
 class GetAccountController {
-  constructor(private command: FindbyIdAccountCommand) {}
+  constructor(
+    private command: FindbyIdAccountCommand = new FindbyIdAccountCommand(),
+  ) {}
+
+  static getInstance(): GetAccountController {
+    return new GetAccountController();
+  }
 
   async handler({ request, response }: InputBase): Output {
     const { id } = request;

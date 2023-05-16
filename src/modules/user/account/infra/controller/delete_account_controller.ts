@@ -6,7 +6,13 @@ import { onError } from "../../../../../middleware/error/on_error";
 import { DeleteAccountCommand } from "../../domain/command/delete_account_command";
 
 class DeleteAccountController {
-  constructor(private command: DeleteAccountCommand) {}
+  constructor(
+    private command: DeleteAccountCommand = new DeleteAccountCommand(),
+  ) {}
+
+  static getInstance(): DeleteAccountController {
+    return new DeleteAccountController();
+  }
 
   async handler({ request, response }: InputBase): Output {
     this.command

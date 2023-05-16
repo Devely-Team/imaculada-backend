@@ -7,7 +7,13 @@ import { UpdateAccountProfileCommand } from "../../domain/command/update_account
 import { UpdateAccountDTO } from "../../domain/dto/update_account_dto";
 
 class UpdateAccountProfileController {
-  constructor(private command: UpdateAccountProfileCommand) {}
+  constructor(
+    private command: UpdateAccountProfileCommand = new UpdateAccountProfileCommand(),
+  ) {}
+
+  static getInstance(): UpdateAccountProfileController {
+    return new UpdateAccountProfileController();
+  }
 
   async handler({ request, response }: Input<UpdateAccountDTO>): Output {
     this.command

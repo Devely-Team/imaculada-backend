@@ -2,7 +2,9 @@ import { UpdateAccountDTO } from "../dto/update_account_dto";
 import { UpdateAccountPasswordUseCase } from "../usecase/update_account_password_usecase";
 
 class UpdateAccountPasswordCommand {
-  constructor(private usecase: UpdateAccountPasswordUseCase) {}
+  constructor(
+    private usecase: UpdateAccountPasswordUseCase = new UpdateAccountPasswordUseCase(),
+  ) {}
 
   async execute(input: UpdateAccountDTO, id: string) {
     // const result = inputAccountValidation(input);

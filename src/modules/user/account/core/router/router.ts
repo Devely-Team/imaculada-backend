@@ -1,15 +1,13 @@
 import { NextFunction, Request, Response, Router } from "express";
 
 import { securityMiddleware } from "../../../../../middleware/security/security_middleware";
-import {
-  getAccountController,
-  createAccountController,
-  deleteAccountController,
-  findByIdAccountController,
-  listAllAccountController,
-  updateAccountProfileController,
-  updateAccountPasswordController,
-} from "../di";
+import { CreateAccountController } from "../../infra/controller/create_account_controller";
+import { DeleteAccountController } from "../../infra/controller/delete_account_controller";
+import { FindByIdAccountController } from "../../infra/controller/find_by_id_account_controller";
+import { GetAccountController } from "../../infra/controller/get_account_controller";
+import { ListAllAccountController } from "../../infra/controller/list_all_account_controller";
+import { UpdateAccountPasswordController } from "../../infra/controller/update_account_password_controller";
+import { UpdateAccountProfileController } from "../../infra/controller/update_account_profile_controller";
 
 const accountRouter = Router();
 
@@ -18,43 +16,55 @@ accountRouter.use(securityMiddleware);
 accountRouter.post(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    createAccountController.handler({ request, response, next }),
+    CreateAccountController.getInstance().handler({ request, response, next }),
 );
 
 accountRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    listAllAccountController.handler({ request, response, next }),
+    ListAllAccountController.getInstance().handler({ request, response, next }),
 );
 
 accountRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
-    findByIdAccountController.handler({ request, response, next }),
+    FindByIdAccountController.getInstance().handler({
+      request,
+      response,
+      next,
+    }),
 );
 
 accountRouter.get(
   "/info",
   (request: Request, response: Response, next: NextFunction) =>
-    getAccountController.handler({ request, response, next }),
+    GetAccountController.getInstance().handler({ request, response, next }),
 );
 
 accountRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    updateAccountProfileController.handler({ request, response, next }),
+    UpdateAccountProfileController.getInstance().handler({
+      request,
+      response,
+      next,
+    }),
 );
 
 accountRouter.put(
   "/password",
   (request: Request, response: Response, next: NextFunction) =>
-    updateAccountPasswordController.handler({ request, response, next }),
+    UpdateAccountPasswordController.getInstance().handler({
+      request,
+      response,
+      next,
+    }),
 );
 
 accountRouter.delete(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    deleteAccountController.handler({ request, response, next }),
+    DeleteAccountController.getInstance().handler({ request, response, next }),
 );
 
 export { accountRouter };

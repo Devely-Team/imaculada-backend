@@ -5,16 +5,13 @@ import {
   Success,
 } from "../../../../../core/tools/result_type";
 import { Encrypt } from "../../../../../core/utils/encrypt";
-import {
-  FindByEmailAccountUseCase,
-  singletonFindByEmailAccountUseCase,
-} from "../../../account/domain/usecase/find_by_email_account_usecase";
+import { FindByEmailAccountUseCase } from "../../../account/domain/usecase/find_by_email_account_usecase";
 import { createToken } from "../../infra/services/auth_create_token";
 import { AuthRequestDTO } from "../dto/auth_request_dto";
 
 async function authCommand(
   dto: AuthRequestDTO,
-  usecase: FindByEmailAccountUseCase = singletonFindByEmailAccountUseCase,
+  usecase: FindByEmailAccountUseCase = new FindByEmailAccountUseCase(),
 ): AsyncResult<string> {
   const result = await usecase.execute(dto.email);
 
