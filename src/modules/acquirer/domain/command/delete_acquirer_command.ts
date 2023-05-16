@@ -3,7 +3,9 @@ import { Account } from "../../../user/account/domain/model/account";
 import { DeleteAcquirerUseCase } from "../usecase/delete_acquirer_usecase";
 
 class DeleteAcquirerCommand {
-  constructor(private usecase: DeleteAcquirerUseCase) {}
+  constructor(
+    private usecase: DeleteAcquirerUseCase = new DeleteAcquirerUseCase(),
+  ) {}
 
   async execute(input: string, user: Account) {
     const accessDenied = hasAccess(

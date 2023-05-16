@@ -1,10 +1,15 @@
+import { databaseClientSingleton } from "../../../../core/prisma/prisma_client";
 import { AsyncResult } from "../../../../core/tools/result_type";
 import { AcquirerReposity } from "../../infra/repositories/acquirer_repository";
-import { singletonAcquirerRepository } from "../../infra/repositories/acquirer_repository.instance";
+import { AcquirerReposityInstance } from "../../infra/repositories/acquirer_repository.instance";
 import { Acquirer, AcquirerProps } from "../model/acquirer";
 
 class CreateAcquirerUseCase {
-  constructor(private repo: AcquirerReposity) {}
+  constructor(
+    private repo: AcquirerReposity = new AcquirerReposityInstance(
+      databaseClientSingleton,
+    ),
+  ) {}
 
   async execute(input: AcquirerProps): AsyncResult<string> {
     const account = new Acquirer(input);
@@ -19,8 +24,4 @@ class CreateAcquirerUseCase {
   }
 }
 
-const singletonCreateAcquirerUseCase = new CreateAcquirerUseCase(
-  singletonAcquirerRepository,
-);
-
-export { CreateAcquirerUseCase, singletonCreateAcquirerUseCase };
+export { CreateAcquirerUseCase };

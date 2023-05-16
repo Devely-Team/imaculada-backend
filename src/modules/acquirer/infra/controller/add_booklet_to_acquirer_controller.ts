@@ -8,7 +8,13 @@ import { AddBookletToAcquirerCommand } from "../../domain/command/add_booklet_to
 import { UpdateBookletAcquirerDTO } from "../../domain/dto/update_acquirer_dto";
 
 class AddBookletToAcquirerController {
-  constructor(private command: AddBookletToAcquirerCommand) {}
+  constructor(
+    private command: AddBookletToAcquirerCommand = new AddBookletToAcquirerCommand(),
+  ) {}
+
+  static getInstance(): AddBookletToAcquirerController {
+    return new AddBookletToAcquirerController();
+  }
 
   async handler({
     request,

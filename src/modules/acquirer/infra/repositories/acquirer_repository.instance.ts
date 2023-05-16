@@ -1,8 +1,5 @@
 import { DatabaseError } from "../../../../core/error/database_error";
-import {
-  DatabaseClient,
-  databaseClientSingleton,
-} from "../../../../core/prisma/prisma_client";
+import { DatabaseClient } from "../../../../core/prisma/prisma_client";
 import {
   AsyncResult,
   Failure,
@@ -169,8 +166,4 @@ class AcquirerReposityInstance implements AcquirerReposity {
   }
 }
 
-const singletonAcquirerRepository = new AcquirerReposityInstance(
-  databaseClientSingleton,
-);
-
-export { singletonAcquirerRepository };
+export { AcquirerReposityInstance };

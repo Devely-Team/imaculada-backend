@@ -7,7 +7,13 @@ import { Account } from "../../../user/account/domain/model/account";
 import { ListAllAcquirerCommand } from "../../domain/command/list_all_acquirer_command";
 
 class ListAllAcquirerController {
-  constructor(private command: ListAllAcquirerCommand) {}
+  constructor(
+    private command: ListAllAcquirerCommand = new ListAllAcquirerCommand(),
+  ) {}
+
+  static getInstance(): ListAllAcquirerController {
+    return new ListAllAcquirerController();
+  }
 
   async handler({ request, response }: InputBase): Output {
     this.command

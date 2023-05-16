@@ -2,14 +2,20 @@ import { BadRequestError } from "../../../../core/error/bad_request_error";
 import { BaseErrorCodes } from "../../../../core/error/base_error";
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Failure } from "../../../../core/tools/result_type";
-import { DeleteBookletUseCase } from "../../../booklet/domain/usecase/delete_booklet_usecase";
-import { FindByCodeBookletUseCase } from "../../../booklet/domain/usecase/find_by_code_booklet_usecase";
+import {
+  DeleteBookletUseCase,
+  singletonDeleteBookletUseCase,
+} from "../../../booklet/domain/usecase/delete_booklet_usecase";
+import {
+  FindByCodeBookletUseCase,
+  singletonFindByCodeBookletUseCase,
+} from "../../../booklet/domain/usecase/find_by_code_booklet_usecase";
 import { Account } from "../../../user/account/domain/model/account";
 
 class RemoveBookletToAcquirerCommand {
   constructor(
-    private usecaseList: FindByCodeBookletUseCase,
-    private usecaseDelete: DeleteBookletUseCase,
+    private usecaseList: FindByCodeBookletUseCase = singletonFindByCodeBookletUseCase,
+    private usecaseDelete: DeleteBookletUseCase = singletonDeleteBookletUseCase,
   ) {}
 
   async execute(codeBooklet: number, user: Account) {

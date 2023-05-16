@@ -7,7 +7,13 @@ import { Account } from "../../../user/account/domain/model/account";
 import { DeleteAcquirerCommand } from "../../domain/command/delete_acquirer_command";
 
 class DeleteAcquirerController {
-  constructor(private command: DeleteAcquirerCommand) {}
+  constructor(
+    private command: DeleteAcquirerCommand = new DeleteAcquirerCommand(),
+  ) {}
+
+  static getInstance(): DeleteAcquirerController {
+    return new DeleteAcquirerController();
+  }
 
   async handler({ request, response }: InputBase): Output {
     this.command

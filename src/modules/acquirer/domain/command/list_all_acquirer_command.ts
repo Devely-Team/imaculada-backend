@@ -3,7 +3,9 @@ import { Account } from "../../../user/account/domain/model/account";
 import { ListAcquirerUseCase } from "../usecase/list_acquirer_usecase";
 
 class ListAllAcquirerCommand {
-  constructor(private usecase: ListAcquirerUseCase) {}
+  constructor(
+    private usecase: ListAcquirerUseCase = new ListAcquirerUseCase(),
+  ) {}
 
   async execute(user: Account) {
     const accessDenied = hasAccess(

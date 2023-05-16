@@ -8,7 +8,13 @@ import { UpdateAcquirerCommand } from "../../domain/command/update_acquirer_comm
 import { UpdateAcquirerDTO } from "../../domain/dto/update_acquirer_dto";
 
 class UpdateAcquirerController {
-  constructor(private command: UpdateAcquirerCommand) {}
+  constructor(
+    private command: UpdateAcquirerCommand = new UpdateAcquirerCommand(),
+  ) {}
+
+  static getInstance(): UpdateAcquirerController {
+    return new UpdateAcquirerController();
+  }
 
   async handler({ request, response }: Input<UpdateAcquirerDTO>): Output {
     this.command

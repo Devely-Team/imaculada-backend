@@ -7,7 +7,13 @@ import { Account } from "../../../user/account/domain/model/account";
 import { RemoveBookletToAcquirerCommand } from "../../domain/command/remove_booklet_to_acquirer_command";
 
 class RemoveBookletToAcquirerController {
-  constructor(private command: RemoveBookletToAcquirerCommand) {}
+  constructor(
+    private command: RemoveBookletToAcquirerCommand = new RemoveBookletToAcquirerCommand(),
+  ) {}
+
+  static getInstance(): RemoveBookletToAcquirerController {
+    return new RemoveBookletToAcquirerController();
+  }
 
   async handler({ request, response }: InputBase): Output {
     this.command

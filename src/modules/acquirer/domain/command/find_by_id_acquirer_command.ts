@@ -3,7 +3,9 @@ import { Account } from "../../../user/account/domain/model/account";
 import { FindByIdAcquirerUseCase } from "../usecase/find_by_id_acquirer_usecase";
 
 class FindbyIdAcquirerCommand {
-  constructor(private usecase: FindByIdAcquirerUseCase) {}
+  constructor(
+    private usecase: FindByIdAcquirerUseCase = new FindByIdAcquirerUseCase(),
+  ) {}
 
   async execute(input: string, user: Account) {
     const accessDenied = hasAccess(

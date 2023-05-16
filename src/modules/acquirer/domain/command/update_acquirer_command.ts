@@ -4,7 +4,9 @@ import { UpdateAcquirerDTO } from "../dto/update_acquirer_dto";
 import { UpdateAcquirerUseCase } from "../usecase/update_acquirer_usecase";
 
 class UpdateAcquirerCommand {
-  constructor(private usecase: UpdateAcquirerUseCase) {}
+  constructor(
+    private usecase: UpdateAcquirerUseCase = new UpdateAcquirerUseCase(),
+  ) {}
 
   async execute(input: UpdateAcquirerDTO, id: string, user: Account) {
     const accessDenied = hasAccess(

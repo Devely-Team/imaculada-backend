@@ -8,7 +8,13 @@ import { CreateAcquirerCommand } from "../../domain/command/create_acquirer_comm
 import { CreateAcquirerDTO } from "../../domain/dto/create_acquirer_dto";
 
 class CreateAcquirerController {
-  constructor(private command: CreateAcquirerCommand) {}
+  constructor(
+    private command: CreateAcquirerCommand = new CreateAcquirerCommand(),
+  ) {}
+
+  static getInstance(): CreateAcquirerController {
+    return new CreateAcquirerController();
+  }
 
   async handler({ request, response }: Input<CreateAcquirerDTO>): Output {
     this.command
