@@ -1,8 +1,5 @@
 import { DatabaseError } from "../../../../core/error/database_error";
-import {
-  DatabaseClient,
-  databaseClientSingleton,
-} from "../../../../core/prisma/prisma_client";
+import { DatabaseClient } from "../../../../core/prisma/prisma_client";
 import {
   AsyncResult,
   Failure,
@@ -78,8 +75,4 @@ class CampaignReposityInstance implements CampaignReposity {
   }
 }
 
-const singletonCampaignRepository = new CampaignReposityInstance(
-  databaseClientSingleton,
-);
-
-export { singletonCampaignRepository };
+export { CampaignReposityInstance };

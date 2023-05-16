@@ -3,7 +3,9 @@ import { Account } from "../../../user/account/domain/model/account";
 import { FindByIdCampaignUseCase } from "../usecase/find_by_id_campaign_usecase";
 
 class FindbyIdCampaignCommand {
-  constructor(private usecase: FindByIdCampaignUseCase) {}
+  constructor(
+    private usecase: FindByIdCampaignUseCase = new FindByIdCampaignUseCase(),
+  ) {}
 
   async execute(input: string, user: Account) {
     const accessDenied = hasAccess(

@@ -7,7 +7,13 @@ import { Account } from "../../../user/account/domain/model/account";
 import { ListAllCampaignCommand } from "../../domain/command/list_all_campaign_command";
 
 class ListAllCampaignController {
-  constructor(private command: ListAllCampaignCommand) {}
+  constructor(
+    private command: ListAllCampaignCommand = new ListAllCampaignCommand(),
+  ) {}
+
+  static get(): ListAllCampaignController {
+    return new ListAllCampaignController();
+  }
 
   async handler({ request, response }: InputBase): Output {
     this.command

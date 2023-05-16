@@ -7,7 +7,13 @@ import { Account } from "../../../user/account/domain/model/account";
 import { FindbyIdCampaignCommand } from "../../domain/command/find_by_id_campaign_command";
 
 class FindByIdCampaignController {
-  constructor(private command: FindbyIdCampaignCommand) {}
+  constructor(
+    private command: FindbyIdCampaignCommand = new FindbyIdCampaignCommand(),
+  ) {}
+
+  static get(): FindByIdCampaignController {
+    return new FindByIdCampaignController();
+  }
 
   async handler({ request, response }: InputBase): Output {
     this.command

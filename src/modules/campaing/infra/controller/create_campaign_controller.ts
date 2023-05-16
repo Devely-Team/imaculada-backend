@@ -8,7 +8,13 @@ import { CreateCampaignCommand } from "../../domain/command/create_campaign_comm
 import { CreateCampaignDTO } from "../../domain/dto/create_campaign_dto";
 
 class CreateCampaignController {
-  constructor(private command: CreateCampaignCommand) {}
+  constructor(
+    private command: CreateCampaignCommand = new CreateCampaignCommand(),
+  ) {}
+
+  static get(): CreateCampaignController {
+    return new CreateCampaignController();
+  }
 
   async handler({ request, response }: Input<CreateCampaignDTO>): Output {
     this.command

@@ -1,13 +1,11 @@
 import { NextFunction, Request, Response, Router } from "express";
 
 import { securityMiddleware } from "../../../../middleware/security/security_middleware";
-import {
-  createCampaignController,
-  deleteCampaignController,
-  findByIdCampaignController,
-  listAllCampaignController,
-  updateCampaignController,
-} from "../di";
+import { CreateCampaignController } from "../../infra/controller/create_campaign_controller";
+import { DeleteCampaignController } from "../../infra/controller/delete_campaign_controller";
+import { FindByIdCampaignController } from "../../infra/controller/find_by_id_campaign_controller";
+import { ListAllCampaignController } from "../../infra/controller/list_all_account_controller";
+import { UpdateCampaignController } from "../../infra/controller/update_account_controller";
 
 const campaignRouter = Router();
 
@@ -16,31 +14,31 @@ campaignRouter.use(securityMiddleware);
 campaignRouter.post(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    createCampaignController.handler({ request, response, next }),
+    CreateCampaignController.get().handler({ request, response, next }),
 );
 
 campaignRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    listAllCampaignController.handler({ request, response, next }),
+    ListAllCampaignController.get().handler({ request, response, next }),
 );
 
 campaignRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
-    findByIdCampaignController.handler({ request, response, next }),
+    FindByIdCampaignController.get().handler({ request, response, next }),
 );
 
 campaignRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    updateCampaignController.handler({ request, response, next }),
+    UpdateCampaignController.get().handler({ request, response, next }),
 );
 
 campaignRouter.delete(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    deleteCampaignController.handler({ request, response, next }),
+    DeleteCampaignController.get().handler({ request, response, next }),
 );
 
 export { campaignRouter };
