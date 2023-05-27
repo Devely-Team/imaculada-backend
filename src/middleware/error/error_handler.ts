@@ -9,15 +9,18 @@ function handlingError(err: BaseError, req: Request, res: Response) {
     err.constructor.name === "SyntaxError"
   );
 
-  return res.status(err.getStatusCode || StatusCodes.Error).json({
-    code: err.getCodeError,
-    response: err.name,
-    error: {
-      type: !customError ? "UnhandledError" : err.constructor.name,
-      statusCode: err.getStatusCode || StatusCodes.Error,
-      message: err.message,
-    },
-  });
+  return res
+    .status(err.getStatusCode || StatusCodes.Error)
+    .json({
+      code: err.getCodeError,
+      response: err.name,
+      error: {
+        type: !customError ? "UnhandledError" : err.constructor.name,
+        statusCode: err.getStatusCode || StatusCodes.Error,
+        message: err.message,
+      },
+    })
+    .end();
 }
 
 function logError(err: BaseError) {
