@@ -6,6 +6,7 @@ interface CreateBookletPaymentDTO {
   typePayment: TypePayment;
   status: StatusPayment;
   payDay: Date;
+  obs?: string;
 }
 
 interface SetNewStatusBookletPaymentDTO {
@@ -13,6 +14,7 @@ interface SetNewStatusBookletPaymentDTO {
   typePayment: TypePayment;
   status: StatusPayment;
   payDay: Date;
+  obs?: string;
 }
 
 export { CreateBookletPaymentDTO, SetNewStatusBookletPaymentDTO };

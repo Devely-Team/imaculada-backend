@@ -87,13 +87,14 @@ enum TypePayment {
 }
 
 model BookletPayment {
-  id          String        @id @default(cuid())
+  id          String    @id @default(cuid())
   isPaid      Boolean
-  typePayment TypePayment
-  status      StatusPayment
+  typePayment String
+  status      String
+  obs         String    @default("Sem observações")
   payDay      DateTime?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   bookletId   String
   Booklet     Booklet[]
 }

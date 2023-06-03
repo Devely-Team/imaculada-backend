@@ -7,6 +7,7 @@ interface BookletPaymentProps {
   isPaid: boolean;
   typePayment: TypePayment;
   status: StatusPayment;
+  obs?: string;
   payDay: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -33,6 +34,10 @@ class BookletPayment {
 
   get status() {
     return this.props.status;
+  }
+
+  get obs() {
+    return this.props.obs;
   }
 
   get payDay() {
