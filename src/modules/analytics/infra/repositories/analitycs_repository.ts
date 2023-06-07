@@ -38,14 +38,15 @@ export class AnalitycsRepository {
     return prisma.booklet
       .findMany({
         where: {
+          quota,
           OR: [
             {
               paymentBookId: null,
             },
-          ],
-          AND: [
             {
-              quota,
+              bookletPayment: {
+                isPaid: false,
+              },
             },
           ],
         },

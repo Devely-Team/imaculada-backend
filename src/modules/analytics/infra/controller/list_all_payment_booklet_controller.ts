@@ -7,7 +7,7 @@ import { ListAllPaymentBookletUseCase } from "../../domain/usecase/list_all_paym
 
 export class ListAllPaymentBookletController {
   static async handler({ request, response }: InputBase): Output {
-    ListAllPaymentBookletUseCase.execute(Number(request.params.quota))
+    ListAllPaymentBookletUseCase.execute(Number(request.query.quota))
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }
