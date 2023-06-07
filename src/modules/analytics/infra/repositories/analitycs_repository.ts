@@ -11,14 +11,14 @@ import { Booklet } from "../../../booklet/domain/model/booklet";
 const prisma = new PrismaClient();
 
 export class AnalitycsRepository {
-  static async getBookletPayd(): AsyncResult<Booklet[]> {
+  static async getBookletPayd(quota: number): AsyncResult<Booklet[]> {
     return prisma.booklet
       .findMany({
         where: {
           bookletPayment: {
             isPaid: true,
           },
-          // quota: 1,
+          quota,
         },
         include: { bookletPayment: true },
         orderBy: [
@@ -34,7 +34,7 @@ export class AnalitycsRepository {
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
-  static async getBookletNotPayd(): AsyncResult<Booklet[]> {
+  static async getBookletNotPayd(quota: number): AsyncResult<Booklet[]> {
     return prisma.booklet
       .findMany({
         where: {
@@ -42,10 +42,10 @@ export class AnalitycsRepository {
             {
               paymentBookId: null,
             },
+          ],
+          AND: [
             {
-              bookletPayment: {
-                isPaid: false,
-              },
+              quota,
             },
           ],
         },
