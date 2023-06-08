@@ -24,7 +24,7 @@ bookletRouter.post(
     addPaymentToAllBookletController.handler({ request, response, next }),
 );
 
-bookletRouter.get(
+bookletRouter.post(
   "/create_single_booklet",
   (request: Request, response: Response, next: NextFunction) =>
     CreateSingleBookletController.handler({ request, response, next }),
