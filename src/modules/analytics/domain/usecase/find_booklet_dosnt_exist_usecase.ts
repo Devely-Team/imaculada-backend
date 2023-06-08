@@ -9,7 +9,9 @@ export class GetBookletDoesntExistUseCase {
     const bPayd = await AnalitycsRepository.getBookletNotPayd(12);
 
     if (aPayd.ok && bPayd.ok) {
-      const value = aPayd.value.filter(a => bPayd.value.includes(a));
+      const value = aPayd.value.filter(
+        a => !bPayd.value.some(b => b.codeBooklet === a.codeBooklet),
+      );
 
       return Success(value);
     }
