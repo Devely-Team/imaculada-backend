@@ -63,4 +63,52 @@ export class AnalitycsRepository {
       .then(result => Success(result as Booklet[]))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
+
+  static async countedBookletHasPayment(quota?: number): AsyncResult<number> {
+    return prisma.booklet
+      .count({
+        where: {
+          bookletPayment: {
+            isPaid: true,
+          },
+          quota,
+        },
+      })
+      .then(result => Success(result))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  static async countedBookletTotal(quota?: number): AsyncResult<number> {
+    return prisma.booklet
+      .count({
+        where: {
+          quota,
+        },
+      })
+      .then(result => Success(result))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
+
+  static async countedBookletNotHasPayment(
+    quota?: number,
+  ): AsyncResult<number> {
+    return prisma.booklet
+      .count({
+        where: {
+          quota,
+          OR: [
+            {
+              paymentBookId: null,
+            },
+            {
+              bookletPayment: {
+                isPaid: false,
+              },
+            },
+          ],
+        },
+      })
+      .then(result => Success(result))
+      .catch(error => Failure(new DatabaseError(error.name, error.message)));
+  }
 }
