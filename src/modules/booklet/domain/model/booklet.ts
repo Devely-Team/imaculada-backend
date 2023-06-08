@@ -60,6 +60,10 @@ class Booklet {
   constructor(props: BookletProps) {
     this.props = props;
   }
+
+  static create(props: BookletProps) {
+    return new Booklet(props);
+  }
 }
 
 export { Booklet, BookletProps };

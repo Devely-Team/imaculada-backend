@@ -7,12 +7,6 @@ class CreateBookletUseCase {
   constructor(private repo: BookletReposity) {}
 
   async execute(input: Booklet[]): AsyncResult<boolean> {
-    // const result = profile.validations(profile);
-
-    // if (result.ok === false) {
-    //   return result;
-    // }
-
     input.forEach(async e => await this.repo.create(e));
 
     return Success(true);

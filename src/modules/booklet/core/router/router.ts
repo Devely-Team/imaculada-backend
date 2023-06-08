@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 
 import { securityMiddleware } from "../../../../middleware/security/security_middleware";
+import { CreateSingleBookletController } from "../../infra/controller/create_single_booklet_controller";
 import {
   deleteByCodeBookletController,
   findByCodeBookletController,
@@ -21,6 +22,12 @@ bookletRouter.post(
   "/add_payment_to_all",
   (request: Request, response: Response, next: NextFunction) =>
     addPaymentToAllBookletController.handler({ request, response, next }),
+);
+
+bookletRouter.get(
+  "/create_single_booklet",
+  (request: Request, response: Response, next: NextFunction) =>
+    CreateSingleBookletController.handler({ request, response, next }),
 );
 
 bookletRouter.get(
