@@ -20,7 +20,7 @@ export class AnalitycsRepository {
           },
           quota,
         },
-        include: { bookletPayment: true },
+        include: { bookletPayment: true, acquirer: true },
         orderBy: [
           {
             codeBooklet: "asc",
