@@ -1,4 +1,6 @@
-import { Success } from "../../../../core/tools/result_type";
+import { BadRequestError } from "../../../../core/error/bad_request_error";
+import { BaseErrorCodes } from "../../../../core/error/base_error";
+import { Failure, Success } from "../../../../core/tools/result_type";
 import { campaignPaymentDate } from "../../../booklet/infra/data/campaign_payment_date";
 import { AnalitycsRepository } from "../../infra/repositories/analitycs_repository";
 
@@ -44,8 +46,14 @@ export class ListAnalitycsUseCase {
 
     return Promise.all(result)
       .then(result => Success(result))
-      .catch(() => {
-        return Success([]);
-      });
+      .catch(err =>
+        Failure(
+          new BadRequestError(
+            BaseErrorCodes.objectValidation,
+            err,
+            err.message,
+          ),
+        ),
+      );
   }
 }
