@@ -8,13 +8,13 @@ const repo: BookletReposity = singletonBookletRepository;
 export class CreateSingleBookletUseCase {
   static async execute(input: CreateSingleBookletDTO) {
     const booklet = Booklet.create({
-      id: input.id,
+      id: "input.id",
       quota: input.quota,
       acquirerId: input.acquirerId,
       campaignId: input.campaignId,
       codeBooklet: input.codeBooklet,
-      createdAt: input.createdAt,
-      updatedAt: input.updatedAt,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     return await repo.create(booklet);
