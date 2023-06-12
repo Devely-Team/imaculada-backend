@@ -14,7 +14,6 @@ class CreateBookletCommand {
   constructor(
     private usecase: CreateBookletUseCase,
     private findByCode: FindByCodeBookletUseCase,
-    private acquirerUseCase: FindByIdAcquirerUseCase,
     private campaignUseCase: FindByIdCampaignUseCase,
   ) {}
 
@@ -34,7 +33,7 @@ class CreateBookletCommand {
       return campaign;
     }
 
-    const acquirer = await this.acquirerUseCase.execute(input.acquirerId);
+    const acquirer = await FindByIdAcquirerUseCase.execute(input.acquirerId);
     if (acquirer.ok === false) {
       return acquirer;
     }
