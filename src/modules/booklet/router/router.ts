@@ -10,6 +10,7 @@ import { ListAllBookletController } from "../infra/controller/list_all_booklet_c
 import { ListByParcelPaidBookletController } from "../infra/controller/list_by_parcel_paid_booklet_controller";
 import { StatusPaymentBookletController } from "../infra/controller/status_payment_booklet_controller";
 import { UpdateBookletController } from "../infra/controller/update_booklet_controller";
+import { FindByAcquirerBookletController } from "../infra/controller/find_by_acquirer_id_booklet_controller";
 
 const bookletRouter = Router();
 
@@ -53,7 +54,7 @@ bookletRouter.get(
 bookletRouter.get(
   "/acquirer_id",
   (request: Request, response: Response, next: NextFunction) =>
-    FindByCodeBookletController.handler({ request, response, next }),
+    FindByAcquirerBookletController.handler({ request, response, next }),
 );
 
 bookletRouter.put(
