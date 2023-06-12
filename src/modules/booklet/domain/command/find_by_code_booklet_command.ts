@@ -3,9 +3,7 @@ import { Account } from "../../../user/account/domain/model/account";
 import { FindByCodeBookletUseCase } from "../usecase/find_by_code_booklet_usecase";
 
 class FindbyCodeBookletCommand {
-  constructor(private usecase: FindByCodeBookletUseCase) {}
-
-  async execute(input: number, user: Account) {
+  static async execute(input: number, user: Account) {
     const accessDenied = hasAccess(
       user,
       "list_booklet",
@@ -16,7 +14,7 @@ class FindbyCodeBookletCommand {
       return accessDenied;
     }
 
-    return await this.usecase.execute(input);
+    return await FindByCodeBookletUseCase.execute(input);
   }
 }
 

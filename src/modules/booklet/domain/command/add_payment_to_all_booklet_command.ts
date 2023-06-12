@@ -1,20 +1,20 @@
 import { hasAccess } from "../../../../core/tools/has_access";
 import { CreateBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/create_booklet_payment_usecase";
 import { SetNewStatusOfBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/set_new_status_of_booklet_payment_usecase";
+import { singletonBookletPaymentReposity } from "../../../booklet_payment/infra/repositories/booklet_payment_repository";
 import { Account } from "../../../user/account/domain/model/account";
 import { AddManyPaymentDTO } from "../dto/add_many_payment_dto";
 import { FindByCodeBookletUseCase } from "../usecase/find_by_code_booklet_usecase";
 import { UpdateBookletUseCase } from "../usecase/update_booklet_usecase";
 
-class AddPaymentToAllBookletCommand {
-  constructor(
-    private usecase: FindByCodeBookletUseCase,
-    private useCaseSetNewStatusOfPayment: SetNewStatusOfBookletPaymentUseCase,
-    private useCaseSetPaymentStatus: CreateBookletPaymentUseCase,
-    private usecaseUpdate: UpdateBookletUseCase,
-  ) {}
+export class AddPaymentToAllBookletCommand {
+  static async execute(code: string, input: AddManyPaymentDTO, user: Account) {
+    const useCaseSetNewStatusOfPayment =
+      new SetNewStatusOfBookletPaymentUseCase(singletonBookletPaymentReposity);
+    const useCaseSetPaymentStatus = new CreateBookletPaymentUseCase(
+      singletonBookletPaymentReposity,
+    );
 
-  async execute(code: string, input: AddManyPaymentDTO, user: Account) {
     const accessDenied = hasAccess(
       user,
       "set_payment_booklet",
@@ -25,7 +25,7 @@ class AddPaymentToAllBookletCommand {
       return accessDenied;
     }
 
-    const result = await this.usecase.execute(Number(code));
+    const result = await FindByCodeBookletUseCase.execute(Number(code));
 
     if (result.ok === false) {
       return result;
@@ -40,7 +40,7 @@ class AddPaymentToAllBookletCommand {
           booklet.bookletPayment?.isPaid !== true &&
           booklet.bookletPayment?.status !== "Paid"
         ) {
-          await this.useCaseSetNewStatusOfPayment.execute(
+          await useCaseSetNewStatusOfPayment.execute(
             {
               isPaid: true,
               status: "Paid",
@@ -51,7 +51,7 @@ class AddPaymentToAllBookletCommand {
           );
         }
       } else {
-        const paymentAdded = await this.useCaseSetPaymentStatus.execute({
+        const paymentAdded = await useCaseSetPaymentStatus.execute({
           bookletId: booklet.id,
           isPaid: true,
           status: "Paid",
@@ -60,7 +60,7 @@ class AddPaymentToAllBookletCommand {
         });
 
         if (paymentAdded.ok) {
-          this.usecaseUpdate.execute(paymentAdded.value, booklet.id);
+          UpdateBookletUseCase.execute(paymentAdded.value, booklet.id);
         }
       }
     });
@@ -68,5 +68,3 @@ class AddPaymentToAllBookletCommand {
     return result;
   }
 }
-
-export { AddPaymentToAllBookletCommand };

@@ -3,9 +3,9 @@ import { Account } from "../../../user/account/domain/model/account";
 import { DeleteBookletPaymentUseCase } from "../usecase/delete_booklet_payment_usecase";
 
 class DeleteBookletPaymentCommand {
-  constructor(private usecase: DeleteBookletPaymentUseCase) {}
+  static async execute(user: Account, input: string) {
+    const usecase = new DeleteBookletPaymentUseCase();
 
-  async execute(user: Account, input: string) {
     const accessDenied = hasAccess(
       user,
       "booklet_payment",
@@ -16,7 +16,7 @@ class DeleteBookletPaymentCommand {
       return accessDenied;
     }
 
-    return await this.usecase.execute(input);
+    return await usecase.execute(input);
   }
 }
 

@@ -1,18 +1,7 @@
-import { BookletReposity } from "../../infra/repositories/booklet_repository";
-import { singletonBookletRepository } from "../../infra/repositories/booklet_repository.instance";
+import { BookletRepository } from "../../infra/repositories/booklet_repository";
 
-class FindByAcquirerIdBookletUseCase {
-  constructor(private repo: BookletReposity) {}
-
-  async execute(id: string) {
-    return await this.repo.findByAcquirer(id);
+export class FindByAcquirerIdBookletUseCase {
+  static async execute(id: string) {
+    return await BookletRepository.findByAcquirer(id);
   }
 }
-
-const singletonFindByAcquirerIdBookletUseCase =
-  new FindByAcquirerIdBookletUseCase(singletonBookletRepository);
-
-export {
-  FindByAcquirerIdBookletUseCase,
-  singletonFindByAcquirerIdBookletUseCase,
-};

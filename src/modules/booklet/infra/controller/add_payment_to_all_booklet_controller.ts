@@ -8,15 +8,15 @@ import { AddPaymentToAllBookletCommand } from "../../domain/command/add_payment_
 import { AddManyPaymentDTO } from "../../domain/dto/add_many_payment_dto";
 
 class AddPaymentToAllBookletController {
-  constructor(private command: AddPaymentToAllBookletCommand) {}
-
-  async handler({ request, response }: Input<AddManyPaymentDTO>): Output {
-    this.command
-      .execute(
-        request.query.code as string,
-        request.body,
-        request.user as Account,
-      )
+  static async handler({
+    request,
+    response,
+  }: Input<AddManyPaymentDTO>): Output {
+    AddPaymentToAllBookletCommand.execute(
+      request.query.code as string,
+      request.body,
+      request.user as Account,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

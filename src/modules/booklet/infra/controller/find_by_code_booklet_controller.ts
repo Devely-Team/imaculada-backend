@@ -7,11 +7,11 @@ import { Account } from "../../../user/account/domain/model/account";
 import { FindbyCodeBookletCommand } from "../../domain/command/find_by_code_booklet_command";
 
 class FindByCodeBookletController {
-  constructor(private command: FindbyCodeBookletCommand) {}
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(Number(request.query.code), request.user as Account)
+  static async handler({ request, response }: InputBase): Output {
+    FindbyCodeBookletCommand.execute(
+      Number(request.query.code),
+      request.user as Account,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

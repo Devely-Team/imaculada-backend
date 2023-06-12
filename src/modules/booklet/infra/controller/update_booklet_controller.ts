@@ -8,15 +8,15 @@ import { Account } from "../../../user/account/domain/model/account";
 import { AddPaymentToBookletCommand } from "../../domain/command/add_payment_to_booklet_command";
 
 class UpdateBookletController {
-  constructor(private command: AddPaymentToBookletCommand) {}
-
-  async handler({ request, response }: Input<CreateBookletPaymentDTO>): Output {
-    this.command
-      .execute(
-        request.body,
-        request.query.id as string,
-        request.user as Account,
-      )
+  static async handler({
+    request,
+    response,
+  }: Input<CreateBookletPaymentDTO>): Output {
+    AddPaymentToBookletCommand.execute(
+      request.body,
+      request.query.id as string,
+      request.user as Account,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

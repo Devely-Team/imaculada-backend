@@ -4,9 +4,7 @@ import { Account } from "../../../user/account/domain/model/account";
 import { ListBookletUseCase } from "../usecase/list_booklet_usecase";
 
 class ListByParcelPaidBookletCommand {
-  constructor(private usecase: ListBookletUseCase) {}
-
-  async execute(user: Account) {
+  static async execute(user: Account) {
     const accessDenied = hasAccess(
       user,
       "list_booklet",
@@ -17,7 +15,7 @@ class ListByParcelPaidBookletCommand {
       return accessDenied;
     }
 
-    const result = await this.usecase.execute();
+    const result = await ListBookletUseCase.execute();
 
     if (result.ok === false) {
       return result;

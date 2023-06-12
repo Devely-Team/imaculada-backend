@@ -1,9 +1,6 @@
-import { BookletReposity } from "../../infra/repositories/booklet_repository";
-import { singletonBookletRepository } from "../../infra/repositories/booklet_repository.instance";
+import { BookletRepository } from "../../infra/repositories/booklet_repository";
 import { CreateSingleBookletDTO } from "../dto/create_single_booklet_dto";
 import { Booklet } from "../model/booklet";
-
-const repo: BookletReposity = singletonBookletRepository;
 
 export class CreateSingleBookletUseCase {
   static async execute(input: CreateSingleBookletDTO) {
@@ -17,6 +14,6 @@ export class CreateSingleBookletUseCase {
       updatedAt: new Date(),
     });
 
-    return await repo.create(booklet);
+    return await BookletRepository.create(booklet);
   }
 }

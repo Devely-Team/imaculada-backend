@@ -10,9 +10,7 @@ import {
 import { FindByCodeBookletUseCase } from "../usecase/find_by_code_booklet_usecase";
 
 class StatusPaymentBookletCommand {
-  constructor(private usecase: FindByCodeBookletUseCase) {}
-
-  async execute(code: string, user: Account) {
+  static async execute(code: string, user: Account) {
     const accessDenied = hasAccess(
       user,
       "list_booklet",
@@ -23,7 +21,7 @@ class StatusPaymentBookletCommand {
       return accessDenied;
     }
 
-    const result = await this.usecase.execute(Number(code));
+    const result = await FindByCodeBookletUseCase.execute(Number(code));
 
     if (result.ok === false) {
       return result;

@@ -1,18 +1,9 @@
 import { AsyncResult } from "../../../../core/tools/result_type";
-import { BookletReposity } from "../../infra/repositories/booklet_repository";
-import { singletonBookletRepository } from "../../infra/repositories/booklet_repository.instance";
+import { BookletRepository } from "../../infra/repositories/booklet_repository";
 import { Booklet } from "../model/booklet";
 
-class ListBookletUseCase {
-  constructor(private repo: BookletReposity) {}
-
-  async execute(): AsyncResult<Booklet[]> {
-    return await this.repo.listAll();
+export class ListBookletUseCase {
+  static async execute(): AsyncResult<Booklet[]> {
+    return await BookletRepository.listAll();
   }
 }
-
-const singletonListBookletUseCase = new ListBookletUseCase(
-  singletonBookletRepository,
-);
-
-export { ListBookletUseCase, singletonListBookletUseCase };

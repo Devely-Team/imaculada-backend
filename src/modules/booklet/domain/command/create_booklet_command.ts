@@ -10,14 +10,10 @@ import { Booklet } from "../model/booklet";
 import { CreateBookletUseCase } from "../usecase/create_booklet_usecase";
 import { FindByCodeBookletUseCase } from "../usecase/find_by_code_booklet_usecase";
 
-class CreateBookletCommand {
-  constructor(
-    private usecase: CreateBookletUseCase,
-    private findByCode: FindByCodeBookletUseCase,
-    private campaignUseCase: FindByIdCampaignUseCase,
-  ) {}
+export class CreateBookletCommand {
+  static async execute(input: CreateBookletDTO, user: Account) {
+    const campaignUseCase = new FindByIdCampaignUseCase();
 
-  async execute(input: CreateBookletDTO, user: Account) {
     const accessDenied = hasAccess(
       user,
       "create_booklet",
@@ -28,7 +24,7 @@ class CreateBookletCommand {
       return accessDenied;
     }
 
-    const campaign = await this.campaignUseCase.execute(input.campaignId);
+    const campaign = await campaignUseCase.execute(input.campaignId);
     if (campaign.ok === false) {
       return campaign;
     }
@@ -38,7 +34,7 @@ class CreateBookletCommand {
       return acquirer;
     }
 
-    const booklets = await this.findByCode.execute(input.codeBooklet);
+    const booklets = await FindByCodeBookletUseCase.execute(input.codeBooklet);
     if (booklets.ok && booklets.value.length > 0) {
       return Failure(
         new BadRequestError(
@@ -64,8 +60,6 @@ class CreateBookletCommand {
       );
     }
 
-    return this.usecase.execute(bookletOfAcquirer);
+    return CreateBookletUseCase.execute(bookletOfAcquirer);
   }
 }
-
-export { CreateBookletCommand };

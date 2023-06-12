@@ -1,18 +1,9 @@
 import { AsyncResult } from "../../../../core/tools/result_type";
-import { BookletReposity } from "../../infra/repositories/booklet_repository";
-import { singletonBookletRepository } from "../../infra/repositories/booklet_repository.instance";
+import { BookletRepository } from "../../infra/repositories/booklet_repository";
 import { Booklet } from "../model/booklet";
 
-class FindByIdBookletUseCase {
-  constructor(private repo: BookletReposity) {}
-
-  async execute(id: string): AsyncResult<Booklet> {
-    return await this.repo.findById(id);
+export class FindByIdBookletUseCase {
+  static async execute(id: string): AsyncResult<Booklet> {
+    return await BookletRepository.findById(id);
   }
 }
-
-const singletonFindByIdBookletUseCase = new FindByIdBookletUseCase(
-  singletonBookletRepository,
-);
-
-export { FindByIdBookletUseCase, singletonFindByIdBookletUseCase };

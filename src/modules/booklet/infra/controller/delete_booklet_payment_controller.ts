@@ -7,11 +7,11 @@ import { DeleteBookletPaymentCommand } from "../../../booklet_payment/domain/com
 import { Account } from "../../../user/account/domain/model/account";
 
 class DeleteByCodeBookletPaymentController {
-  constructor(private command: DeleteBookletPaymentCommand) {}
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(request.user as Account, request.query.id as string)
+  static async handler({ request, response }: InputBase): Output {
+    DeleteBookletPaymentCommand.execute(
+      request.user as Account,
+      request.query.id as string,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

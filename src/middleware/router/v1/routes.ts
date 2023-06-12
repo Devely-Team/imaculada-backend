@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { acquirerRouter } from "../../../modules/acquirer/router/router";
 import { analitycsRouter } from "../../../modules/analytics/router/router";
-import { bookletRouter } from "../../../modules/booklet/core/router/router";
+import { bookletRouter } from "../../../modules/booklet/router/router";
 import { campaignRouter } from "../../../modules/campaing/core/router/router";
 import { userRoutes } from "../../../modules/user/routes/router";
 

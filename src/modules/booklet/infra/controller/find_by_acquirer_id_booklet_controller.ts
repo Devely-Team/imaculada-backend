@@ -7,11 +7,11 @@ import { Account } from "../../../user/account/domain/model/account";
 import { FindbyAcquirerBookletCommand } from "../../domain/command/find_by_acquirer_booklet_command";
 
 class FindByAcquirerBookletController {
-  constructor(private command: FindbyAcquirerBookletCommand) {}
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(request.query.acquirer as string, request.user as Account)
+  static async handler({ request, response }: InputBase): Output {
+    FindbyAcquirerBookletCommand.execute(
+      request.query.acquirer as string,
+      request.user as Account,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

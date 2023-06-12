@@ -7,11 +7,11 @@ import { Account } from "../../../user/account/domain/model/account";
 import { DeleteByCodeBookletCommand } from "../../domain/command/delete_by_code_booklet_command";
 
 class DeleteByCodeBookletController {
-  constructor(private command: DeleteByCodeBookletCommand) {}
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(Number(request.query.code), request.user as Account)
+  static async handler({ request, response }: InputBase): Output {
+    DeleteByCodeBookletCommand.execute(
+      Number(request.query.code),
+      request.user as Account,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

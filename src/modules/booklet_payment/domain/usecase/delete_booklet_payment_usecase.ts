@@ -4,7 +4,9 @@ import {
 } from "../../infra/repositories/booklet_payment_repository";
 
 class DeleteBookletPaymentUseCase {
-  constructor(private repo: BookletPaymentReposity) {}
+  constructor(
+    private repo: BookletPaymentReposity = singletonBookletPaymentReposity,
+  ) {}
 
   async execute(input: string) {
     return await this.repo.deletePayment(input);
