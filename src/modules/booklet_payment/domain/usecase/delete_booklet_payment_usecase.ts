@@ -1,20 +1,9 @@
-import {
-  BookletPaymentReposity,
-  singletonBookletPaymentReposity,
-} from "../../infra/repositories/booklet_payment_repository";
+import { BookletPaymentRepository } from "../../infra/repositories/booklet_payment_repository";
 
 class DeleteBookletPaymentUseCase {
-  constructor(
-    private repo: BookletPaymentReposity = singletonBookletPaymentReposity,
-  ) {}
-
-  async execute(input: string) {
-    return await this.repo.deletePayment(input);
+  static async execute(input: string) {
+    return await BookletPaymentRepository.deletePayment(input);
   }
 }
 
-const singletonDeleteBookletPaymentUseCase = new DeleteBookletPaymentUseCase(
-  singletonBookletPaymentReposity,
-);
-
-export { DeleteBookletPaymentUseCase, singletonDeleteBookletPaymentUseCase };
+export { DeleteBookletPaymentUseCase };

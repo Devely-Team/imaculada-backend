@@ -4,8 +4,6 @@ import { DeleteBookletPaymentUseCase } from "../usecase/delete_booklet_payment_u
 
 class DeleteBookletPaymentCommand {
   static async execute(user: Account, input: string) {
-    const usecase = new DeleteBookletPaymentUseCase();
-
     const accessDenied = hasAccess(
       user,
       "booklet_payment",
@@ -16,7 +14,7 @@ class DeleteBookletPaymentCommand {
       return accessDenied;
     }
 
-    return await usecase.execute(input);
+    return await DeleteBookletPaymentUseCase.execute(input);
   }
 }
 

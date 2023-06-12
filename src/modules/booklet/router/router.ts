@@ -5,12 +5,12 @@ import { AddPaymentToAllBookletController } from "../infra/controller/add_paymen
 import { CreateSingleBookletController } from "../infra/controller/create_single_booklet_controller";
 import { DeleteByCodeBookletPaymentController } from "../infra/controller/delete_booklet_payment_controller";
 import { DeleteByCodeBookletController } from "../infra/controller/delete_by_code_booklet_controller";
+import { FindByAcquirerBookletController } from "../infra/controller/find_by_acquirer_id_booklet_controller";
 import { FindByCodeBookletController } from "../infra/controller/find_by_code_booklet_controller";
 import { ListAllBookletController } from "../infra/controller/list_all_booklet_controller";
 import { ListByParcelPaidBookletController } from "../infra/controller/list_by_parcel_paid_booklet_controller";
 import { StatusPaymentBookletController } from "../infra/controller/status_payment_booklet_controller";
 import { UpdateBookletController } from "../infra/controller/update_booklet_controller";
-import { FindByAcquirerBookletController } from "../infra/controller/find_by_acquirer_id_booklet_controller";
 
 const bookletRouter = Router();
 

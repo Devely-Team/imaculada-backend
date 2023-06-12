@@ -1,15 +1,10 @@
 import { AsyncResult } from "../../../../core/tools/result_type";
-import {
-  BookletPaymentReposity,
-  singletonBookletPaymentReposity,
-} from "../../infra/repositories/booklet_payment_repository";
+import { BookletPaymentRepository } from "../../infra/repositories/booklet_payment_repository";
 import { SetNewStatusBookletPaymentDTO } from "../dto/booklet_payment_dto";
 import { BookletPayment } from "../model/booklet_payment";
 
 class SetNewStatusOfBookletPaymentUseCase {
-  constructor(private repo: BookletPaymentReposity) {}
-
-  async execute(
+  static async execute(
     input: SetNewStatusBookletPaymentDTO,
     id: string,
   ): AsyncResult<boolean> {
@@ -20,14 +15,8 @@ class SetNewStatusOfBookletPaymentUseCase {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    return await this.repo.setNewStatusPayment(payment);
+    return await BookletPaymentRepository.setNewStatusPayment(payment);
   }
 }
 
-const singletonSetNewStatusOfBookletPaymentUseCase =
-  new SetNewStatusOfBookletPaymentUseCase(singletonBookletPaymentReposity);
-
-export {
-  SetNewStatusOfBookletPaymentUseCase,
-  singletonSetNewStatusOfBookletPaymentUseCase,
-};
+export { SetNewStatusOfBookletPaymentUseCase };

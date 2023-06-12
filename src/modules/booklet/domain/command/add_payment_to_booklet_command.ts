@@ -5,7 +5,6 @@ import { Failure } from "../../../../core/tools/result_type";
 import { CreateBookletPaymentDTO } from "../../../booklet_payment/domain/dto/booklet_payment_dto";
 import { CreateBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/create_booklet_payment_usecase";
 import { SetNewStatusOfBookletPaymentUseCase } from "../../../booklet_payment/domain/usecase/set_new_status_of_booklet_payment_usecase";
-import { singletonBookletPaymentReposity } from "../../../booklet_payment/infra/repositories/booklet_payment_repository";
 import { Account } from "../../../user/account/domain/model/account";
 import { FindByIdBookletUseCase } from "../usecase/find_by_id_booklet_usecase";
 import { UpdateBookletUseCase } from "../usecase/update_booklet_usecase";
@@ -16,12 +15,6 @@ class AddPaymentToBookletCommand {
     id: string,
     user: Account,
   ) {
-    const useCaseSetNewStatusOfPayment =
-      new SetNewStatusOfBookletPaymentUseCase(singletonBookletPaymentReposity);
-    const useCaseSetPaymentStatus = new CreateBookletPaymentUseCase(
-      singletonBookletPaymentReposity,
-    );
-
     const accessDenied = hasAccess(
       user,
       "set_payment_booklet",
@@ -55,7 +48,7 @@ class AddPaymentToBookletCommand {
         );
       }
 
-      return await useCaseSetNewStatusOfPayment.execute(
+      return await SetNewStatusOfBookletPaymentUseCase.execute(
         {
           isPaid: input.isPaid,
           payDay: input.payDay,
@@ -66,7 +59,7 @@ class AddPaymentToBookletCommand {
       );
     }
 
-    const paymentAdded = await useCaseSetPaymentStatus.execute(input);
+    const paymentAdded = await CreateBookletPaymentUseCase.execute(input);
 
     if (paymentAdded.ok === false) {
       return paymentAdded;

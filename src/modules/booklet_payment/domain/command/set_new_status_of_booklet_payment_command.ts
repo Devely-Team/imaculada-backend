@@ -4,9 +4,7 @@ import { CreateBookletPaymentDTO } from "../dto/booklet_payment_dto";
 import { CreateBookletPaymentUseCase } from "../usecase/create_booklet_payment_usecase";
 
 class CreateBookletPaymentCommand {
-  constructor(private usecase: CreateBookletPaymentUseCase) {}
-
-  async execute(user: Account, input: CreateBookletPaymentDTO) {
+  static async execute(user: Account, input: CreateBookletPaymentDTO) {
     const accessDenied = hasAccess(
       user,
       "set_booklet_payment",
@@ -17,7 +15,7 @@ class CreateBookletPaymentCommand {
       return accessDenied;
     }
 
-    return await this.usecase.execute(input);
+    return await CreateBookletPaymentUseCase.execute(input);
   }
 }
 
