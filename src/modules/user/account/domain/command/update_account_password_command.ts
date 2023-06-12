@@ -2,18 +2,14 @@ import { UpdateAccountDTO } from "../dto/update_account_dto";
 import { UpdateAccountPasswordUseCase } from "../usecase/update_account_password_usecase";
 
 class UpdateAccountPasswordCommand {
-  constructor(
-    private usecase: UpdateAccountPasswordUseCase = new UpdateAccountPasswordUseCase(),
-  ) {}
-
-  async execute(input: UpdateAccountDTO, id: string) {
+  static async execute(input: UpdateAccountDTO, id: string) {
     // const result = inputAccountValidation(input);
 
     // if (result.ok === false) {
     //   return result;
     // }
 
-    return await this.usecase.execute({
+    return await UpdateAccountPasswordUseCase.execute({
       id,
       createdAt: new Date(),
       updatedAt: new Date(),

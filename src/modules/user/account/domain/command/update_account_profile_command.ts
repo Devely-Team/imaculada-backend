@@ -7,11 +7,7 @@ import { Account } from "../model/account";
 import { UpdateAccountProfileUseCase } from "../usecase/update_account_profile_usecase";
 
 class UpdateAccountProfileCommand {
-  constructor(
-    private usecase: UpdateAccountProfileUseCase = new UpdateAccountProfileUseCase(),
-  ) {}
-
-  async execute(
+  static async execute(
     input: UpdateAccountDTO,
     id: string,
     tokenId: string,
@@ -53,7 +49,7 @@ class UpdateAccountProfileCommand {
       );
     }
 
-    return await this.usecase.execute({
+    return await UpdateAccountProfileUseCase.execute({
       id,
       createdAt: new Date(),
       updatedAt: new Date(),

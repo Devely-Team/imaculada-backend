@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { accountRouter } from "../account/core/router/router";
+import { accountRouter } from "../account/router/router";
 import { authRouter } from "../auth/router/router";
 import { profileRouter } from "../profile/core/router/router";
 

@@ -7,17 +7,8 @@ import { CreateAccountCommand } from "../../domain/command/create_account_comman
 import { CreateAccountDTO } from "../../domain/dto/create_account_dto";
 
 class CreateAccountController {
-  constructor(
-    private command: CreateAccountCommand = new CreateAccountCommand(),
-  ) {}
-
-  static getInstance(): CreateAccountController {
-    return new CreateAccountController();
-  }
-
-  async handler({ request, response }: Input<CreateAccountDTO>): Output {
-    this.command
-      .execute(request.body, request.user)
+  static async handler({ request, response }: Input<CreateAccountDTO>): Output {
+    CreateAccountCommand.execute(request.body, request.user)
       .then(result => escaping(result, request, response, StatusCodes.Created))
       .catch(error => onError(error, request, response));
   }

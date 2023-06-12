@@ -7,22 +7,13 @@ import { UpdateAccountProfileCommand } from "../../domain/command/update_account
 import { UpdateAccountDTO } from "../../domain/dto/update_account_dto";
 
 class UpdateAccountProfileController {
-  constructor(
-    private command: UpdateAccountProfileCommand = new UpdateAccountProfileCommand(),
-  ) {}
-
-  static getInstance(): UpdateAccountProfileController {
-    return new UpdateAccountProfileController();
-  }
-
-  async handler({ request, response }: Input<UpdateAccountDTO>): Output {
-    this.command
-      .execute(
-        request.body,
-        request.query.id as string,
-        request.id ?? "",
-        request.user,
-      )
+  static async handler({ request, response }: Input<UpdateAccountDTO>): Output {
+    UpdateAccountProfileCommand.execute(
+      request.body,
+      request.query.id as string,
+      request.id ?? "",
+      request.user,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

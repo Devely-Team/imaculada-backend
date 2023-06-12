@@ -6,17 +6,8 @@ import { onError } from "../../../../../middleware/error/on_error";
 import { ListAllAccountCommand } from "../../domain/command/list_all_account_command";
 
 class ListAllAccountController {
-  constructor(
-    private command: ListAllAccountCommand = new ListAllAccountCommand(),
-  ) {}
-
-  static getInstance(): ListAllAccountController {
-    return new ListAllAccountController();
-  }
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(request.user)
+  static async handler({ request, response }: InputBase): Output {
+    ListAllAccountCommand.execute(request.user)
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

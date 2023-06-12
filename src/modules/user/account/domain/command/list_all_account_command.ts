@@ -3,9 +3,7 @@ import { Account } from "../model/account";
 import { ListAccountUseCase } from "../usecase/list_account_usecase";
 
 class ListAllAccountCommand {
-  constructor(private usecase: ListAccountUseCase = new ListAccountUseCase()) {}
-
-  async execute(user: Account) {
+  static async execute(user: Account) {
     const accessDenied = hasAccess(
       user,
       "list_all_usuarios",
@@ -16,7 +14,7 @@ class ListAllAccountCommand {
       return accessDenied;
     }
 
-    return await this.usecase.execute();
+    return await ListAccountUseCase.execute();
   }
 }
 
