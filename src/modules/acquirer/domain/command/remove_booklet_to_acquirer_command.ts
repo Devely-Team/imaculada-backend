@@ -2,15 +2,12 @@ import { BadRequestError } from "../../../../core/error/bad_request_error";
 import { BaseErrorCodes } from "../../../../core/error/base_error";
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Failure } from "../../../../core/tools/result_type";
-import { singletonDeleteBookletUseCase } from "../../../booklet/domain/usecase/delete_booklet_usecase";
-import { singletonFindByCodeBookletUseCase } from "../../../booklet/domain/usecase/find_by_code_booklet_usecase";
+import { DeleteBookletUseCase } from "../../../booklet/domain/usecase/delete_booklet_usecase";
+import { FindByCodeBookletUseCase } from "../../../booklet/domain/usecase/find_by_code_booklet_usecase";
 import { Account } from "../../../user/account/domain/model/account";
 
 class RemoveBookletToAcquirerCommand {
   static async execute(codeBooklet: number, user: Account) {
-    const usecaseList = singletonFindByCodeBookletUseCase;
-    const usecaseDelete = singletonDeleteBookletUseCase;
-
     const accessDenied = hasAccess(
       user,
       "remove_booklet_to_acquirer",
@@ -21,7 +18,7 @@ class RemoveBookletToAcquirerCommand {
       return accessDenied;
     }
 
-    const bookletResult = await usecaseList.execute(codeBooklet);
+    const bookletResult = await FindByCodeBookletUseCase.execute(codeBooklet);
 
     if (bookletResult.ok === false) {
       return Failure(
@@ -49,7 +46,7 @@ class RemoveBookletToAcquirerCommand {
       );
     }
 
-    return await usecaseDelete.execute(codeBooklet);
+    return await DeleteBookletUseCase.execute(codeBooklet);
   }
 }
 

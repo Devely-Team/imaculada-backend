@@ -3,7 +3,7 @@ import { BaseErrorCodes } from "../../../../core/error/base_error";
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Failure } from "../../../../core/tools/result_type";
 import { Booklet } from "../../../booklet/domain/model/booklet";
-import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
+import { CreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { Account } from "../../../user/account/domain/model/account";
 import { UpdateBookletAcquirerDTO } from "../dto/update_acquirer_dto";
@@ -14,7 +14,6 @@ class AddBookletToAcquirerCommand {
     input: UpdateBookletAcquirerDTO,
     user: Account,
   ) {
-    const usecaseBooklet = singletonCreateBookletUseCase;
     const usecaseCampaign = new FindByIdCampaignUseCase();
 
     const accessDenied = hasAccess(
@@ -56,7 +55,7 @@ class AddBookletToAcquirerCommand {
       }
     });
 
-    return await usecaseBooklet.execute(bookletOfAcquirer);
+    return await CreateBookletUseCase.execute(bookletOfAcquirer);
   }
 }
 
