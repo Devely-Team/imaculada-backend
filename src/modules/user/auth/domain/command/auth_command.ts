@@ -9,11 +9,8 @@ import { FindByEmailAccountUseCase } from "../../../account/domain/usecase/find_
 import { createToken } from "../../infra/services/auth_create_token";
 import { AuthRequestDTO } from "../dto/auth_request_dto";
 
-async function authCommand(
-  dto: AuthRequestDTO,
-  usecase: FindByEmailAccountUseCase = new FindByEmailAccountUseCase(),
-): AsyncResult<string> {
-  const result = await usecase.execute(dto.email);
+async function authCommand(dto: AuthRequestDTO): AsyncResult<string> {
+  const result = await FindByEmailAccountUseCase.execute(dto.email);
 
   if (result.ok === false || result.value === null) {
     return Failure(

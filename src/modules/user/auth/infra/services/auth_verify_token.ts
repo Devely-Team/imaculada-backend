@@ -29,8 +29,7 @@ async function verifyToken({ token, request, response, next }: Input) {
   }
   try {
     const { id } = verify(token, privateKey) as Token;
-    const singletonFindByIdAccountUseCase = new FindByIdAccountUseCase();
-    const result = await singletonFindByIdAccountUseCase.execute(id);
+    const result = await FindByIdAccountUseCase.execute(id);
     if (result.ok === false) {
       throw new Error("");
     }
