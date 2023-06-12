@@ -7,11 +7,8 @@ import { UpdateProfileCommand } from "../../domain/command/update_profile_comman
 import { ProfileDTO } from "../../domain/dto/create_profile_dto";
 
 class UpdateProfileController {
-  constructor(private command: UpdateProfileCommand) {}
-
-  async handler({ request, response }: Input<ProfileDTO>): Output {
-    this.command
-      .execute(request.body, request.query.id as string)
+  static async handler({ request, response }: Input<ProfileDTO>): Output {
+    UpdateProfileCommand.execute(request.body, request.query.id as string)
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

@@ -6,11 +6,8 @@ import { onError } from "../../../../../middleware/error/on_error";
 import { FindbyIdProfileCommand } from "../../domain/command/find_by_id_profile_command";
 
 class FindByIdProfileController {
-  constructor(private command: FindbyIdProfileCommand) {}
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(request.query.id as string)
+  static async handler({ request, response }: InputBase): Output {
+    FindbyIdProfileCommand.execute(request.query.id as string)
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

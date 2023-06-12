@@ -7,11 +7,8 @@ import { CreateProfileCommand } from "../../domain/command/create_profile_comman
 import { ProfileDTO } from "../../domain/dto/create_profile_dto";
 
 class CreateProfileController {
-  constructor(private command: CreateProfileCommand) {}
-
-  async handler({ request, response }: Input<ProfileDTO>): Output {
-    this.command
-      .execute(request.body)
+  static async handler({ request, response }: Input<ProfileDTO>): Output {
+    CreateProfileCommand.execute(request.body)
       .then(result => escaping(result, request, response, StatusCodes.Created))
       .catch(error => onError(error, request, response));
   }

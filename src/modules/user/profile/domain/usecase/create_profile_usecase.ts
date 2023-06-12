@@ -1,12 +1,9 @@
 import { AsyncResult } from "../../../../../core/tools/result_type";
 import { ProfileRepository } from "../../infra/repositories/profile_repository";
-import { singletonProfileRepository } from "../../infra/repositories/profile_repository.instance";
 import { Profile, ProfileProps } from "../model/profile";
 
-class CreateProfileUseCase {
-  constructor(private repo: ProfileRepository) {}
-
-  async execute(input: ProfileProps): AsyncResult<string> {
+export class CreateProfileUseCase {
+  static async execute(input: ProfileProps): AsyncResult<string> {
     const profile = new Profile(input);
 
     const result = profile.validations(profile);
@@ -15,12 +12,6 @@ class CreateProfileUseCase {
       return result;
     }
 
-    return await this.repo.create(profile);
+    return await ProfileRepository.create(profile);
   }
 }
-
-const singletonCreateProfileUseCase = new CreateProfileUseCase(
-  singletonProfileRepository,
-);
-
-export { CreateProfileUseCase, singletonCreateProfileUseCase };

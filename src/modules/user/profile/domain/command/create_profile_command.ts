@@ -3,16 +3,14 @@ import { CreateProfileUseCase } from "../usecase/create_profile_usecase";
 import { inputProfileValidation } from "../validations/create_profile_dto.validation";
 
 class CreateProfileCommand {
-  constructor(private usecase: CreateProfileUseCase) {}
-
-  async execute(input: ProfileDTO) {
+  static async execute(input: ProfileDTO) {
     const result = inputProfileValidation(input);
 
     if (result.ok === false) {
       return result;
     }
 
-    return await this.usecase.execute({
+    return await CreateProfileUseCase.execute({
       id: "",
       createdAt: new Date(),
       updatedAt: new Date(),

@@ -7,11 +7,8 @@ import { ListAllProfileCommand } from "../../domain/command/list_all_profile_com
 import { ProfileDTO } from "../../domain/dto/create_profile_dto";
 
 class ListAllProfileController {
-  constructor(private command: ListAllProfileCommand) {}
-
-  async handler({ request, response }: Input<ProfileDTO>): Output {
-    this.command
-      .execute()
+  static async handler({ request, response }: Input<ProfileDTO>): Output {
+    ListAllProfileCommand.execute()
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }
