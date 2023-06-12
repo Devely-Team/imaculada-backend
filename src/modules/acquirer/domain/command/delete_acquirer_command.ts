@@ -3,11 +3,7 @@ import { Account } from "../../../user/account/domain/model/account";
 import { DeleteAcquirerUseCase } from "../usecase/delete_acquirer_usecase";
 
 class DeleteAcquirerCommand {
-  constructor(
-    private usecase: DeleteAcquirerUseCase = new DeleteAcquirerUseCase(),
-  ) {}
-
-  async execute(input: string, user: Account) {
+  static async execute(input: string, user: Account) {
     const accessDenied = hasAccess(
       user,
       "delete_purchaser",
@@ -18,7 +14,7 @@ class DeleteAcquirerCommand {
       return accessDenied;
     }
 
-    return await this.usecase.execute(input);
+    return await DeleteAcquirerUseCase.execute(input);
   }
 }
 

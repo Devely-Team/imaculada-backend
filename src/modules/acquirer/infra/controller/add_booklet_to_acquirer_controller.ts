@@ -8,24 +8,15 @@ import { AddBookletToAcquirerCommand } from "../../domain/command/add_booklet_to
 import { UpdateBookletAcquirerDTO } from "../../domain/dto/update_acquirer_dto";
 
 class AddBookletToAcquirerController {
-  constructor(
-    private command: AddBookletToAcquirerCommand = new AddBookletToAcquirerCommand(),
-  ) {}
-
-  static getInstance(): AddBookletToAcquirerController {
-    return new AddBookletToAcquirerController();
-  }
-
-  async handler({
+  static async handler({
     request,
     response,
   }: Input<UpdateBookletAcquirerDTO>): Output {
-    this.command
-      .execute(
-        request.query.id as string,
-        request.body,
-        request.user as Account,
-      )
+    AddBookletToAcquirerCommand.execute(
+      request.query.id as string,
+      request.body,
+      request.user as Account,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

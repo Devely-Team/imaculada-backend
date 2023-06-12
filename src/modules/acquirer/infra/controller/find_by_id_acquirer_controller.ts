@@ -7,17 +7,11 @@ import { Account } from "../../../user/account/domain/model/account";
 import { FindbyIdAcquirerCommand } from "../../domain/command/find_by_id_acquirer_command";
 
 class FindByIdAcquirerController {
-  constructor(
-    private command: FindbyIdAcquirerCommand = new FindbyIdAcquirerCommand(),
-  ) {}
-
-  static getInstance(): FindByIdAcquirerController {
-    return new FindByIdAcquirerController();
-  }
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(request.query.id as string, request.user as Account)
+  static async handler({ request, response }: InputBase): Output {
+    FindbyIdAcquirerCommand.execute(
+      request.query.id as string,
+      request.user as Account,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

@@ -8,21 +8,15 @@ import { UpdateAcquirerCommand } from "../../domain/command/update_acquirer_comm
 import { UpdateAcquirerDTO } from "../../domain/dto/update_acquirer_dto";
 
 class UpdateAcquirerController {
-  constructor(
-    private command: UpdateAcquirerCommand = new UpdateAcquirerCommand(),
-  ) {}
-
-  static getInstance(): UpdateAcquirerController {
-    return new UpdateAcquirerController();
-  }
-
-  async handler({ request, response }: Input<UpdateAcquirerDTO>): Output {
-    this.command
-      .execute(
-        request.body,
-        request.query.id as string,
-        request.user as Account,
-      )
+  static async handler({
+    request,
+    response,
+  }: Input<UpdateAcquirerDTO>): Output {
+    UpdateAcquirerCommand.execute(
+      request.body,
+      request.query.id as string,
+      request.user as Account,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

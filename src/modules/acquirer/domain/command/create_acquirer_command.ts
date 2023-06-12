@@ -3,23 +3,17 @@ import { BaseErrorCodes } from "../../../../core/error/base_error";
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Failure } from "../../../../core/tools/result_type";
 import { Booklet } from "../../../booklet/domain/model/booklet";
-import {
-  CreateBookletUseCase,
-  singletonCreateBookletUseCase,
-} from "../../../booklet/domain/usecase/create_booklet_usecase";
+import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { Account } from "../../../user/account/domain/model/account";
 import { CreateAcquirerDTO } from "../dto/create_acquirer_dto";
 import { CreateAcquirerUseCase } from "../usecase/create_acquirer_usecase";
 
 class CreateAcquirerCommand {
-  constructor(
-    private usecase: CreateAcquirerUseCase = new CreateAcquirerUseCase(),
-    private usecaseBooklet: CreateBookletUseCase = singletonCreateBookletUseCase,
-    private usecaseCampaign: FindByIdCampaignUseCase = new FindByIdCampaignUseCase(),
-  ) {}
+  static async execute(input: CreateAcquirerDTO, user: Account) {
+    const usecaseBooklet = singletonCreateBookletUseCase;
+    const usecaseCampaign = new FindByIdCampaignUseCase();
 
-  async execute(input: CreateAcquirerDTO, user: Account) {
     const accessDenied = hasAccess(
       user,
       "create_purchaser",
@@ -30,7 +24,7 @@ class CreateAcquirerCommand {
       return accessDenied;
     }
 
-    const campaign = await this.usecaseCampaign.execute(input.campaignId);
+    const campaign = await usecaseCampaign.execute(input.campaignId);
 
     if (campaign.ok === false) {
       return Failure(
@@ -42,7 +36,7 @@ class CreateAcquirerCommand {
       );
     }
 
-    const acquirer = await this.usecase.execute({
+    const acquirer = await CreateAcquirerUseCase.execute({
       id: "",
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -78,7 +72,7 @@ class CreateAcquirerCommand {
       }
     });
 
-    return await this.usecaseBooklet.execute(bookletOfAcquirer);
+    return await usecaseBooklet.execute(bookletOfAcquirer);
   }
 }
 

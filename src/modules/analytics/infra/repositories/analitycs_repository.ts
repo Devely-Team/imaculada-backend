@@ -8,10 +8,9 @@ import {
 } from "../../../../core/tools/result_type";
 import { Booklet } from "../../../booklet/domain/model/booklet";
 
-const prisma = new PrismaClient();
-
 export class AnalitycsRepository {
   static async getBookletPayd(quota: number): AsyncResult<Booklet[]> {
+    const prisma = new PrismaClient();
     return prisma.booklet
       .findMany({
         where: {
@@ -35,6 +34,7 @@ export class AnalitycsRepository {
   }
 
   static async getBookletNotPayd(quota: number): AsyncResult<Booklet[]> {
+    const prisma = new PrismaClient();
     return prisma.booklet
       .findMany({
         where: {
@@ -65,6 +65,7 @@ export class AnalitycsRepository {
   }
 
   static async countedBookletHasPayment(quota?: number): AsyncResult<number> {
+    const prisma = new PrismaClient();
     return prisma.booklet
       .count({
         where: {
@@ -79,6 +80,7 @@ export class AnalitycsRepository {
   }
 
   static async countedBookletTotal(quota?: number): AsyncResult<number> {
+    const prisma = new PrismaClient();
     return prisma.booklet
       .count({
         where: {
@@ -92,6 +94,7 @@ export class AnalitycsRepository {
   static async countedBookletNotHasPayment(
     quota?: number,
   ): AsyncResult<number> {
+    const prisma = new PrismaClient();
     return prisma.booklet
       .count({
         where: {

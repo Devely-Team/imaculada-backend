@@ -7,17 +7,8 @@ import { Account } from "../../../user/account/domain/model/account";
 import { ListAllAcquirerCommand } from "../../domain/command/list_all_acquirer_command";
 
 class ListAllAcquirerController {
-  constructor(
-    private command: ListAllAcquirerCommand = new ListAllAcquirerCommand(),
-  ) {}
-
-  static getInstance(): ListAllAcquirerController {
-    return new ListAllAcquirerController();
-  }
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(request.user as Account)
+  static async handler({ request, response }: InputBase): Output {
+    ListAllAcquirerCommand.execute(request.user as Account)
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

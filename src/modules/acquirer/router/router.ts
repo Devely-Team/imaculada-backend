@@ -16,13 +16,13 @@ acquirerRouter.use(securityMiddleware);
 acquirerRouter.post(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    CreateAcquirerController.getInstance().handler({ request, response, next }),
+    CreateAcquirerController.handler({ request, response, next }),
 );
 
 acquirerRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    ListAllAcquirerController.getInstance().handler({
+    ListAllAcquirerController.handler({
       request,
       response,
       next,
@@ -32,7 +32,7 @@ acquirerRouter.get(
 acquirerRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
-    FindByIdAcquirerController.getInstance().handler({
+    FindByIdAcquirerController.handler({
       request,
       response,
       next,
@@ -42,13 +42,13 @@ acquirerRouter.get(
 acquirerRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    UpdateAcquirerController.getInstance().handler({ request, response, next }),
+    UpdateAcquirerController.handler({ request, response, next }),
 );
 
 acquirerRouter.put(
   "/add_new_booklet",
   (request: Request, response: Response, next: NextFunction) =>
-    AddBookletToAcquirerController.getInstance().handler({
+    AddBookletToAcquirerController.handler({
       request,
       response,
       next,
@@ -58,7 +58,7 @@ acquirerRouter.put(
 acquirerRouter.delete(
   "/remove_new_booklet",
   (request: Request, response: Response, next: NextFunction) =>
-    RemoveBookletToAcquirerController.getInstance().handler({
+    RemoveBookletToAcquirerController.handler({
       request,
       response,
       next,
@@ -68,7 +68,7 @@ acquirerRouter.delete(
 acquirerRouter.delete(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    DeleteAcquirerController.getInstance().handler({ request, response, next }),
+    DeleteAcquirerController.handler({ request, response, next }),
 );
 
 export { acquirerRouter };

@@ -8,17 +8,11 @@ import { CreateAcquirerCommand } from "../../domain/command/create_acquirer_comm
 import { CreateAcquirerDTO } from "../../domain/dto/create_acquirer_dto";
 
 class CreateAcquirerController {
-  constructor(
-    private command: CreateAcquirerCommand = new CreateAcquirerCommand(),
-  ) {}
-
-  static getInstance(): CreateAcquirerController {
-    return new CreateAcquirerController();
-  }
-
-  async handler({ request, response }: Input<CreateAcquirerDTO>): Output {
-    this.command
-      .execute(request.body, request.user as Account)
+  static async handler({
+    request,
+    response,
+  }: Input<CreateAcquirerDTO>): Output {
+    CreateAcquirerCommand.execute(request.body, request.user as Account)
       .then(result => escaping(result, request, response, StatusCodes.Created))
       .catch(error => onError(error, request, response));
   }

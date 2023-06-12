@@ -7,17 +7,11 @@ import { Account } from "../../../user/account/domain/model/account";
 import { DeleteAcquirerCommand } from "../../domain/command/delete_acquirer_command";
 
 class DeleteAcquirerController {
-  constructor(
-    private command: DeleteAcquirerCommand = new DeleteAcquirerCommand(),
-  ) {}
-
-  static getInstance(): DeleteAcquirerController {
-    return new DeleteAcquirerController();
-  }
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(request.query.id as string, request.user as Account)
+  static async handler({ request, response }: InputBase): Output {
+    DeleteAcquirerCommand.execute(
+      request.query.id as string,
+      request.user as Account,
+    )
       .then(result => escaping(result, request, response, StatusCodes.Success))
       .catch(error => onError(error, request, response));
   }

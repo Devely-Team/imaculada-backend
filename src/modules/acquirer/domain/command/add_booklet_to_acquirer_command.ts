@@ -3,25 +3,20 @@ import { BaseErrorCodes } from "../../../../core/error/base_error";
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Failure } from "../../../../core/tools/result_type";
 import { Booklet } from "../../../booklet/domain/model/booklet";
-import {
-  CreateBookletUseCase,
-  singletonCreateBookletUseCase,
-} from "../../../booklet/domain/usecase/create_booklet_usecase";
+import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { Account } from "../../../user/account/domain/model/account";
 import { UpdateBookletAcquirerDTO } from "../dto/update_acquirer_dto";
 
 class AddBookletToAcquirerCommand {
-  constructor(
-    private usecaseBooklet: CreateBookletUseCase = singletonCreateBookletUseCase,
-    private usecaseCampaign: FindByIdCampaignUseCase = new FindByIdCampaignUseCase(),
-  ) {}
-
-  async execute(
+  static async execute(
     acquirerId: string,
     input: UpdateBookletAcquirerDTO,
     user: Account,
   ) {
+    const usecaseBooklet = singletonCreateBookletUseCase;
+    const usecaseCampaign = new FindByIdCampaignUseCase();
+
     const accessDenied = hasAccess(
       user,
       "add_new_booklet_to_acquirer",
@@ -32,7 +27,7 @@ class AddBookletToAcquirerCommand {
       return accessDenied;
     }
 
-    const campaign = await this.usecaseCampaign.execute(input.campaignId);
+    const campaign = await usecaseCampaign.execute(input.campaignId);
 
     if (campaign.ok === false) {
       return Failure(
@@ -61,7 +56,7 @@ class AddBookletToAcquirerCommand {
       }
     });
 
-    return await this.usecaseBooklet.execute(bookletOfAcquirer);
+    return await usecaseBooklet.execute(bookletOfAcquirer);
   }
 }
 
