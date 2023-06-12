@@ -1,6 +1,6 @@
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Account } from "../../../user/account/domain/model/account";
-import { FindByIdAcquirerUseCase } from "../usecase/find_by_id_acquirer_usecase";
+import { AcquirerReposity } from "../../infra/repositories/acquirer_repository";
 
 class FindbyIdAcquirerCommand {
   static async execute(input: string, user: Account) {
@@ -14,7 +14,7 @@ class FindbyIdAcquirerCommand {
       return accessDenied;
     }
 
-    return await FindByIdAcquirerUseCase.execute(input);
+    return await AcquirerReposity.findById(input);
   }
 }
 

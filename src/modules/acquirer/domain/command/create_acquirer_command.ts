@@ -6,8 +6,9 @@ import { Booklet } from "../../../booklet/domain/model/booklet";
 import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { Account } from "../../../user/account/domain/model/account";
+import { AcquirerReposity } from "../../infra/repositories/acquirer_repository";
 import { CreateAcquirerDTO } from "../dto/create_acquirer_dto";
-import { CreateAcquirerUseCase } from "../usecase/create_acquirer_usecase";
+import { Acquirer } from "../model/acquirer";
 
 class CreateAcquirerCommand {
   static async execute(input: CreateAcquirerDTO, user: Account) {
@@ -36,7 +37,7 @@ class CreateAcquirerCommand {
       );
     }
 
-    const acquirer = await CreateAcquirerUseCase.execute({
+    const account = new Acquirer({
       id: "",
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -50,6 +51,8 @@ class CreateAcquirerCommand {
       cpf: input.cpf,
       whatsapp: input.whatsapp,
     });
+
+    const acquirer = await AcquirerReposity.create(account);
 
     if (acquirer.ok === false) {
       return acquirer;

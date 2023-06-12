@@ -1,6 +1,6 @@
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Account } from "../../../user/account/domain/model/account";
-import { DeleteAcquirerUseCase } from "../usecase/delete_acquirer_usecase";
+import { AcquirerReposity } from "../../infra/repositories/acquirer_repository";
 
 class DeleteAcquirerCommand {
   static async execute(input: string, user: Account) {
@@ -14,7 +14,7 @@ class DeleteAcquirerCommand {
       return accessDenied;
     }
 
-    return await DeleteAcquirerUseCase.execute(input);
+    return await AcquirerReposity.delete(input);
   }
 }
 
