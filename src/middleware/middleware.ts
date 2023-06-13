@@ -10,8 +10,8 @@ import { logErrorMiddleware } from "./error/error_handler";
 import { routes as v1 } from "./router/v1/routes";
 import { routes as v2 } from "./router/v2/routes";
 
-class Middleware {
-  execute(app: Express): void {
+export class Middleware {
+  static execute(app: Express): void {
     const sentryDSN = process.env.SENTRY_CONNECTION;
 
     Sentry.init({
@@ -90,7 +90,3 @@ class Middleware {
     app.use("/v2", v2);
   }
 }
-
-const MiddlewareSingleton = new Middleware();
-
-export { MiddlewareSingleton };

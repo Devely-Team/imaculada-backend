@@ -1,7 +1,7 @@
 import { Express } from "express";
 
-class Runner {
-  execute(app: Express): void {
+export class Runner {
+  static execute(app: Express): void {
     const port = process.env.PORT;
 
     app.listen(port, () =>
@@ -11,7 +11,3 @@ class Runner {
     );
   }
 }
-
-const RunnerSingleton = new Runner();
-
-export { RunnerSingleton };
