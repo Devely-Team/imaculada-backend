@@ -2,7 +2,6 @@ import { BadRequestError } from "../../../../core/error/bad_request_error";
 import { BaseErrorCodes } from "../../../../core/error/base_error";
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Failure } from "../../../../core/tools/result_type";
-import { AcquirerReposity } from "../../../acquirer/infra/repositories/acquirer_repository";
 import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { Account } from "../../../user/account/domain/model/account";
 import { CreateBookletDTO } from "../dto/create_booklet_dto";
