@@ -4,17 +4,13 @@ import { escaping } from "../../../../core/tools/result_escaping";
 import { StatusCodes } from "../../../../core/utils/http_status_code";
 import { onError } from "../../../../middleware/error/on_error";
 import { Account } from "../../../user/account/domain/model/account";
-import { DeleteAcquirerCommand } from "../../domain/command/delete_acquirer_command";
+import { deleteAcquirerCommand } from "../../domain/command/delete_acquirer_command";
 
-class DeleteAcquirerController {
-  static async handler({ request, response }: InputBase): Output {
-    DeleteAcquirerCommand.execute(
-      request.query.id as string,
-      request.user as Account,
-    )
-      .then(result => escaping(result, request, response, StatusCodes.Success))
-      .catch(error => onError(error, request, response));
-  }
+export async function deleteAcquirerController({
+  request,
+  response,
+}: InputBase): Output {
+  deleteAcquirerCommand(request.query.id as string, request.user as Account)
+    .then(result => escaping(result, request, response, StatusCodes.Success))
+    .catch(error => onError(error, request, response));
 }
-
-export { DeleteAcquirerController };

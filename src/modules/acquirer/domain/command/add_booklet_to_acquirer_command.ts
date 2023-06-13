@@ -8,55 +8,51 @@ import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_b
 import { Account } from "../../../user/account/domain/model/account";
 import { UpdateBookletAcquirerDTO } from "../dto/update_acquirer_dto";
 
-class AddBookletToAcquirerCommand {
-  static async execute(
-    acquirerId: string,
-    input: UpdateBookletAcquirerDTO,
-    user: Account,
-  ) {
-    const usecaseCampaign = new FindByIdCampaignUseCase();
+export async function addBookletToAcquirerCommand(
+  acquirerId: string,
+  input: UpdateBookletAcquirerDTO,
+  user: Account,
+) {
+  const usecaseCampaign = new FindByIdCampaignUseCase();
 
-    const accessDenied = hasAccess(
-      user,
-      "add_new_booklet_to_acquirer",
-      "Adicionar novos carnês ao adquirente.",
+  const accessDenied = hasAccess(
+    user,
+    "add_new_booklet_to_acquirer",
+    "Adicionar novos carnês ao adquirente.",
+  );
+
+  if (accessDenied.ok === false) {
+    return accessDenied;
+  }
+
+  const campaign = await usecaseCampaign.execute(input.campaignId);
+
+  if (campaign.ok === false) {
+    return Failure(
+      new BadRequestError(
+        BaseErrorCodes.databaseError,
+        "Campanha não encontrada",
+        "Campanha não existe a parti dos dados informados",
+      ),
     );
+  }
 
-    if (accessDenied.ok === false) {
-      return accessDenied;
-    }
-
-    const campaign = await usecaseCampaign.execute(input.campaignId);
-
-    if (campaign.ok === false) {
-      return Failure(
-        new BadRequestError(
-          BaseErrorCodes.databaseError,
-          "Campanha não encontrada",
-          "Campanha não existe a parti dos dados informados",
-        ),
+  const bookletOfAcquirer: Booklet[] = [];
+  input.codeBooklet.forEach(element => {
+    for (let index = 1; index <= campaign.value.quota; index++) {
+      bookletOfAcquirer.push(
+        new Booklet({
+          id: "",
+          acquirerId,
+          campaignId: campaign.value.id,
+          codeBooklet: element.code,
+          quota: index,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }),
       );
     }
+  });
 
-    const bookletOfAcquirer: Booklet[] = [];
-    input.codeBooklet.forEach(element => {
-      for (let index = 1; index <= campaign.value.quota; index++) {
-        bookletOfAcquirer.push(
-          new Booklet({
-            id: "",
-            acquirerId,
-            campaignId: campaign.value.id,
-            codeBooklet: element.code,
-            quota: index,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          }),
-        );
-      }
-    });
-
-    return await CreateBookletUseCase.execute(bookletOfAcquirer);
-  }
+  return await CreateBookletUseCase.execute(bookletOfAcquirer);
 }
-
-export { AddBookletToAcquirerCommand };

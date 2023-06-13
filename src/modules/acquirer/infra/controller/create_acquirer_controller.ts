@@ -4,18 +4,14 @@ import { escaping } from "../../../../core/tools/result_escaping";
 import { StatusCodes } from "../../../../core/utils/http_status_code";
 import { onError } from "../../../../middleware/error/on_error";
 import { Account } from "../../../user/account/domain/model/account";
-import { CreateAcquirerCommand } from "../../domain/command/create_acquirer_command";
+import { createAcquirerCommand } from "../../domain/command/create_acquirer_command";
 import { CreateAcquirerDTO } from "../../domain/dto/create_acquirer_dto";
 
-class CreateAcquirerController {
-  static async handler({
-    request,
-    response,
-  }: Input<CreateAcquirerDTO>): Output {
-    CreateAcquirerCommand.execute(request.body, request.user as Account)
-      .then(result => escaping(result, request, response, StatusCodes.Created))
-      .catch(error => onError(error, request, response));
-  }
+export async function createAcquirerController({
+  request,
+  response,
+}: Input<CreateAcquirerDTO>): Output {
+  createAcquirerCommand(request.body, request.user as Account)
+    .then(result => escaping(result, request, response, StatusCodes.Created))
+    .catch(error => onError(error, request, response));
 }
-
-export { CreateAcquirerController };

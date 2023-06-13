@@ -4,17 +4,16 @@ import { escaping } from "../../../../core/tools/result_escaping";
 import { StatusCodes } from "../../../../core/utils/http_status_code";
 import { onError } from "../../../../middleware/error/on_error";
 import { Account } from "../../../user/account/domain/model/account";
-import { RemoveBookletToAcquirerCommand } from "../../domain/command/remove_booklet_to_acquirer_command";
+import { removeBookletToAcquirerCommand } from "../../domain/command/remove_booklet_to_acquirer_command";
 
-class RemoveBookletToAcquirerController {
-  static async handler({ request, response }: InputBase): Output {
-    RemoveBookletToAcquirerCommand.execute(
-      Number(request.query.booklet),
-      request.user as Account,
-    )
-      .then(result => escaping(result, request, response, StatusCodes.Success))
-      .catch(error => onError(error, request, response));
-  }
+export async function removeBookletToAcquirerController({
+  request,
+  response,
+}: InputBase): Output {
+  removeBookletToAcquirerCommand(
+    Number(request.query.booklet),
+    request.user as Account,
+  )
+    .then(result => escaping(result, request, response, StatusCodes.Success))
+    .catch(error => onError(error, request, response));
 }
-
-export { RemoveBookletToAcquirerController };

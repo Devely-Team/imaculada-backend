@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response, Router } from "express";
 
 import { securityMiddleware } from "../../../middleware/security/security_middleware";
-import { AddBookletToAcquirerController } from "../infra/controller/add_booklet_to_acquirer_controller";
-import { CreateAcquirerController } from "../infra/controller/create_acquirer_controller";
-import { DeleteAcquirerController } from "../infra/controller/delete_acquirer_controller";
-import { FindByIdAcquirerController } from "../infra/controller/find_by_id_acquirer_controller";
-import { ListAllAcquirerController } from "../infra/controller/list_all_acquirer_controller";
-import { RemoveBookletToAcquirerController } from "../infra/controller/remove_booklet_to_acquirer_controller";
-import { UpdateAcquirerController } from "../infra/controller/update_acquirer_controller";
+import { addBookletToAcquirerController } from "../infra/controller/add_booklet_to_acquirer_controller";
+import { createAcquirerController } from "../infra/controller/create_acquirer_controller";
+import { deleteAcquirerController } from "../infra/controller/delete_acquirer_controller";
+import { findByIdAcquirerController } from "../infra/controller/find_by_id_acquirer_controller";
+import { listAllAcquirerController } from "../infra/controller/list_all_acquirer_controller";
+import { removeBookletToAcquirerController } from "../infra/controller/remove_booklet_to_acquirer_controller";
+import { updateAcquirerController } from "../infra/controller/update_acquirer_controller";
 
 const acquirerRouter = Router();
 
@@ -16,13 +16,13 @@ acquirerRouter.use(securityMiddleware);
 acquirerRouter.post(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    CreateAcquirerController.handler({ request, response, next }),
+    createAcquirerController({ request, response, next }),
 );
 
 acquirerRouter.get(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    ListAllAcquirerController.handler({
+    listAllAcquirerController({
       request,
       response,
       next,
@@ -32,7 +32,7 @@ acquirerRouter.get(
 acquirerRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
-    FindByIdAcquirerController.handler({
+    findByIdAcquirerController({
       request,
       response,
       next,
@@ -42,13 +42,13 @@ acquirerRouter.get(
 acquirerRouter.put(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    UpdateAcquirerController.handler({ request, response, next }),
+    updateAcquirerController({ request, response, next }),
 );
 
 acquirerRouter.put(
   "/add_new_booklet",
   (request: Request, response: Response, next: NextFunction) =>
-    AddBookletToAcquirerController.handler({
+    addBookletToAcquirerController({
       request,
       response,
       next,
@@ -58,7 +58,7 @@ acquirerRouter.put(
 acquirerRouter.delete(
   "/remove_new_booklet",
   (request: Request, response: Response, next: NextFunction) =>
-    RemoveBookletToAcquirerController.handler({
+    removeBookletToAcquirerController({
       request,
       response,
       next,
@@ -68,7 +68,7 @@ acquirerRouter.delete(
 acquirerRouter.delete(
   "/",
   (request: Request, response: Response, next: NextFunction) =>
-    DeleteAcquirerController.handler({ request, response, next }),
+    deleteAcquirerController({ request, response, next }),
 );
 
 export { acquirerRouter };
