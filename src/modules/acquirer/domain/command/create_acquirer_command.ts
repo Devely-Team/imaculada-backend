@@ -6,7 +6,7 @@ import { Booklet } from "../../../booklet/domain/model/booklet";
 import { CreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { Account } from "../../../user/account/domain/model/account";
-import { AcquirerReposity } from "../../infra/repositories/acquirer_repository";
+import { createAcquirer } from "../../infra/repositories/acquirer_repository";
 import { CreateAcquirerDTO } from "../dto/create_acquirer_dto";
 import { Acquirer } from "../model/acquirer";
 
@@ -51,7 +51,7 @@ class CreateAcquirerCommand {
       whatsapp: input.whatsapp,
     });
 
-    const acquirer = await AcquirerReposity.create(account);
+    const acquirer = await createAcquirer(account);
 
     if (acquirer.ok === false) {
       return acquirer;

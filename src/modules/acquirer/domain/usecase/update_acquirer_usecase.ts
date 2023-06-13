@@ -1,5 +1,5 @@
 import { AsyncResult } from "../../../../core/tools/result_type";
-import { AcquirerReposity } from "../../infra/repositories/acquirer_repository";
+import { updateAcquirer } from "../../infra/repositories/acquirer_repository";
 import { Acquirer, AcquirerProps } from "../model/acquirer";
 
 class UpdateAcquirerUseCase {
@@ -12,7 +12,7 @@ class UpdateAcquirerUseCase {
     //   return result;
     // }
 
-    return await AcquirerReposity.update(account);
+    return await updateAcquirer(account);
   }
 }
 

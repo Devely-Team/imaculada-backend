@@ -1,6 +1,6 @@
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Account } from "../../../user/account/domain/model/account";
-import { AcquirerReposity } from "../../infra/repositories/acquirer_repository";
+import { listAllAcquirer } from "../../infra/repositories/acquirer_repository";
 
 class ListAllAcquirerCommand {
   static async execute(user: Account) {
@@ -14,7 +14,7 @@ class ListAllAcquirerCommand {
       return accessDenied;
     }
 
-    return await AcquirerReposity.listAll();
+    return await listAllAcquirer();
   }
 }
 
