@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
 import { DatabaseError } from "../../../../core/error/database_error";
+import { prisma } from "../../../../core/prisma/connector";
 import {
   AsyncResult,
   Failure,
@@ -17,7 +16,6 @@ export class BookletPaymentRepository {
     payDay,
     obs,
   }: BookletPayment): AsyncResult<string> {
-    const prisma = new PrismaClient();
     return prisma.bookletPayment
       .create({
         data: {
@@ -37,7 +35,6 @@ export class BookletPaymentRepository {
   }
 
   static async findById(id: string): AsyncResult<BookletPayment> {
-    const prisma = new PrismaClient();
     return prisma.bookletPayment
       .findUnique({
         where: {
@@ -56,7 +53,6 @@ export class BookletPaymentRepository {
     payDay,
     obs,
   }: BookletPayment): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.bookletPayment
       .update({
         where: {
@@ -78,7 +74,6 @@ export class BookletPaymentRepository {
   }
 
   static async deletePayment(id: string): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.bookletPayment
       .delete({
         where: {

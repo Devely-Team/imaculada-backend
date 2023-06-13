@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
 import { DatabaseError } from "../../../../core/error/database_error";
+import { prisma } from "../../../../core/prisma/connector";
 import {
   AsyncResult,
   Failure,
@@ -13,7 +12,6 @@ class CampaignReposityInstance implements CampaignReposity {
   async create(campaign: Campaign): AsyncResult<string> {
     const startedDate = new Date(campaign.startedDate);
 
-    const prisma = new PrismaClient();
     return prisma.campaign
       .create({
         data: {
@@ -28,7 +26,6 @@ class CampaignReposityInstance implements CampaignReposity {
   }
 
   async listAll(): AsyncResult<Campaign[]> {
-    const prisma = new PrismaClient();
     return prisma.campaign
       .findMany({})
       .then(result => Success(result as Campaign[]))
@@ -36,7 +33,6 @@ class CampaignReposityInstance implements CampaignReposity {
   }
 
   async findById(id: string): AsyncResult<Campaign> {
-    const prisma = new PrismaClient();
     return prisma.campaign
       .findUnique({
         where: { id },
@@ -46,7 +42,6 @@ class CampaignReposityInstance implements CampaignReposity {
   }
 
   async findByTitle(title: string): AsyncResult<Campaign> {
-    const prisma = new PrismaClient();
     return prisma.campaign
       .findUnique({
         where: { title },
@@ -56,7 +51,6 @@ class CampaignReposityInstance implements CampaignReposity {
   }
 
   update(campaign: Campaign): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.campaign
       .update({
         where: { id: campaign.id },
@@ -72,7 +66,6 @@ class CampaignReposityInstance implements CampaignReposity {
   }
 
   async delete(id: string): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.campaign
       .delete({ where: { id } })
       .then(() => Success(true))

@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
 import { DatabaseError } from "../../../../core/error/database_error";
+import { prisma } from "../../../../core/prisma/connector";
 import {
   AsyncResult,
   Failure,
@@ -19,7 +18,6 @@ export class AcquirerReposity {
     cep,
     neighborhood,
   }: Acquirer): AsyncResult<string> {
-    const prisma = new PrismaClient();
     return prisma.acquirer
       .create({
         data: {
@@ -38,7 +36,6 @@ export class AcquirerReposity {
   }
 
   static async listAll(): AsyncResult<Acquirer[]> {
-    const prisma = new PrismaClient();
     return prisma.acquirer
       .findMany({
         include: {
@@ -62,7 +59,6 @@ export class AcquirerReposity {
   }
 
   static async findById(id: string): AsyncResult<Acquirer> {
-    const prisma = new PrismaClient();
     return prisma.acquirer
       .findUnique({
         where: { id },
@@ -84,7 +80,6 @@ export class AcquirerReposity {
   }
 
   static async findByCPF(cpf: string): AsyncResult<Acquirer> {
-    const prisma = new PrismaClient();
     return prisma.acquirer
       .findUnique({
         where: { cpf },
@@ -106,7 +101,6 @@ export class AcquirerReposity {
   }
 
   static async findByName(name: string): AsyncResult<Acquirer[]> {
-    const prisma = new PrismaClient();
     return prisma.acquirer
       .findMany({
         where: {
@@ -144,7 +138,6 @@ export class AcquirerReposity {
     neighborhood,
     id,
   }: Acquirer): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.acquirer
       .update({
         where: { id },
@@ -163,7 +156,6 @@ export class AcquirerReposity {
   }
 
   static async delete(id: string): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.acquirer
       .delete({ where: { id } })
       .then(() => Success(true))

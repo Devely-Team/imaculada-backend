@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
 import { DatabaseError } from "../../../../core/error/database_error";
+import { prisma } from "../../../../core/prisma/connector";
 import {
   AsyncResult,
   Failure,
@@ -10,7 +9,6 @@ import { Booklet } from "../../domain/model/booklet";
 
 export class BookletRepository {
   static async create(booklet: Booklet): AsyncResult<string> {
-    const prisma = new PrismaClient();
     return prisma.booklet
       .create({
         data: {
@@ -26,7 +24,6 @@ export class BookletRepository {
   }
 
   static async listAll(): AsyncResult<Booklet[]> {
-    const prisma = new PrismaClient();
     return prisma.booklet
       .findMany({
         include: { bookletPayment: true, acquirer: true },
@@ -44,7 +41,6 @@ export class BookletRepository {
   }
 
   static async findById(id: string): AsyncResult<Booklet> {
-    const prisma = new PrismaClient();
     return prisma.booklet
       .findUnique({
         where: { id },
@@ -55,7 +51,6 @@ export class BookletRepository {
   }
 
   static async findByCode(code: number): AsyncResult<Booklet[]> {
-    const prisma = new PrismaClient();
     return prisma.booklet
       .findMany({
         where: { codeBooklet: code },
@@ -69,7 +64,6 @@ export class BookletRepository {
   }
 
   static async findByAcquirer(acquirerId: string): AsyncResult<Booklet[]> {
-    const prisma = new PrismaClient();
     return prisma.booklet
       .findMany({
         where: { acquirerId },
@@ -93,7 +87,6 @@ export class BookletRepository {
   }
 
   static async setPayment(paymentId: string, id: string): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.booklet
       .update({
         where: { id },
@@ -106,14 +99,12 @@ export class BookletRepository {
   }
 
   static async delete(id: string): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.booklet
       .delete({ where: { id } })
       .then(() => Success(true))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
   static async deleteByCode(code: number): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.booklet
       .deleteMany({ where: { codeBooklet: code } })
       .then(() => Success(true))

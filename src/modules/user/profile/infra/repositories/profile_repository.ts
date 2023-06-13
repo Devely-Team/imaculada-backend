@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
 import { DatabaseError } from "../../../../../core/error/database_error";
+import { prisma } from "../../../../../core/prisma/connector";
 import {
   AsyncResult,
   Failure,
@@ -10,7 +9,6 @@ import { Profile } from "../../domain/model/profile";
 
 export class ProfileRepository {
   static async create(profile: Profile): AsyncResult<string> {
-    const prisma = new PrismaClient();
     return prisma.profile
       .create({
         data: {
@@ -24,7 +22,6 @@ export class ProfileRepository {
   }
 
   static async listAll(): AsyncResult<Profile[]> {
-    const prisma = new PrismaClient();
     return prisma.profile
       .findMany()
       .then(result => Success(result as Profile[]))
@@ -32,7 +29,6 @@ export class ProfileRepository {
   }
 
   static async findById(id: string): AsyncResult<Profile> {
-    const prisma = new PrismaClient();
     return prisma.profile
       .findUnique({ where: { id } })
       .then(result => Success(result as Profile))
@@ -40,7 +36,6 @@ export class ProfileRepository {
   }
 
   static async findByUserLogged(userId: string): AsyncResult<Profile[]> {
-    const prisma = new PrismaClient();
     return prisma.profile
       .findMany({
         where: {
@@ -54,7 +49,6 @@ export class ProfileRepository {
   }
 
   static async update(profile: Profile): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.profile
       .update({
         where: { id: profile.id },
@@ -69,7 +63,6 @@ export class ProfileRepository {
   }
 
   static async delete(id: string): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.profile
       .delete({ where: { id } })
       .then(() => Success(true))

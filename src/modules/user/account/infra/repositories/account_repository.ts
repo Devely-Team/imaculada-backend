@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
 import { DatabaseError } from "../../../../../core/error/database_error";
+import { prisma } from "../../../../../core/prisma/connector";
 import {
   AsyncResult,
   Failure,
@@ -11,7 +10,6 @@ import { Account } from "../../domain/model/account";
 
 export class AccountRepository {
   static async create(account: Account): AsyncResult<string> {
-    const prisma = new PrismaClient();
     return prisma.user
       .create({
         data: {
@@ -26,7 +24,6 @@ export class AccountRepository {
   }
 
   static async listAll(): AsyncResult<Account[]> {
-    const prisma = new PrismaClient();
     return prisma.user
       .findMany({
         include: {
@@ -38,7 +35,6 @@ export class AccountRepository {
   }
 
   static async findById(id: string): AsyncResult<Account> {
-    const prisma = new PrismaClient();
     return prisma.user
       .findUnique({
         where: { id },
@@ -51,7 +47,6 @@ export class AccountRepository {
   }
 
   static async findByEmail(email: string): AsyncResult<Account> {
-    const prisma = new PrismaClient();
     return prisma.user
       .findUnique({
         where: { email },
@@ -64,7 +59,6 @@ export class AccountRepository {
   }
 
   static async update(account: Account): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.user
       .update({
         where: { id: account.id },
@@ -81,7 +75,6 @@ export class AccountRepository {
     id: string,
     isActive: boolean,
   ): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.user
       .update({
         where: { id },
@@ -97,7 +90,6 @@ export class AccountRepository {
     id: string,
     profiles: Profile[],
   ): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.user
       .update({
         where: { id },
@@ -115,7 +107,6 @@ export class AccountRepository {
     id: string,
     password: string,
   ): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.user
       .update({
         where: { id },
@@ -132,7 +123,6 @@ export class AccountRepository {
     id: string,
     isResetPassword: boolean,
   ): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.user
       .update({
         where: { id },
@@ -145,7 +135,6 @@ export class AccountRepository {
   }
 
   static async delete(id: string): AsyncResult<boolean> {
-    const prisma = new PrismaClient();
     return prisma.user
       .delete({ where: { id } })
       .then(() => Success(true))
