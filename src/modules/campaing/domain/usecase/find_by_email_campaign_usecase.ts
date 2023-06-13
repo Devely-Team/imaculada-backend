@@ -1,16 +1,9 @@
 import { AsyncResult } from "../../../../core/tools/result_type";
-import { CampaignReposity } from "../../infra/repositories/campaign_repository";
-import { CampaignReposityInstance } from "../../infra/repositories/campaign_repository.instance";
+import { findByTitleCampaign } from "../../infra/repositories/campaign_repository";
 import { Campaign } from "../model/campaign";
 
-class FindByTitleCampaignUseCase {
-  constructor(
-    private repo: CampaignReposity = new CampaignReposityInstance(),
-  ) {}
-
-  async execute(email: string): AsyncResult<Campaign> {
-    return await this.repo.findByTitle(email);
-  }
+export async function findByTitleCampaignUseCase(
+  email: string,
+): AsyncResult<Campaign> {
+  return await findByTitleCampaign(email);
 }
-
-export { FindByTitleCampaignUseCase };

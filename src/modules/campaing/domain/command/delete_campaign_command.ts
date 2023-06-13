@@ -1,25 +1,17 @@
 import { hasAccess } from "../../../../core/tools/has_access";
 import { Account } from "../../../user/account/domain/model/account";
-import { DeleteCampaignUseCase } from "../usecase/delete_campaign_usecase";
+import { deleteCampaignUseCase } from "../usecase/delete_campaign_usecase";
 
-class DeleteCampaignCommand {
-  constructor(
-    private usecase: DeleteCampaignUseCase = new DeleteCampaignUseCase(),
-  ) {}
+export async function deleteCampaignCommand(input: string, user: Account) {
+  const accessDenied = hasAccess(
+    user,
+    "delete_campaign",
+    "deletar novas campanhas.",
+  );
 
-  async execute(input: string, user: Account) {
-    const accessDenied = hasAccess(
-      user,
-      "delete_campaign",
-      "deletar novas campanhas.",
-    );
-
-    if (accessDenied.ok === false) {
-      return accessDenied;
-    }
-
-    return await this.usecase.execute(input);
+  if (accessDenied.ok === false) {
+    return accessDenied;
   }
-}
 
-export { DeleteCampaignCommand };
+  return await deleteCampaignUseCase(input);
+}

@@ -4,7 +4,7 @@ import { hasAccess } from "../../../../core/tools/has_access";
 import { Failure } from "../../../../core/tools/result_type";
 import { Booklet } from "../../../booklet/domain/model/booklet";
 import { CreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
-import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
+import { findByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { Account } from "../../../user/account/domain/model/account";
 import { UpdateBookletAcquirerDTO } from "../dto/update_acquirer_dto";
 
@@ -13,8 +13,6 @@ export async function addBookletToAcquirerCommand(
   input: UpdateBookletAcquirerDTO,
   user: Account,
 ) {
-  const usecaseCampaign = new FindByIdCampaignUseCase();
-
   const accessDenied = hasAccess(
     user,
     "add_new_booklet_to_acquirer",
@@ -25,7 +23,7 @@ export async function addBookletToAcquirerCommand(
     return accessDenied;
   }
 
-  const campaign = await usecaseCampaign.execute(input.campaignId);
+  const campaign = await findByIdCampaignUseCase(input.campaignId);
 
   if (campaign.ok === false) {
     return Failure(

@@ -4,23 +4,13 @@ import { escaping } from "../../../../core/tools/result_escaping";
 import { StatusCodes } from "../../../../core/utils/http_status_code";
 import { onError } from "../../../../middleware/error/on_error";
 import { Account } from "../../../user/account/domain/model/account";
-import { DeleteCampaignCommand } from "../../domain/command/delete_campaign_command";
+import { deleteCampaignCommand } from "../../domain/command/delete_campaign_command";
 
-class DeleteCampaignController {
-  constructor(
-    private command: DeleteCampaignCommand = new DeleteCampaignCommand(),
-  ) {}
-
-  static get(): DeleteCampaignController {
-    return new DeleteCampaignController();
-  }
-
-  async handler({ request, response }: InputBase): Output {
-    this.command
-      .execute(request.query.id as string, request.user as Account)
-      .then(result => escaping(result, request, response, StatusCodes.Success))
-      .catch(error => onError(error, request, response));
-  }
+export async function deleteCampaignController({
+  request,
+  response,
+}: InputBase): Output {
+  deleteCampaignCommand(request.query.id as string, request.user as Account)
+    .then(result => escaping(result, request, response, StatusCodes.Success))
+    .catch(error => onError(error, request, response));
 }
-
-export { DeleteCampaignController };

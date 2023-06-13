@@ -4,7 +4,7 @@ import { hasAccess } from "../../../../core/tools/has_access";
 import { Failure } from "../../../../core/tools/result_type";
 import { Booklet } from "../../../booklet/domain/model/booklet";
 import { CreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
-import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
+import { findByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
 import { Account } from "../../../user/account/domain/model/account";
 import { createAcquirer } from "../../infra/repositories/acquirer_repository";
 import { CreateAcquirerDTO } from "../dto/create_acquirer_dto";
@@ -14,8 +14,6 @@ export async function createAcquirerCommand(
   input: CreateAcquirerDTO,
   user: Account,
 ) {
-  const usecaseCampaign = new FindByIdCampaignUseCase();
-
   const accessDenied = hasAccess(
     user,
     "create_purchaser",
@@ -26,7 +24,7 @@ export async function createAcquirerCommand(
     return accessDenied;
   }
 
-  const campaign = await usecaseCampaign.execute(input.campaignId);
+  const campaign = await findByIdCampaignUseCase(input.campaignId);
 
   if (campaign.ok === false) {
     return Failure(

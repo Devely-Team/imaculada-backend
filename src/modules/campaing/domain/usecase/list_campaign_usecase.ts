@@ -1,16 +1,7 @@
 import { AsyncResult } from "../../../../core/tools/result_type";
-import { CampaignReposity } from "../../infra/repositories/campaign_repository";
-import { CampaignReposityInstance } from "../../infra/repositories/campaign_repository.instance";
+import { listAllCampaign } from "../../infra/repositories/campaign_repository";
 import { Campaign } from "../model/campaign";
 
-class ListCampaignUseCase {
-  constructor(
-    private repo: CampaignReposity = new CampaignReposityInstance(),
-  ) {}
-
-  async execute(): AsyncResult<Campaign[]> {
-    return await this.repo.listAll();
-  }
+export async function listCampaignUseCase(): AsyncResult<Campaign[]> {
+  return await listAllCampaign();
 }
-
-export { ListCampaignUseCase };

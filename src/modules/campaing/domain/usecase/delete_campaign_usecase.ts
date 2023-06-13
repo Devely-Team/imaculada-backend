@@ -1,15 +1,6 @@
 import { AsyncResult } from "../../../../core/tools/result_type";
-import { CampaignReposity } from "../../infra/repositories/campaign_repository";
-import { CampaignReposityInstance } from "../../infra/repositories/campaign_repository.instance";
+import { deleteCampaign } from "../../infra/repositories/campaign_repository";
 
-class DeleteCampaignUseCase {
-  constructor(
-    private repo: CampaignReposity = new CampaignReposityInstance(),
-  ) {}
-
-  async execute(id: string): AsyncResult<boolean> {
-    return await this.repo.delete(id);
-  }
+export async function deleteCampaignUseCase(id: string): AsyncResult<boolean> {
+  return await deleteCampaign(id);
 }
-
-export { DeleteCampaignUseCase };
