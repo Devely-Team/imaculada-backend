@@ -7,6 +7,7 @@ import { deleteAcquirerController } from "../infra/controller/delete_acquirer_co
 import { findByIdAcquirerController } from "../infra/controller/find_by_id_acquirer_controller";
 import { listAllAcquirerController } from "../infra/controller/list_all_acquirer_controller";
 import { listAllAcquirerWithPaginationController } from "../infra/controller/list_all_acquirer_with_pagination_controller";
+import { paginationAcquirerController } from "../infra/controller/pagination_count_acquirer_controller";
 import { removeBookletToAcquirerController } from "../infra/controller/remove_booklet_to_acquirer_controller";
 import { updateAcquirerController } from "../infra/controller/update_acquirer_controller";
 
@@ -34,6 +35,16 @@ acquirerRouter.get(
   "/paginated",
   (request: Request, response: Response, next: NextFunction) =>
     listAllAcquirerWithPaginationController({
+      request,
+      response,
+      next,
+    }),
+);
+
+acquirerRouter.get(
+  "/last_page",
+  (request: Request, response: Response, next: NextFunction) =>
+    paginationAcquirerController({
       request,
       response,
       next,

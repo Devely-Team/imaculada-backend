@@ -61,7 +61,6 @@ export async function listAllAcquirerWithPagination(
   page = 1,
 ): AsyncResult<Acquirer[]> {
   const pageSize = 10; // Tamanho da página (número de resultados por página)
-
   const skipAmount = (page - 1) * pageSize;
 
   return prisma.acquirer
@@ -85,6 +84,13 @@ export async function listAllAcquirerWithPagination(
       },
     })
     .then(result => Success(result as Acquirer[]))
+    .catch(error => Failure(new DatabaseError(error.name, error.message)));
+}
+
+export async function countAcquirer(): AsyncResult<number> {
+  return prisma.acquirer
+    .count()
+    .then(result => Success(result))
     .catch(error => Failure(new DatabaseError(error.name, error.message)));
 }
 
