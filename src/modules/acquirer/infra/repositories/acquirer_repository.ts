@@ -57,6 +57,37 @@ export async function listAllAcquirer(): AsyncResult<Acquirer[]> {
     .catch(error => Failure(new DatabaseError(error.name, error.message)));
 }
 
+export async function listAllAcquirerWithPagination(
+  page = 1,
+): AsyncResult<Acquirer[]> {
+  const pageSize = 10; // Tamanho da página (número de resultados por página)
+
+  const skipAmount = (page - 1) * pageSize;
+
+  return prisma.acquirer
+    .findMany({
+      skip: skipAmount,
+      take: pageSize,
+      include: {
+        booklet: {
+          orderBy: [
+            {
+              codeBooklet: "asc",
+            },
+            {
+              quota: "asc",
+            },
+          ],
+        },
+      },
+      orderBy: {
+        id: "asc",
+      },
+    })
+    .then(result => Success(result as Acquirer[]))
+    .catch(error => Failure(new DatabaseError(error.name, error.message)));
+}
+
 export async function findByIdAcquirer(id: string): AsyncResult<Acquirer> {
   return prisma.acquirer
     .findUnique({
