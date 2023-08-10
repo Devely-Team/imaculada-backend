@@ -67,18 +67,6 @@ export async function listAllAcquirerWithPagination(
     .findMany({
       skip: skipAmount,
       take: pageSize,
-      include: {
-        booklet: {
-          orderBy: [
-            {
-              codeBooklet: "asc",
-            },
-            {
-              quota: "asc",
-            },
-          ],
-        },
-      },
       orderBy: {
         id: "asc",
       },
