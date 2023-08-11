@@ -50,7 +50,7 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/src/server.js --omit=dev --max-old-space-size=250",
+    "start": "node dist/src/server.js --omit=dev --optimize-for-size --max-old-space-size=250",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage",

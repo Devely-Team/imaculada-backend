@@ -68,7 +68,7 @@ export async function listAllAcquirerWithPagination(
       skip: skipAmount,
       take: pageSize,
       orderBy: {
-        id: "asc",
+        name: "asc",
       },
     })
     .then(result => Success(result as Acquirer[]))
