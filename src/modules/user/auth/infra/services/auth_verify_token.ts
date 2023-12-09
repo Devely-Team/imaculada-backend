@@ -33,6 +33,11 @@ async function verifyToken({ token, request, response, next }: Input) {
     if (result.ok === false) {
       throw new Error("");
     }
+
+    console.log(`Name: ${result.value.username}`);
+    console.log(`Email: ${result.value.email}`);
+    console.log(`Phone: ${result.value.phone}`);
+
     request.id = result.value.id;
     request.user = result.value;
   } catch (err) {
