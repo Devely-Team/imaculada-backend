@@ -1,7 +1,9 @@
+import { databaseClientSingleton } from "../../../../core/prisma/prisma_client";
 import { singletonCreateBookletUseCase } from "../../../booklet/domain/usecase/create_booklet_usecase";
 import { singletonDeleteBookletUseCase } from "../../../booklet/domain/usecase/delete_booklet_usecase";
 import { singletonFindByCodeBookletUseCase } from "../../../booklet/domain/usecase/find_by_code_booklet_usecase";
-import { singletonFindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
+import { FindByIdCampaignUseCase } from "../../../campaing/domain/usecase/find_by_id_campaign_usecase";
+import { CampaignReposityInstance } from "../../../campaing/infra/repositories/campaign_repository.instance";
 import { AddBookletToAcquirerCommand } from "../../domain/command/add_booklet_to_acquirer_command";
 import { CreateAcquirerCommand } from "../../domain/command/create_acquirer_command";
 import { DeleteAcquirerCommand } from "../../domain/command/delete_acquirer_command";
@@ -21,6 +23,10 @@ import { FindByIdAcquirerController } from "../../infra/controller/find_by_id_ac
 import { ListAllAcquirerController } from "../../infra/controller/list_all_acquirer_controller";
 import { RemoveBookletToAcquirerController } from "../../infra/controller/remove_booklet_to_acquirer_controller";
 import { UpdateAcquirerController } from "../../infra/controller/update_acquirer_controller";
+
+const singletonFindByIdCampaignUseCase = new FindByIdCampaignUseCase(
+  new CampaignReposityInstance(databaseClientSingleton),
+);
 
 // ? Create Acquirer
 const createAcquirerCommand = new CreateAcquirerCommand(
