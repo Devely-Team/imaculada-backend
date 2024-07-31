@@ -34,11 +34,18 @@ export async function createAcquirer({
     .catch(error => Failure(new DatabaseError(error.name, error.message)));
 }
 
-export async function listAllAcquirer(): AsyncResult<Acquirer[]> {
+export async function listAllAcquirer(
+  campaignId: string,
+): AsyncResult<Acquirer[]> {
   return prisma.acquirer
     .findMany({
       include: {
         booklet: {
+          where: {
+            campaign: {
+              id: campaignId,
+            },
+          },
           orderBy: [
             {
               codeBooklet: "asc",

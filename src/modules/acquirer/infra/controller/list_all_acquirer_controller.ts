@@ -10,7 +10,9 @@ export async function listAllAcquirerController({
   request,
   response,
 }: InputBase): Output {
-  listAllAcquirerCommand(request.user as Account)
+  const { campaign_id } = request.query; // Supondo que o campaignId seja um parâmetro de rota
+
+  listAllAcquirerCommand(request.user as Account, campaign_id as string)
     .then(result => escaping(result, request, response, StatusCodes.Success))
     .catch(error => onError(error, request, response));
 }

@@ -2,7 +2,10 @@ import { hasAccess } from "../../../../core/tools/has_access";
 import { Account } from "../../../user/account/domain/model/account";
 import { listAllAcquirer } from "../../infra/repositories/acquirer_repository";
 
-export async function listAllAcquirerCommand(user: Account) {
+export async function listAllAcquirerCommand(
+  user: Account,
+  campaignId: string,
+) {
   const accessDenied = hasAccess(
     user,
     "list_all_purchaser",
@@ -13,5 +16,5 @@ export async function listAllAcquirerCommand(user: Account) {
     return accessDenied;
   }
 
-  return await listAllAcquirer();
+  return await listAllAcquirer(campaignId);
 }

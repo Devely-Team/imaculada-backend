@@ -32,6 +32,16 @@ acquirerRouter.get(
 );
 
 acquirerRouter.get(
+  "/campaign_id",
+  (request: Request, response: Response, next: NextFunction) =>
+    listAllAcquirerController({
+      request,
+      response,
+      next,
+    }),
+);
+
+acquirerRouter.get(
   "/paginated",
   (request: Request, response: Response, next: NextFunction) =>
     listAllAcquirerWithPaginationController({
