@@ -7,3 +7,9 @@ export class FindByCodeBookletUseCase {
     return await BookletRepository.findByCode(code);
   }
 }
+
+export async function findByCodeBookletUseCaseImpl(
+  code: number,
+): AsyncResult<Booklet[]> {
+  return await BookletRepository.findByCode(code);
+}
