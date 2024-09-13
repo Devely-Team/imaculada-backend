@@ -10,7 +10,7 @@ export async function findByCPFAcquirerController({
   request,
   response,
 }: InputBase): Output {
-  findbyCPFAcquirerCommand(request.query.id as string, request.user as Account)
+  findbyCPFAcquirerCommand(request.query.cpf as string, request.user as Account)
     .then(result => escaping(result, request, response, StatusCodes.Success))
     .catch(error => onError(error, request, response));
 }

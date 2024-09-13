@@ -10,6 +10,9 @@ import { listAllAcquirerWithPaginationController } from "../infra/controller/lis
 import { paginationAcquirerController } from "../infra/controller/pagination_count_acquirer_controller";
 import { removeBookletToAcquirerController } from "../infra/controller/remove_booklet_to_acquirer_controller";
 import { updateAcquirerController } from "../infra/controller/update_acquirer_controller";
+import { findByNameAcquirerController } from "../infra/controller/find_by_name_acquirer_controller";
+import { findByCodeBookletAcquirerController } from "../infra/controller/find_by_code_acquirer_controller";
+import { findByCPFAcquirerController } from "../infra/controller/find_by_cpf_acquirer_controller copy";
 
 const acquirerRouter = Router();
 
@@ -65,6 +68,36 @@ acquirerRouter.get(
   "/id",
   (request: Request, response: Response, next: NextFunction) =>
     findByIdAcquirerController({
+      request,
+      response,
+      next,
+    }),
+);
+
+acquirerRouter.get(
+  "/name",
+  (request: Request, response: Response, next: NextFunction) =>
+    findByNameAcquirerController({
+      request,
+      response,
+      next,
+    }),
+);
+
+acquirerRouter.get(
+  "/code",
+  (request: Request, response: Response, next: NextFunction) =>
+    findByCodeBookletAcquirerController({
+      request,
+      response,
+      next,
+    }),
+);
+
+acquirerRouter.get(
+  "/cpf",
+  (request: Request, response: Response, next: NextFunction) =>
+    findByCPFAcquirerController({
       request,
       response,
       next,

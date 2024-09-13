@@ -15,7 +15,7 @@ class CreateBookletPaymentCommand {
       return accessDenied;
     }
 
-    return await CreateBookletPaymentUseCase.execute(input);
+    return await CreateBookletPaymentUseCase.execute(input, user);
   }
 }
 
