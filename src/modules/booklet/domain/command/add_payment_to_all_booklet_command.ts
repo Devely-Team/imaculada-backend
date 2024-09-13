@@ -41,16 +41,20 @@ export class AddPaymentToAllBookletCommand {
               typePayment: input.typePayment,
             },
             booklet.id,
+            user,
           );
         }
       } else {
-        const paymentAdded = await CreateBookletPaymentUseCase.execute({
-          bookletId: booklet.id,
-          isPaid: true,
-          status: "Paid",
-          payDay: input.payDay,
-          typePayment: input.typePayment,
-        });
+        const paymentAdded = await CreateBookletPaymentUseCase.execute(
+          {
+            bookletId: booklet.id,
+            isPaid: true,
+            status: "Paid",
+            payDay: input.payDay,
+            typePayment: input.typePayment,
+          },
+          user,
+        );
 
         if (paymentAdded.ok) {
           UpdateBookletUseCase.execute(paymentAdded.value, booklet.id);

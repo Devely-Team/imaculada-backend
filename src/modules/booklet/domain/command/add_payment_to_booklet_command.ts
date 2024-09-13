@@ -56,10 +56,11 @@ class AddPaymentToBookletCommand {
           typePayment: input.typePayment,
         },
         result.value.bookletPayment.id,
+        user,
       );
     }
 
-    const paymentAdded = await CreateBookletPaymentUseCase.execute(input);
+    const paymentAdded = await CreateBookletPaymentUseCase.execute(input, user);
 
     if (paymentAdded.ok === false) {
       return paymentAdded;
