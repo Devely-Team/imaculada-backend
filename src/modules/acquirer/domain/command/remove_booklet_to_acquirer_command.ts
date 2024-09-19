@@ -10,15 +10,15 @@ export async function removeBookletToAcquirerCommand(
   codeBooklet: number,
   user: Account,
 ) {
-  const accessDenied = hasAccess(
-    user,
-    "remove_booklet_to_acquirer",
-    "Adicionar novos carnês ao adquirente.",
-  );
+  // const accessDenied = hasAccess(
+  //   user,
+  //   "remove_booklet_to_acquirer",
+  //   "Remover novos carnês ao adquirente.",
+  // );
 
-  if (accessDenied.ok === false) {
-    return accessDenied;
-  }
+  // if (accessDenied.ok === false) {
+  //   return accessDenied;
+  // }
 
   const bookletResult = await FindByCodeBookletUseCase.execute(codeBooklet);
 
