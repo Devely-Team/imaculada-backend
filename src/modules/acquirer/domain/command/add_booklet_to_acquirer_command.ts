@@ -52,5 +52,7 @@ export async function addBookletToAcquirerCommand(
     }
   });
 
+  console.log("input: ", bookletOfAcquirer);
+
   return await CreateBookletUseCase.execute(bookletOfAcquirer);
 }
