@@ -59,7 +59,7 @@ export class BookletRepository {
           quota: "asc",
         },
       })
-      .then(result => Success(result as Booklet[]))
+      .then(result => Success(result != null ? (result as Booklet[]) : []))
       .catch(error => Failure(new DatabaseError(error.name, error.message)));
   }
 
