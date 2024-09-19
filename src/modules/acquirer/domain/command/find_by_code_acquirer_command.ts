@@ -17,9 +17,25 @@ export async function findbyCodeAcquirerCommand(input: number, user: Account) {
     return accessDenied;
   }
 
-  const booklets = await findByCodeBookletUseCaseImpl(input);
+  try {
+    const booklets = await findByCodeBookletUseCaseImpl(input);
 
-  if (booklets.ok === false) {
+    if (booklets.ok === false) {
+      return Failure(
+        new BadRequestError(
+          BaseErrorCodes.databaseError,
+          "Adquirente não encontrado",
+          "Adquirente não existe a parti dos dados informados",
+        ),
+      );
+    }
+
+    const { acquirerId } = booklets.value[0];
+
+    return await findByIdAcquirer(acquirerId);
+  } catch (error) {
+    console.log(error);
+
     return Failure(
       new BadRequestError(
         BaseErrorCodes.databaseError,
@@ -28,8 +44,4 @@ export async function findbyCodeAcquirerCommand(input: number, user: Account) {
       ),
     );
   }
-
-  const { acquirerId } = booklets.value[0];
-
-  return await findByIdAcquirer(acquirerId);
 }
