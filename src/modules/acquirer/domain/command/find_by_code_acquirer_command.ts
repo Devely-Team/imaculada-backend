@@ -30,6 +30,16 @@ export async function findbyCodeAcquirerCommand(input: number, user: Account) {
       );
     }
 
+    if (booklets.value.length === 0) {
+      return Failure(
+        new BadRequestError(
+          BaseErrorCodes.databaseError,
+          "Adquirente não encontrado",
+          "Adquirente não existe a parti dos dados informados",
+        ),
+      );
+    }
+
     const { acquirerId } = booklets.value[0];
 
     return await findByIdAcquirer(acquirerId);
