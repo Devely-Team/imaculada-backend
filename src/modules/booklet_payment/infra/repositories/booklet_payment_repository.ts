@@ -15,6 +15,7 @@ export class BookletPaymentRepository {
     isPaid,
     payDay,
     obs,
+    operator,
   }: BookletPayment): AsyncResult<string> {
     return prisma.bookletPayment
       .create({
@@ -25,6 +26,7 @@ export class BookletPaymentRepository {
           isPaid,
           payDay: isPaid ? `${payDay}Z` : null,
           obs,
+          operator,
         },
         include: {
           Booklet: true,

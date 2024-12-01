@@ -8,9 +8,10 @@ class CreateBookletPaymentUseCase {
     const payment = new BookletPayment({
       ...input,
       id: "",
-      obs: `${input.obs} - operador: ${user.email}`,
+      obs: `${input.obs}`,
       createdAt: new Date(),
       updatedAt: new Date(),
+      operator: user.email,
     });
 
     return await BookletPaymentRepository.addPayment(payment);

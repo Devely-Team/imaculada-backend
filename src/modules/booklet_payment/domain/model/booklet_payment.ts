@@ -11,6 +11,7 @@ interface BookletPaymentProps {
   payDay: Date;
   createdAt: Date;
   updatedAt: Date;
+  operator?: string;
 }
 
 class BookletPayment {
@@ -50,6 +51,10 @@ class BookletPayment {
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  get operator() {
+    return this.props.operator;
   }
 
   constructor(props: BookletPaymentProps) {
