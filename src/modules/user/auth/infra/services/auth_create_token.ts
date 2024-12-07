@@ -9,9 +9,7 @@ function createToken(sponsorAccount: Account) {
     {
       id: sponsorAccount.id,
       email: sponsorAccount.email,
-      profile: sponsorAccount.profile,
       username: sponsorAccount.username,
-      phone: sponsorAccount.phone,
     },
     privateKey,
     {
